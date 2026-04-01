@@ -3,7 +3,7 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 const FROM = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 const BRAND = 'WAVWAY';
-const BRAND_URL = 'https://neglectedly-apophysate-janetta.ngrok-free.dev';
+const BRAND_URL = process.env.FRONTEND_URL || 'https://wavway.vercel.app';
 
 // ─── Base template ──────────────────────────────────────────────────────────
 const base = (content) => `

@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'], // Allow both frontend and admin
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000', 'https://wavway.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
