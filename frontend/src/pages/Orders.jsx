@@ -1,57 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useOrder } from '../context/OrderContext';
-import { Link } from 'react-router-dom';
-import '../styles/orders.css';
-
-const Orders = () => {
-    const { orders } = useOrder();
-
-    if (orders.length === 0) {
-        return (
-            <div className="orders-page section container">
-                <h2>My Orders</h2>
-                <div className="empty-state">
-                    <p>You haven't placed any orders yet.</p>
-                    <Link to="/" className="btn-primary">Start Shopping</Link>
-                </div>
-            </div>
-        );
-    }
-
-    return (
-        <div className="orders-page section container">
-            <h2 className="page-title">My Orders</h2>
-            <div className="orders-list">
-                {orders.map(order => (
-                    <div key={order.id} className="order-card">
-                        <div className="order-header">
-                            <div>
-                                <span className="order-id">{order.id}</span>
-                                <span className="order-date">{order.date}</span>
-                            </div>
-                            <span className={`order-status status-${order.status.toLowerCase().replace(/ /g, '-')}`}>
-                                {order.status}
-                            </span>
-                        </div>
-                        <div className="order-body">
-                            <div className="order-previews">
-                                {order.items.map((item, index) => (
-                                    <img key={index} src={item.image} alt={item.name} title={item.name} className="order-preview-img" />
-                                ))}
-                            </div>
-                            <div className="order-meta">
-                                <span className="order-total">${order.total.toFixed(2)}</span>
-                                <span className="order-count">{order.items.length} items</span>
-                            </div>
-                        </div>
-                        <div className="order-footer">
-                            <Link to={`/order-tracking/${order.id}`} className="btn-secondary btn-sm">Track Order</Link>
-                        </div>
-                    </div>
-                ))}
-            </div>
-=======
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -208,7 +154,6 @@ const Orders = () => {
                     <span className="ord-footer-copy">© 2024 WAVWAY. All Rights Reserved.</span>
                 </div>
             </footer>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
         </div>
     );
 };

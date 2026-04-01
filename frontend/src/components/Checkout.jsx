@@ -1,43 +1,4 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { motion } from 'framer-motion';
-import { useOrder } from '../context/OrderContext';
-import { useCart } from '../context/CartContext';
-import '../styles/checkout.css';
-import { validateCoupon } from '../api/coupons';
-import { createOrder } from '../api/orders';
-
-const Checkout = () => {
-    const { cartItems, cartTotal, updateQuantity, removeFromCart } = useCart();
-    const [couponCode, setCouponCode] = useState('');
-    const [discount, setDiscount] = useState(0);
-    const [couponError, setCouponError] = useState('');
-
-    // Form state
-    const [formData, setFormData] = useState({
-        name: '',
-        address: '',
-        city: '',
-        zip: ''
-    });
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleApplyCoupon = async () => {
-        try {
-            const coupon = await validateCoupon(couponCode);
-            const discountAmount = (cartTotal * coupon.discountPercentage) / 100;
-            setDiscount(discountAmount);
-            setCouponError('');
-        } catch (err) {
-            setCouponError(err.response?.data?.msg || 'Invalid Coupon');
-            setDiscount(0);
-        }
-    };
-
-=======
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus, X, Tag, CheckCircle2, Lock, ShoppingBag, Truck, ArrowLeft, User, LogOut } from 'lucide-react';
@@ -104,18 +65,10 @@ const Checkout = () => {
         setCouponSuccess(''); setCouponError('');
     };
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     const finalTotal = cartTotal - discount;
 
     const handleWhatsAppCheckout = async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-
-        // Log order to backend
-        try {
-            await createOrder({
-                customerName: formData.name,
-=======
         setLoading(true);
         try {
             await createOrder({
@@ -125,50 +78,10 @@ const Checkout = () => {
                 address: formData.address,
                 city: formData.city,
                 zip: formData.zip,
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                 items: cartItems.map(item => ({
                     productId: item._id || item.id,
                     name: item.name,
                     quantity: item.quantity,
-<<<<<<< HEAD
-                    price: item.price
-                })),
-                totalAmount: finalTotal,
-                couponCode: discount > 0 ? couponCode : null,
-                status: 'Incomplete' // Clicked Buy but payment is external
-            });
-        } catch (error) {
-            console.error('Failed to log order', error);
-        }
-
-        const adminNumber = "YOUR_ADMIN_NUMBER"; // Replace with actual number
-        let message = `*New Order Request*\n\n`;
-        message += `*Customer:* ${formData.name}\n`;
-        message += `*Address:* ${formData.address}, ${formData.city} ${formData.zip}\n\n`;
-        message += `*Items:*\n`;
-
-        cartItems.forEach(item => {
-            message += `- ${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}\n`;
-        });
-
-        message += `\n*Subtotal:* $${cartTotal.toFixed(2)}\n`;
-        if (discount > 0) {
-            message += `*Discount (${couponCode}):* -$${discount.toFixed(2)}\n`;
-        }
-        message += `*Total:* $${finalTotal.toFixed(2)}`;
-
-        const url = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-
-        // Log order to backend (optional)
-    };
-
-    if (cartItems.length === 0) {
-        return (
-            <div className="checkout-empty container section">
-                <h2>Your cart is empty</h2>
-                <Link to="/" className="btn-primary" style={{ display: 'inline-block', marginTop: '20px' }}>Start Shopping</Link>
-=======
                     price: item.price,
                 })),
                 totalAmount: finalTotal,
@@ -205,80 +118,10 @@ const Checkout = () => {
                     <p className="bag-empty-sub">Discover pieces from the collection.</p>
                     <Link to="/collections/all" className="bag-empty-cta">Explore Collections</Link>
                 </div>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             </div>
         );
     }
 
-<<<<<<< HEAD
-    return (
-        <div className="checkout-page section">
-            <div className="container checkout-container">
-                <div className="checkout-form-wrapper">
-                    <h2 className="checkout-title">Checkout</h2>
-                    <form onSubmit={handleWhatsAppCheckout} className="checkout-form">
-                        <div className="form-group">
-                            <label>Full Name</label>
-                            <input type="text" name="name" required onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label>Address</label>
-                            <input type="text" name="address" required onChange={handleChange} />
-                        </div>
-                        <div className="form-row">
-                            <input type="text" name="city" placeholder="City" required onChange={handleChange} />
-                            <input type="text" name="zip" placeholder="ZIP Code" required onChange={handleChange} />
-                        </div>
-
-                        <div className="coupon-section mt-6 p-4 bg-gray-50 rounded">
-                            <label className="block mb-2 text-sm font-medium">Have a coupon?</label>
-                            <div className="flex gap-2">
-                                <input
-                                    type="text"
-                                    value={couponCode}
-                                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                                    className="border p-2 rounded flex-1 uppercase"
-                                    placeholder="Enter code"
-                                />
-                                <button type="button" onClick={handleApplyCoupon} className="bg-black text-white px-4 rounded">Apply</button>
-                            </div>
-                            {couponError && <p className="text-red-500 text-sm mt-1">{couponError}</p>}
-                            {discount > 0 && <p className="text-green-600 text-sm mt-1">Discount applied: -${discount.toFixed(2)}</p>}
-                        </div>
-
-                        <button type="submit" className="btn-primary btn-block mt-6">
-                            Order via WhatsApp (${finalTotal.toFixed(2)})
-                        </button>
-                    </form>
-                </div>
-
-                <div className="checkout-summary">
-                    <h3>Order Summary</h3>
-                    {cartItems.map(item => (
-                        <div key={item.id} className="summary-item flex justify-between py-2">
-                            <span>{item.name} x{item.quantity}</span>
-                            <span>${(item.price * item.quantity).toFixed(2)}</span>
-                        </div>
-                    ))}
-                    <div className="border-t pt-4 mt-4">
-                        <div className="flex justify-between">
-                            <span>Subtotal</span>
-                            <span>${cartTotal.toFixed(2)}</span>
-                        </div>
-                        {discount > 0 && (
-                            <div className="flex justify-between text-green-600">
-                                <span>Discount</span>
-                                <span>-${discount.toFixed(2)}</span>
-                            </div>
-                        )}
-                        <div className="flex justify-between font-bold text-lg mt-2">
-                            <span>Total</span>
-                            <span>${finalTotal.toFixed(2)}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-=======
     const itemCount = cartItems.reduce((s, i) => s + i.quantity, 0);
 
     return (
@@ -575,13 +418,10 @@ const Checkout = () => {
                 </div>
                 <span className="bag-footer-copy">© 2024 WAVWAY ATELIER. ALL RIGHTS RESERVED.</span>
             </footer>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
         </div>
     );
 };
 
-<<<<<<< HEAD
-=======
 const BagNav = ({ user, logout, navigate, cartCount }) => (
     <nav className="bag-nav">
         <div className="bag-nav-left">
@@ -610,5 +450,4 @@ const BagNav = ({ user, logout, navigate, cartCount }) => (
     </nav>
 );
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 export default Checkout;

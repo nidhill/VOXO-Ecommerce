@@ -1,25 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
-<<<<<<< HEAD
-
-// @route   POST api/orders
-// @desc    Log a new order query (Buy button clicked)
-// @access  Public
-=======
 const { sendOrderConfirmation, sendOrderStatusUpdate } = require('../services/emailService');
 
 // POST /api/orders - Create new order
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 router.post('/', async (req, res) => {
     try {
         const newOrder = new Order(req.body);
         const order = await newOrder.save();
-<<<<<<< HEAD
-        res.json(order);
-    } catch (err) {
-        console.error(err.message);
-=======
         // Send order confirmation email (non-blocking)
         if (order.email) sendOrderConfirmation(order).catch(console.error);
         res.json(order);
@@ -36,18 +24,11 @@ router.get('/', async (req, res) => {
         res.json(orders);
     } catch (err) {
         console.error(err.message);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
         res.status(500).send('Server Error');
     }
 });
 
-<<<<<<< HEAD
-// @route   GET api/orders/count
-// @desc    Get total count of orders
-// @access  Admin
-=======
 // GET /api/orders/count - Get total order count
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 router.get('/count', async (req, res) => {
     try {
         const count = await Order.countDocuments();
@@ -58,8 +39,6 @@ router.get('/count', async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
-=======
 // GET /api/orders/:id - Get single order
 router.get('/:id', async (req, res) => {
     try {
@@ -106,5 +85,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 module.exports = router;

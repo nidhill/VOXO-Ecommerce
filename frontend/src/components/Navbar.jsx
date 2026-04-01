@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-<<<<<<< HEAD
-import { Search, X } from 'lucide-react';
-=======
 import { Search, X, Menu, ShoppingBag, User, LogOut } from 'lucide-react';
 
 import { useAuth } from '../context/AuthContext';
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import '../styles/navbar.css';
 
@@ -17,14 +13,10 @@ const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-<<<<<<< HEAD
-    const { cartCount } = useCart();
-=======
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileSearchQuery, setMobileSearchQuery] = useState('');
     const { cartCount } = useCart();
     const { user, isGuest, logout } = useAuth();
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     const navigate = useNavigate();
     const searchRef = useRef(null);
 
@@ -36,8 +28,6 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-<<<<<<< HEAD
-=======
     // Lock body scroll when mobile menu is open
     useEffect(() => {
         if (mobileMenuOpen) {
@@ -48,7 +38,6 @@ const Navbar = () => {
         return () => { document.body.style.overflow = ''; };
     }, [mobileMenuOpen]);
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     // Search Suggestions Logic
     useEffect(() => {
         const fetchSuggestions = async () => {
@@ -96,8 +85,6 @@ const Navbar = () => {
         }
     };
 
-<<<<<<< HEAD
-=======
     const handleMobileSearchSubmit = (e) => {
         e.preventDefault();
         if (mobileSearchQuery.trim()) {
@@ -107,7 +94,6 @@ const Navbar = () => {
         }
     };
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     const handleSuggestionClick = (product) => {
         navigate(`/product/${product._id}`);
         setSearchOpen(false);
@@ -115,143 +101,6 @@ const Navbar = () => {
         setShowSuggestions(false);
     };
 
-<<<<<<< HEAD
-    return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            <div className="container navbar-container">
-                <div className="navbar-left">
-                    <div className="nav-item-group">
-                        <Link to="/collections/men" className="nav-link">Men</Link>
-                        <div className="mega-menu">
-                            <div className="mega-menu-container">
-                                <div className="mega-menu-column">
-                                    <h3>Footwear</h3>
-                                    <Link to="/collections/men?category=Shoe">Shoes</Link>
-                                    <Link to="/collections/men?category=Slipper">Slippers</Link>
-                                    <Link to="/collections/men?category=Sandal">Sandals</Link>
-                                    <Link to="/collections/men?category=Socks">Socks</Link>
-                                </div>
-                                <div className="mega-menu-column">
-                                    <h3>Clothing</h3>
-                                    <Link to="/collections/men?category=Shirt">Shirts</Link>
-                                    <Link to="/collections/men?category=Tshirt">T-Shirts</Link>
-                                    <Link to="/collections/men?category=Jacket">Jackets</Link>
-                                    <Link to="/collections/men?category=Pants">Pants</Link>
-                                    <Link to="/collections/men?category=Joggers">Joggers</Link>
-                                </div>
-                                <div className="mega-menu-column">
-                                    <h3>Accessories</h3>
-                                    <Link to="/collections/men?category=Watch">Watches</Link>
-                                    <Link to="/collections/men?category=Perfume">Perfumes</Link>
-                                    <Link to="/collections/men?category=Belt">Belts</Link>
-                                    <Link to="/collections/men?category=Sunglasses">Sunglasses</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="nav-item-group">
-                        <Link to="/collections/women" className="nav-link">Women</Link>
-                        <div className="mega-menu">
-                            <div className="mega-menu-container">
-                                <div className="mega-menu-column">
-                                    <h3>Footwear</h3>
-                                    <Link to="/collections/women?category=Shoe">Shoes</Link>
-                                    <Link to="/collections/women?category=Slipper">Slippers</Link>
-                                    <Link to="/collections/women?category=Sandal">Sandals</Link>
-                                    <Link to="/collections/women?category=Socks">Socks</Link>
-                                </div>
-                                <div className="mega-menu-column">
-                                    <h3>Clothing</h3>
-                                    <Link to="/collections/women?category=Shirt">Shirts</Link>
-                                    <Link to="/collections/women?category=Tshirt">T-Shirts</Link>
-                                    <Link to="/collections/women?category=Jacket">Jackets</Link>
-                                    <Link to="/collections/women?category=Pants">Pants</Link>
-                                    <Link to="/collections/women?category=Joggers">Joggers</Link>
-                                </div>
-                                <div className="mega-menu-column">
-                                    <h3>Accessories</h3>
-                                    <Link to="/collections/women?category=Watch">Watches</Link>
-                                    <Link to="/collections/women?category=Perfume">Perfumes</Link>
-                                    <Link to="/collections/women?category=Belt">Belts</Link>
-                                    <Link to="/collections/women?category=Sunglasses">Sunglasses</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="navbar-center">
-                    <Link to="/" className="logo">VOXO</Link>
-                </div>
-
-                <div className="navbar-right">
-
-                    {searchOpen ? (
-                        <form onSubmit={handleSearchSubmit} className="search-bar-active" ref={searchRef}>
-                            <div className="search-container">
-                                <input
-                                    type="text"
-                                    placeholder="Search products..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    autoFocus
-                                    className="search-input"
-                                />
-                                {showSuggestions && (
-                                    <div className="search-suggestions">
-                                        {suggestions.length > 0 ? (
-                                            suggestions.map((product) => (
-                                                <div
-                                                    key={product._id}
-                                                    className="suggestion-item"
-                                                    onClick={() => handleSuggestionClick(product)}
-                                                >
-                                                    {product.image && (
-                                                        <img
-                                                            src={product.image}
-                                                            alt={product.name}
-                                                            className="suggestion-image"
-                                                        />
-                                                    )}
-                                                    <div className="suggestion-info">
-                                                        <span className="suggestion-name">{product.name}</span>
-                                                        <span className="suggestion-price">${product.price}</span>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <div className="suggestion-item">
-                                                <span className="suggestion-name" style={{ color: 'var(--color-grey-500)', fontStyle: 'italic' }}>
-                                                    No products found
-                                                </span>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                            <button type="button" onClick={() => setSearchOpen(false)} className="nav-icon">
-                                <X size={20} />
-                            </button>
-                        </form>
-                    ) : (
-                        <button className="nav-icon" onClick={() => setSearchOpen(true)} aria-label="Search">
-                            <Search size={20} />
-                        </button>
-                    )}
-
-                    <Link to="/orders" className="nav-link">Orders</Link>
-                    <ThemeToggle className="mr-4" />
-                    <button
-                        className="nav-icon cart-btn"
-                        onClick={() => navigate('/checkout')}
-                        aria-label="Cart"
-                    >
-                        Cart ({cartCount})
-                    </button>
-                </div>
-            </div>
-        </nav>
-=======
     const closeMobileMenu = () => {
         setMobileMenuOpen(false);
     };
@@ -506,7 +355,6 @@ const Navbar = () => {
                 </div>
             </div>
         </>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     );
 };
 

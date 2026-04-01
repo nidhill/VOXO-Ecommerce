@@ -12,9 +12,6 @@ html {
     color: var(--color-black);
     background-color: var(--color-white);
     -webkit-font-smoothing: antialiased;
-<<<<<<< HEAD
-    scroll-behavior: smooth;
-=======
     scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
@@ -30,16 +27,12 @@ html.lenis, html.lenis body {
 }
 .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 body {
     line-height: 1.5;
     background-color: var(--color-white);
-<<<<<<< HEAD
-=======
     overflow-x: hidden;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 img,
@@ -69,13 +62,6 @@ ol {
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
-<<<<<<< HEAD
-    padding: 0 var(--space-4);
-}
-
-.section {
-    padding: var(--space-8) 0;
-=======
     padding: 0 16px;
 }
 
@@ -115,5 +101,4 @@ ol {
     .mobile-only {
         display: none;
     }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }

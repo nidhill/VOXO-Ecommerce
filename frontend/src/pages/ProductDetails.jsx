@@ -1,94 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useCart } from '../context/CartContext';
-import { products } from '../data/products';
-import { pageTransition } from '../utils/animations';
-import '../styles/product-details.css';
-
-const ProductDetails = () => {
-    const { id } = useParams();
-    const { addToCart } = useCart();
-
-    // Convert both to strings for safe comparison (handling number vs string IDs)
-    const product = products.find(p => String(p.id) === String(id) || String(p._id) === String(id));
-
-    if (!product) {
-        return <div className="section container" style={{ textAlign: 'center', padding: '100px 0' }}>Product not found</div>;
-    }
-
-    // Handle image existence safely
-    const mainImage = product.images && product.images.length > 0
-        ? product.images[0]
-        : 'https://via.placeholder.com/600x800?text=No+Image';
-
-    return (
-        <motion.div
-            className="product-details-page"
-            {...pageTransition}
-        >
-            <div className="container product-details-container">
-                <motion.div
-                    className="product-gallery"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <div className="main-image-wrapper">
-                        <img
-                            src={mainImage}
-                            alt={product.name}
-                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/600x800?text=No+Image'; }}
-                        />
-                    </div>
-                </motion.div>
-
-                <div className="product-info-wrapper">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        <Link to="/" className="back-link">← Back to Shop</Link>
-                        <h1 className="pd-title">{product.name}</h1>
-                        <p className="pd-price">{product.formattedPrice}</p>
-
-                        <div className="pd-description">
-                            <p>{product.description}</p>
-                        </div>
-
-                        <div className="pd-details-list">
-                            <h3>Details</h3>
-                            <ul>
-                                {product.details.map((detail, index) => (
-                                    <li key={index}>{detail}</li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div className="pd-actions">
-                            <button
-                                className="btn-primary"
-                                onClick={(e) => {
-                                    const btn = e.currentTarget;
-                                    import('gsap').then(({ default: gsap }) => {
-                                        gsap.to(btn, {
-                                            scale: 0.95,
-                                            duration: 0.1,
-                                            yoyo: true,
-                                            repeat: 1
-                                        });
-                                    });
-                                    addToCart(product);
-                                }}
-                            >
-                                Add to Cart
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-=======
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -297,7 +206,6 @@ const ProductDetails = () => {
                     </div>
 
                 </motion.div>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             </div>
         </motion.div>
     );

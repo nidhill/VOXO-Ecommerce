@@ -1,30 +1,15 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import Home from '../pages/Home';
-=======
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Home from '../pages/Home';
 import Auth from '../pages/Auth';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 import Checkout from '../components/Checkout';
 import Shop from '../pages/Shop';
 import ProductDetails from '../pages/ProductDetails';
 import Orders from '../pages/Orders';
 import OrderTracking from '../pages/OrderTracking';
-<<<<<<< HEAD
-import AdminLogin from '../pages/AdminLogin';
-import AdminLayout from '../admin/AdminLayout';
-import AdminDashboard from '../pages/AdminDashboard';
-import ManageProducts from '../admin/ManageProducts';
-import AddProduct from '../admin/AddProduct';
-import ManageCoupons from '../admin/ManageCoupons';
-import AdminRoute from './AdminRoute';
-=======
 
 // Admin imports
 import { AdminAuthProvider, useAdminAuth } from '../admin/context/AdminAuthContext';
@@ -67,7 +52,6 @@ const AdminProtectedRoute = ({ children }) => {
 
     return children;
 };
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
 const AnimatedRoutes = () => {
     const location = useLocation();
@@ -75,13 +59,10 @@ const AnimatedRoutes = () => {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-<<<<<<< HEAD
-=======
                 {/* Store Routes */}
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                 <Route path="/" element={<Home />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/collections" element={<Shop />} />
@@ -89,20 +70,6 @@ const AnimatedRoutes = () => {
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/order-tracking/:id" element={<OrderTracking />} />
-<<<<<<< HEAD
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin" element={
-                    <AdminRoute>
-                        <AdminLayout />
-                    </AdminRoute>
-                }>
-                    <Route index element={<AdminDashboard />} />
-                    <Route path="dashboard" element={<AdminDashboard />} />
-                    <Route path="products" element={<ManageProducts />} />
-                    <Route path="add-product" element={<AddProduct />} />
-                    <Route path="coupons" element={<ManageCoupons />} />
-                </Route>
-=======
 
                 {/* Admin Routes */}
                 <Route path="/admin/*" element={
@@ -110,14 +77,11 @@ const AnimatedRoutes = () => {
                         <AdminRoutes />
                     </AdminAuthProvider>
                 } />
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             </Routes>
         </AnimatePresence>
     );
 };
 
-<<<<<<< HEAD
-=======
 const AdminRoutes = () => {
     return (
         <Routes>
@@ -136,5 +100,4 @@ const AdminRoutes = () => {
     );
 };
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 export default AnimatedRoutes;

@@ -7,13 +7,8 @@ const Footer = () => {
             <div className="container footer-container">
                 <div className="footer-main">
                     <div className="footer-brand">
-<<<<<<< HEAD
-                        <h3 className="footer-logo">VOXO</h3>
-                        <p className="footer-tagline">Effortlessly selling premium fashion since 2026.</p>
-=======
                         <h3 className="footer-logo">Wavway</h3>
                         <p className="footer-tagline">Effortlessly selling premium fashion.</p>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                     </div>
 
                     <div className="footer-links">
@@ -47,11 +42,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom">
-<<<<<<< HEAD
-                    <p className="footer-copyright">© 2026 Voxo. All rights reserved.</p>
-=======
                     <p className="footer-copyright">© 2026 Wavway. All rights reserved.</p>
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                     <div className="footer-social">
                         <a href="#">Instagram</a>
                         <a href="#">Twitter</a>

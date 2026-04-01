@@ -5,9 +5,6 @@ import { products } from '../data/products';
 export const getProducts = async (filters = {}) => {
     try {
         const { category, gender, search } = filters;
-<<<<<<< HEAD
-        const response = await api.get('/products', { params: { category, gender, search } });
-=======
         // Only send params that have actual values — never send null/undefined
         const params = {};
         if (category) params.category = category;
@@ -15,7 +12,6 @@ export const getProducts = async (filters = {}) => {
         if (search && search.trim()) params.search = search.trim();
 
         const response = await api.get('/products', { params });
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
         return response.data;
     } catch (error) {
         console.warn('Backend unavailable, using local data', error);
@@ -23,15 +19,6 @@ export const getProducts = async (filters = {}) => {
         const { category, gender, search } = filters;
 
         if (gender) {
-<<<<<<< HEAD
-            filtered = filtered.filter(p => p.gender === gender);
-        }
-        if (category) {
-            filtered = filtered.filter(p => p.category === category);
-        }
-        if (search) {
-            const lowerSearch = search.toLowerCase();
-=======
             filtered = filtered.filter(p =>
                 p.gender === gender || p.gender === 'Unisex'
             );
@@ -43,7 +30,6 @@ export const getProducts = async (filters = {}) => {
         }
         if (search && search.trim()) {
             const lowerSearch = search.trim().toLowerCase();
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             filtered = filtered.filter(p =>
                 p.name.toLowerCase().includes(lowerSearch) ||
                 p.category.toLowerCase().includes(lowerSearch)

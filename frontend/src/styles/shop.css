@@ -1,21 +1,10 @@
 .shop-title {
-<<<<<<< HEAD
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-4);
-=======
     font-size: var(--text-2xl);
     margin-bottom: var(--space-3);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     font-weight: 400;
     letter-spacing: -0.02em;
 }
 
-<<<<<<< HEAD
-.shop-subtitle {
-    color: var(--color-grey-500);
-    margin-bottom: var(--space-12);
-    max-width: 400px;
-=======
 @media (min-width: 768px) {
     .shop-title {
         font-size: var(--text-4xl);
@@ -47,5 +36,4 @@
         padding-top: 120px !important;
         padding-bottom: 80px !important;
     }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }

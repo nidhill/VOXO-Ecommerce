@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useParams, Link, useSearchParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '../api/products';
-import { useCart } from '../context/CartContext';
-import { pageTransition } from '../utils/animations'; // Assuming this exists or define inline
-import '../styles/shop.css';
-import '../styles/product-grid.css'; // Reuse product grid styles
-
-const Shop = () => {
-    const { category: genderParam } = useParams(); // URL param is actually gender (men/women)
-    const [searchParams] = useSearchParams();
-    const categoryFilter = searchParams.get('category');
-    const searchQuery = searchParams.get('search');
-    const { addToCart } = useCart();
-=======
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams, Link, useSearchParams, useNavigate } from 'react-router-dom';
@@ -48,16 +30,11 @@ const Shop = () => {
     const { addToCart } = useCart();
     const navigate = useNavigate();
     const [filtersOpen, setFiltersOpen] = useState(!categoryFilter);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
     const { data: fetchedProducts, isLoading } = useQuery({
         queryKey: ['products', genderParam, categoryFilter, searchQuery],
         queryFn: () => getProducts({
-<<<<<<< HEAD
-            gender: genderParam === 'men' ? 'Men' : genderParam === 'women' ? 'Women' : undefined,
-=======
             gender: genderParam === 'men' ? 'Men' : genderParam === 'women' ? 'Women' : genderParam === 'unisex' ? 'Unisex' : undefined,
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             category: categoryFilter,
             search: searchQuery
         })
@@ -65,81 +42,6 @@ const Shop = () => {
 
     const products = fetchedProducts || [];
 
-<<<<<<< HEAD
-    // Filter products if category exists (handled by API, but safe fallback)
-    const filteredProducts = products;
-
-    let title = genderParam
-        ? genderParam.charAt(0).toUpperCase() + genderParam.slice(1)
-        : 'All Collections';
-
-    if (categoryFilter) {
-        title += ` - ${categoryFilter}`;
-    }
-
-    if (searchQuery) {
-        title = `Search Results for "${searchQuery}"`;
-    }
-
-    return (
-        <motion.div
-            {...pageTransition}
-            className="shop-page"
-        >
-            <div className="container" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
-                <h1 className="shop-title">{title}</h1>
-                <p className="shop-subtitle">
-                    {filteredProducts.length} items found. Curated footwear for every occasion.
-                </p>
-
-                <div className="product-grid">
-                    {filteredProducts.map(product => (
-                        <motion.div
-                            key={product.id}
-                            className="product-card"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            {/* Debug logging for image URLs */}
-                            {console.log(`Product: ${product.name}, Image URL:`, product.images && product.images[0])}
-                            <div className="product-image-wrapper">
-                                {product.tag && <span className="product-tag">{product.tag}</span>}
-                                <Link to={`/product/${product.id || product._id}`}>
-                                    <img
-                                        src={
-                                            product.images && product.images.length > 0
-                                                ? (product.images[0].startsWith('http') ? product.images[0] : product.images[0])
-                                                : '/placeholder-shoe.png'
-                                        }
-                                        alt={product.name}
-                                        className="product-image"
-                                        onError={(e) => {
-                                            e.target.onerror = null;
-                                            // Fallback to a safe placeholder if the main image fails
-                                            e.target.src = 'https://placehold.co/300x400?text=No+Image';
-                                        }}
-                                    />
-                                </Link>
-                                <button
-                                    className="add-to-cart-btn"
-                                    onClick={() => addToCart(product)}
-                                >
-                                    Add to Cart
-                                </button>
-                            </div>
-                            <div className="product-info">
-                                <Link to={`/product/${product.id || product._id}`} className="product-name">{product.name}</Link>
-                                <span className="product-price">{product.formattedPrice}</span>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {filteredProducts.length === 0 && (
-                    <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--color-grey-500)' }}>
-                        No products found in this category.
-=======
     let title = genderParam && genderParam !== 'all'
         ? genderParam.charAt(0).toUpperCase() + genderParam.slice(1)
         : 'All Collections';
@@ -332,7 +234,6 @@ const Shop = () => {
                                 </div>
                             </motion.div>
                         ))}
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                     </div>
                 )}
             </div>

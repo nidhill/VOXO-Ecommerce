@@ -1,16 +1,9 @@
 .footer {
-<<<<<<< HEAD
-    background-color: var(--color-black);
-    color: var(--color-white);
-    padding-top: var(--space-16);
-    padding-bottom: var(--space-8);
-=======
     background-color: var(--color-grey-100);
     color: var(--color-black);
     padding-top: var(--space-16);
     padding-bottom: var(--space-8);
     border-top: 1px solid var(--color-grey-200);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .footer-container {
@@ -66,10 +59,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: var(--space-4);
-<<<<<<< HEAD
-=======
     color: var(--color-black);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .footer-list {
@@ -85,11 +75,7 @@
 }
 
 .footer-list a:hover {
-<<<<<<< HEAD
-    color: var(--color-white);
-=======
     color: var(--color-black);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .footer-bottom {
@@ -98,11 +84,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: var(--space-8);
-<<<<<<< HEAD
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-=======
     border-top: 1px solid var(--color-grey-200);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     gap: var(--space-4);
 }
 
@@ -131,10 +113,5 @@
 }
 
 .footer-social a:hover {
-<<<<<<< HEAD
-    color: var(--color-white);
-}
-=======
     color: var(--color-black);
 }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)

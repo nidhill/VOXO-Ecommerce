@@ -1,18 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import { motion, AnimatePresence } from 'framer-motion';
-import heroImage from '../assets/new-hero-shoes.png';
-import updatedHeroImage from '../assets/hero-shoe-updated.png';
-import newBalanceHero from '../assets/hero-new-balance.png';
-import heroShoe3 from '../assets/hero-shoe-3.png';
-import '../styles/hero.css';
-
-const images = [
-    updatedHeroImage,
-    newBalanceHero,
-    heroShoe3
-=======
 import { motion } from 'framer-motion';
 import '../styles/hero.css';
 
@@ -21,7 +8,6 @@ const images = [
     '/images/hero/nb2.png',
     '/images/hero/nb3.png',
     '/images/hero/nb4.png',
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 ];
 
 const Hero = () => {
@@ -30,11 +16,7 @@ const Hero = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-<<<<<<< HEAD
-        }, 2000); // 2 seconds gap
-=======
         }, 4500);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
         return () => clearInterval(interval);
     }, []);
@@ -102,30 +84,6 @@ const Hero = () => {
                     </motion.div>
                 </div>
                 <div className="hero-image-wrapper">
-<<<<<<< HEAD
-                    <AnimatePresence mode="wait">
-                        <motion.img
-                            key={currentImageIndex}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{
-                                opacity: 1,
-                                x: 0,
-                                scale: 1,
-                                transition: { duration: 0.5 }
-                            }}
-                            exit={{ opacity: 0, x: -20, transition: { duration: 0.5 } }}
-                            className="hero-image"
-                            src={images[currentImageIndex]}
-                            alt="Hero Shoes"
-                            whileHover={{
-                                scale: 1.05,
-                                rotate: -2,
-                                transition: { duration: 0.4, ease: "easeOut" }
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                        />
-                    </AnimatePresence>
-=======
                     {images.map((src, i) => (
                         <img
                             key={src}
@@ -140,7 +98,6 @@ const Hero = () => {
                             }}
                         />
                     ))}
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                 </div>
             </div>
         </header>

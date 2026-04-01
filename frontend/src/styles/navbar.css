@@ -1,51 +1,26 @@
-<<<<<<< HEAD
-/* Navbar Styles */
-=======
 /* ════════════════════════════════════════════════
    NAVBAR — Dark Luxury Design
    ════════════════════════════════════════════════ */
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-<<<<<<< HEAD
-    background: transparent;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-=======
     background: rgba(14, 14, 14, 0.82);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(72, 72, 72, 0.18);
     transition: padding 0.3s ease, background 0.3s ease;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     padding: 20px 0;
 }
 
 .navbar.scrolled {
-<<<<<<< HEAD
-    background: var(--color-white);
-    /* Was rgba(255, 255, 255, 0.95) */
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    /* Could use variable for shadow color too potentially */
-    padding: 15px 0;
-}
-
-html.dark .navbar.scrolled {
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
-}
-
-
-=======
     background: rgba(14, 14, 14, 0.96);
     padding: 14px 0;
 }
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 .navbar-container {
     display: flex;
     justify-content: space-between;
@@ -70,29 +45,6 @@ html.dark .navbar.scrolled {
     justify-content: center;
 }
 
-<<<<<<< HEAD
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--color-black);
-    /* Was #000 */
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-.nav-link {
-    color: var(--color-black);
-    /* Was #333 */
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: color 0.3s ease;
-    position: relative;
-    opacity: 0.8;
-=======
 /* ── Logo ─────────────────────────────────────── */
 .logo {
     font-family: 'Noto Serif', Georgia, serif;
@@ -117,31 +69,11 @@ html.dark .navbar.scrolled {
     letter-spacing: 0.2em;
     transition: color 0.2s;
     position: relative;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-<<<<<<< HEAD
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--color-black);
-    /* Was #000 */
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.nav-link:hover {
-    opacity: 1;
-}
-
-=======
     bottom: -4px;
     left: 0;
     width: 0;
@@ -154,31 +86,10 @@ html.dark .navbar.scrolled {
 .nav-link:hover::after { width: 100%; }
 
 /* ── Nav icons (search, cart, logout…) ───────── */
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 .nav-icon {
     background: none;
     border: none;
     cursor: pointer;
-<<<<<<< HEAD
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    color: var(--color-black);
-    /* Was #333 */
-    transition: all 0.3s ease;
-    opacity: 0.8;
-}
-
-.nav-icon:hover {
-    opacity: 1;
-}
-
-/* Mega Menu Styles */
-.nav-item-group {
-    position: static;
-    /* Vital for full width */
-}
-=======
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
@@ -330,31 +241,12 @@ html.dark .navbar.scrolled {
 
 /* ── Mega Menu ────────────────────────────────── */
 .nav-item-group { position: static; }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
 .mega-menu {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-<<<<<<< HEAD
-    background: var(--color-white);
-    /* Was #fff */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-    border-top: 1px solid var(--color-grey-100);
-    /* Was #f0f0f0 */
-}
-
-/* Fix shadow for dark mode */
-html.dark .mega-menu {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    border-top: 1px solid var(--color-grey-800);
-=======
     background: #0e0e0e;
     border-top: 1px solid rgba(72, 72, 72, 0.2);
     border-bottom: 1px solid rgba(72, 72, 72, 0.15);
@@ -364,7 +256,6 @@ html.dark .mega-menu {
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
     z-index: 1001;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .nav-item-group:hover .mega-menu {
@@ -376,47 +267,6 @@ html.dark .mega-menu {
 .mega-menu-container {
     max-width: 1200px;
     margin: 0 auto;
-<<<<<<< HEAD
-    padding: 40px 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) 300px;
-    /* 3 columns for links, 1 for image */
-    gap: 40px;
-}
-
-.mega-menu-column h3 {
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    color: var(--color-black);
-    /* Was #000 */
-    letter-spacing: 1px;
-}
-
-.mega-menu-column a {
-    display: block;
-    color: var(--color-grey-500);
-    /* Was #666 */
-    text-decoration: none;
-    padding: 8px 0;
-    font-size: 14px;
-    transition: color 0.2s;
-}
-
-.mega-menu-column a:hover {
-    color: var(--color-black);
-    /* Was #000 */
-    transform: translateX(5px);
-    /* Gentle nudge */
-}
-
-.mega-menu-featured {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    height: 300px;
-=======
     padding: 36px 24px 32px;
     display: grid;
     grid-template-columns: repeat(3, 1fr) 280px;
@@ -514,49 +364,23 @@ html.dark .mega-menu {
     height: 290px;
     text-decoration: none;
     border-radius: 2px;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .mega-menu-featured img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-<<<<<<< HEAD
-    transition: transform 0.5s ease;
-=======
     filter: grayscale(20%);
     transition: transform 0.5s ease, filter 0.5s ease;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .mega-menu-featured:hover img {
     transform: scale(1.05);
-<<<<<<< HEAD
-=======
     filter: grayscale(0%);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .featured-text {
     position: absolute;
-<<<<<<< HEAD
-    bottom: 20px;
-    left: 20px;
-    color: white;
-    /* Keep white for overlay text on image */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.featured-text span {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: #000;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    display: inline-block;
-=======
     bottom: 0;
     left: 0;
     right: 0;
@@ -575,25 +399,10 @@ html.dark .mega-menu {
     color: #000;
     padding: 3px 8px;
     margin-bottom: 8px;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .featured-text p {
     font-size: 18px;
-<<<<<<< HEAD
-    font-weight: 600;
-    margin: 0;
-}
-
-/* Search Bar Styles */
-.search-bar-active {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--color-black);
-    /* Was #000 */
-    padding-bottom: 5px;
-    margin-right: 15px;
-=======
     font-weight: 700;
     margin: 0 0 4px;
     letter-spacing: -0.3px;
@@ -612,44 +421,12 @@ html.dark .mega-menu {
     border-bottom: 1px solid rgba(231, 229, 229, 0.4);
     padding-bottom: 4px;
     margin-right: 12px;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     animation: fadeIn 0.3s ease;
 }
 
 .search-input {
     border: none;
     outline: none;
-<<<<<<< HEAD
-    font-size: 14px;
-    background: transparent;
-    width: 200px;
-    color: var(--color-black);
-    /* Was #000 */
-}
-
-.search-input::placeholder {
-    color: var(--color-grey-500);
-    /* Was #888 */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        width: 0;
-    }
-
-    to {
-        opacity: 1;
-        width: 200px;
-    }
-}
-
-/* Search Suggestions */
-.search-container {
-    position: relative;
-    /* To anchor the suggestions absolute position */
-}
-=======
     font-size: 12px;
     background: transparent;
     width: min(200px, 40vw);
@@ -665,30 +442,11 @@ html.dark .mega-menu {
 
 /* ── Search suggestions ───────────────────────── */
 .search-container { position: relative; }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
 .search-suggestions {
     position: absolute;
     top: 100%;
     left: 0;
-<<<<<<< HEAD
-    width: 250px;
-    /* Wider than input usually */
-    background: var(--color-white);
-    border: 1px solid var(--color-grey-200);
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1100;
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 5px;
-}
-
-html.dark .search-suggestions {
-    background: var(--color-black);
-    border-color: var(--color-grey-800);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-=======
     width: 280px;
     background: #131313;
     border: 1px solid rgba(72, 72, 72, 0.3);
@@ -697,37 +455,12 @@ html.dark .search-suggestions {
     max-height: 400px;
     overflow-y: auto;
     margin-top: 8px;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .suggestion-item {
     display: flex;
     align-items: center;
     gap: 12px;
-<<<<<<< HEAD
-    padding: 10px 15px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-grey-100);
-}
-
-html.dark .suggestion-item {
-    border-color: var(--color-grey-800);
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-item:hover {
-    background-color: var(--color-grey-50);
-}
-
-html.dark .suggestion-item:hover {
-    background-color: var(--color-grey-100);
-}
-=======
     padding: 12px 16px;
     transition: background 0.15s;
     cursor: pointer;
@@ -735,33 +468,11 @@ html.dark .suggestion-item:hover {
 }
 .suggestion-item:last-child { border-bottom: none; }
 .suggestion-item:hover { background: #1f2020; }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 
 .suggestion-image {
     width: 40px;
     height: 40px;
     object-fit: cover;
-<<<<<<< HEAD
-    border-radius: 4px;
-    background-color: var(--color-grey-50);
-}
-
-.suggestion-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.suggestion-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-black);
-}
-
-.suggestion-price {
-    font-size: 12px;
-    color: var(--color-grey-500);
-}
-=======
     background: #191a1a;
     flex-shrink: 0;
 }
@@ -838,4 +549,3 @@ html.dark .suggestion-item:hover {
         to   { opacity: 1; width: 150px; }
     }
 }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)

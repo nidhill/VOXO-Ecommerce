@@ -46,20 +46,6 @@
 html.dark {
   --color-black: #ffffff;
   --color-white: #09090b;
-<<<<<<< HEAD
-  /* zinc-950 */
-  --color-grey-50: #18181b;
-  /* zinc-900 */
-  --color-grey-100: #27272a;
-  /* zinc-800 */
-  --color-grey-200: #3f3f46;
-  /* zinc-700 */
-  --color-grey-500: #a1a1aa;
-  /* zinc-400 */
-  --color-grey-800: #f4f4f5;
-  /* zinc-100 */
-  --color-accent: #ffffff;
-=======
   --color-grey-50: #18181b;
   --color-grey-100: #27272a;
   --color-grey-200: #3f3f46;
@@ -98,5 +84,4 @@ html.dark {
   :root {
     --text-giant: 4rem;
   }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }

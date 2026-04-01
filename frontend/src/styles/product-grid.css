@@ -7,13 +7,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-<<<<<<< HEAD
-    margin-bottom: var(--space-12);
-}
-
-.section-title {
-    font-size: var(--text-3xl);
-=======
     margin-bottom: var(--space-8);
 }
 
@@ -25,15 +18,10 @@
 
 .section-title {
     font-size: var(--text-2xl);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     font-weight: 700;
     font-family: var(--font-serif);
 }
 
-<<<<<<< HEAD
-.view-all-link {
-    font-size: var(--text-sm);
-=======
 @media (min-width: 768px) {
     .section-title {
         font-size: var(--text-3xl);
@@ -42,7 +30,6 @@
 
 .view-all-link {
     font-size: var(--text-xs);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -50,8 +37,6 @@
     text-decoration: underline;
     text-underline-offset: 4px;
     transition: color var(--transition-fast);
-<<<<<<< HEAD
-=======
     white-space: nowrap;
 }
 
@@ -59,7 +44,6 @@
     .view-all-link {
         font-size: var(--text-sm);
     }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .view-all-link:hover {
@@ -68,71 +52,41 @@
 
 .product-grid {
     display: grid;
-<<<<<<< HEAD
-    grid-template-columns: repeat(1, 1fr);
-    gap: var(--space-8);
-=======
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 @media (min-width: 640px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
-<<<<<<< HEAD
-=======
         gap: var(--space-6);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     }
 }
 
 @media (min-width: 1024px) {
     .product-grid {
         grid-template-columns: repeat(4, 1fr);
-<<<<<<< HEAD
-=======
         gap: var(--space-8);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     }
 }
 
 .product-card {
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-=======
     will-change: opacity, transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .product-image-wrapper {
     position: relative;
-<<<<<<< HEAD
-    margin-bottom: var(--space-4);
-    border-radius: var(--space-4);
-=======
     margin-bottom: var(--space-3);
     border-radius: var(--space-3);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     overflow: hidden;
     background-color: var(--color-grey-50);
     aspect-ratio: 3 / 4;
 }
 
-<<<<<<< HEAD
-.product-tag {
-    position: absolute;
-    top: var(--space-3);
-    left: var(--space-3);
-    background-color: var(--color-white);
-    color: var(--color-black);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    padding: var(--space-1) var(--space-2);
-=======
 @media (min-width: 768px) {
     .product-image-wrapper {
         margin-bottom: var(--space-4);
@@ -149,13 +103,10 @@
     font-size: 10px;
     font-weight: 700;
     padding: 2px 6px;
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     text-transform: uppercase;
     z-index: 10;
 }
 
-<<<<<<< HEAD
-=======
 @media (min-width: 768px) {
     .product-tag {
         top: var(--space-3);
@@ -165,7 +116,6 @@
     }
 }
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 .product-image {
     width: 100%;
     height: 100%;
@@ -179,15 +129,6 @@
 
 .add-to-cart-btn {
     position: absolute;
-<<<<<<< HEAD
-    bottom: var(--space-4);
-    left: var(--space-4);
-    right: var(--space-4);
-    background-color: var(--color-white);
-    color: var(--color-black);
-    padding: var(--space-3);
-    font-weight: 600;
-=======
     bottom: var(--space-3);
     left: var(--space-3);
     right: var(--space-3);
@@ -196,7 +137,6 @@
     padding: var(--space-2);
     font-weight: 600;
     font-size: var(--text-xs);
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     border-radius: var(--space-2);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: translateY(150%);
@@ -204,8 +144,6 @@
     transition: all var(--transition-fast);
 }
 
-<<<<<<< HEAD
-=======
 @media (min-width: 768px) {
     .add-to-cart-btn {
         bottom: var(--space-4);
@@ -224,7 +162,6 @@
     }
 }
 
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 .product-image-wrapper:hover .add-to-cart-btn {
     transform: translateY(0);
     opacity: 1;
@@ -242,11 +179,6 @@
 }
 
 .product-name {
-<<<<<<< HEAD
-    font-size: var(--text-lg);
-    font-weight: 500;
-    color: var(--color-black);
-=======
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-black);
@@ -257,14 +189,11 @@
     .product-name {
         font-size: var(--text-lg);
     }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }
 
 .product-price {
     color: var(--color-grey-500);
     font-weight: 500;
-<<<<<<< HEAD
-=======
     font-size: var(--text-sm);
 }
 
@@ -272,5 +201,4 @@
     .product-price {
         font-size: var(--text-base);
     }
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
 }

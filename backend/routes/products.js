@@ -7,17 +7,6 @@ const Product = require('../models/Product');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-<<<<<<< HEAD
-        const { category, gender } = req.query;
-        let query = { isHidden: false };
-
-        if (category) {
-            query.category = category;
-        }
-
-        if (gender) {
-            query.gender = gender;
-=======
         const { category, gender, search } = req.query;
         let query = { isHidden: false };
 
@@ -33,7 +22,6 @@ router.get('/', async (req, res) => {
 
         if (search && search.trim()) {
             query.name = { $regex: search.trim(), $options: 'i' };
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
         }
 
         const products = await Product.find(query).sort({ createdAt: -1 });

@@ -19,11 +19,6 @@ export const CartProvider = ({ children }) => {
         const savedCart = localStorage.getItem('cartelle-cart');
         if (savedCart) {
             try {
-<<<<<<< HEAD
-                setCartItems(JSON.parse(savedCart));
-            } catch (e) {
-                console.error('Failed to parse cart local storage:', e);
-=======
                 const parsed = JSON.parse(savedCart);
                 // Discard any items that have no valid id
                 const valid = parsed.filter(item => item._id || item.id);
@@ -31,7 +26,6 @@ export const CartProvider = ({ children }) => {
             } catch (e) {
                 console.error('Failed to parse cart local storage:', e);
                 localStorage.removeItem('cartelle-cart');
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             }
         }
     }, []);
@@ -41,14 +35,6 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem('cartelle-cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-<<<<<<< HEAD
-    const addToCart = (product) => {
-        setCartItems(prevItems => {
-            const existingItem = prevItems.find(item => item.id === product.id);
-            if (existingItem) {
-                return prevItems.map(item =>
-                    item.id === product.id
-=======
     const getId = (item) => item._id || item.id;
 
     const addToCart = (product) => {
@@ -58,7 +44,6 @@ export const CartProvider = ({ children }) => {
             if (existingItem) {
                 return prevItems.map(item =>
                     getId(item) === productId
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
@@ -69,11 +54,7 @@ export const CartProvider = ({ children }) => {
     };
 
     const removeFromCart = (productId) => {
-<<<<<<< HEAD
-        setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
-=======
         setCartItems(prevItems => prevItems.filter(item => getId(item) !== productId));
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
     };
 
     const updateQuantity = (productId, newQuantity) => {
@@ -83,11 +64,7 @@ export const CartProvider = ({ children }) => {
         }
         setCartItems(prevItems =>
             prevItems.map(item =>
-<<<<<<< HEAD
-                item.id === productId ? { ...item, quantity: newQuantity } : item
-=======
                 getId(item) === productId ? { ...item, quantity: newQuantity } : item
->>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
             )
         );
     };
