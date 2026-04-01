@@ -1,5 +1,5 @@
 const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const FROM = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 const BRAND = 'WAVWAY';
@@ -129,6 +129,7 @@ const itemsTable = (items, totalAmount, discount) => `
 
 // ─── 1. Welcome Email ────────────────────────────────────────────────────────
 const sendWelcomeEmail = async ({ name, email }) => {
+    if (!resend) return;
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,
         to: email,
@@ -167,7 +168,7 @@ const sendWelcomeEmail = async ({ name, email }) => {
 
 // ─── 2. Order Confirmation ───────────────────────────────────────────────────
 const sendOrderConfirmation = async (order) => {
-    if (!order.email) return;
+    if (!resend || !order.email) return;
     const orderId = order._id?.toString().slice(-8).toUpperCase();
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,
@@ -214,7 +215,7 @@ const sendOrderConfirmation = async (order) => {
 
 // ─── 3. Order Status Update ──────────────────────────────────────────────────
 const sendOrderStatusUpdate = async (order) => {
-    if (!order.email) return;
+    if (!resend || !order.email) return;
     const orderId = order._id?.toString().slice(-8).toUpperCase();
     const statusInfo = {
         Processing: { emoji: '⚙️', msg: 'Your order is being processed and packed carefully.', badge: 'badge-processing' },
@@ -270,6 +271,7 @@ const sendOrderStatusUpdate = async (order) => {
 
 // ─── 4. Password Reset ───────────────────────────────────────────────────────
 const sendPasswordResetEmail = async ({ name, email, resetToken }) => {
+    if (!resend) return;
     const resetUrl = `${BRAND_URL}/reset-password?token=${resetToken}`;
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,
@@ -297,6 +299,7 @@ const sendPasswordResetEmail = async ({ name, email, resetToken }) => {
 
 // ─── 5. New Coupon / Promo ───────────────────────────────────────────────────
 const sendPromoEmail = async ({ name, email, couponCode, discount, expiryDate }) => {
+    if (!resend) return;
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,
         to: email,
