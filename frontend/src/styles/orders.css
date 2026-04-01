@@ -1,0 +1,775 @@
+<<<<<<< HEAD
+.orders-page,
+.tracking-page {
+    padding-top: 120px;
+    min-height: 80vh;
+}
+
+.page-title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-8);
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 800px;
+}
+
+.order-card {
+    border: 1px solid var(--color-grey-200);
+    border-radius: 8px;
+    padding: var(--space-6);
+    transition: box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+    font-size: var(--text-sm);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-grey-100);
+}
+
+.order-id {
+    font-weight: 600;
+    margin-right: var(--space-4);
+    color: var(--color-black);
+}
+
+.order-date {
+    color: var(--color-grey-500);
+}
+
+.order-status {
+    text-transform: uppercase;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: var(--color-grey-100);
+}
+
+.status-processing {
+    background-color: #fff8e1;
+    color: #f57f17;
+}
+
+.status-shipped {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-delivered {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.order-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+.order-previews {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.order-preview-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    background-color: var(--color-grey-100);
+}
+
+.order-meta {
+    text-align: right;
+}
+
+.order-total {
+    display: block;
+    font-weight: 600;
+    font-size: var(--text-lg);
+}
+
+.order-count {
+    font-size: var(--text-sm);
+    color: var(--color-grey-500);
+}
+
+/* Tracking Page */
+.tracking-header {
+    margin-bottom: var(--space-8);
+=======
+/* ════════════════════════════════════════════════
+   ORDERS PAGE — Dark Luxury Design
+   ════════════════════════════════════════════════ */
+
+.ord-page {
+    min-height: 100vh;
+    background: #0e0e0e;
+    color: #e7e5e5;
+    font-family: 'Manrope', 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Nav ────────────────────────────────────────── */
+.ord-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14, 14, 14, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(72, 72, 72, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+}
+
+.ord-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.ord-nav-brand {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #e7e5e5;
+    text-decoration: none;
+}
+
+.ord-nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.ord-nav-links a {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #767575;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.ord-nav-links a:hover { color: #e7e5e5; }
+.ord-nav-active { color: #e7e5e5 !important; font-weight: 800 !important; }
+
+.ord-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.ord-nav-icon {
+    position: relative;
+    color: #c6c6c7;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.ord-nav-icon:hover { color: #e7e5e5; }
+
+.ord-nav-dot {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #c6c6c7;
+    color: #0e0e0e;
+    font-size: 8px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ord-nav-user {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a1a1a1;
+}
+.ord-nav-user button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #767575;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+.ord-nav-user button:hover { color: #e7e5e5; }
+
+.ord-nav-login {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #767575;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.ord-nav-login:hover { color: #e7e5e5; }
+
+@media (max-width: 768px) {
+    .ord-nav { padding: 16px 20px; }
+    .ord-nav-links { display: none; }
+}
+
+/* ── Main ───────────────────────────────────────── */
+.ord-main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 72px 48px 80px;
+}
+
+@media (max-width: 768px) {
+    .ord-main { padding: 48px 20px 60px; }
+}
+
+/* ── Header ─────────────────────────────────────── */
+.ord-header {
+    margin-bottom: 64px;
+}
+
+.ord-title {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(48px, 7vw, 84px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #e7e5e5;
+    margin-bottom: 14px;
+}
+
+.ord-subtitle {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #767575;
+}
+
+/* ── Order list ─────────────────────────────────── */
+.ord-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.ord-row {
+    display: grid;
+    grid-template-columns: 260px 1fr 160px 160px;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(72, 72, 72, 0.15);
+    transition: background 0.2s;
+}
+
+.ord-row:first-child {
+    border-top: 1px solid rgba(72, 72, 72, 0.15);
+}
+
+.ord-row:hover {
+    background: rgba(255,255,255,0.015);
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 0 -12px;
+    border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+    .ord-row {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 20px 16px;
+    }
+}
+
+@media (max-width: 520px) {
+    .ord-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* Left block */
+.ord-row-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ord-row-id {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #e7e5e5;
+    line-height: 1;
+}
+
+.ord-row-date {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #767575;
+    text-transform: uppercase;
+}
+
+/* Status badges */
+.ord-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    width: fit-content;
+}
+
+.ord-badge-delivered  { background: rgba(134,239,172,0.1); color: #86efac; border: 1px solid rgba(134,239,172,0.2); }
+.ord-badge-transit    { background: rgba(147,197,253,0.1); color: #93c5fd; border: 1px solid rgba(147,197,253,0.2); }
+.ord-badge-delivery   { background: rgba(253,186,116,0.1); color: #fba84a; border: 1px solid rgba(253,186,116,0.2); }
+.ord-badge-processing { background: rgba(253,224,71,0.08); color: #fde047; border: 1px solid rgba(253,224,71,0.15); }
+.ord-badge-pending    { background: rgba(198,198,199,0.08); color: #a1a1a1; border: 1px solid rgba(198,198,199,0.15); }
+
+/* Thumbnails */
+.ord-row-thumbs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ord-thumb {
+    width: 56px;
+    height: 72px;
+    background: #191a1a;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ord-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%);
+    transition: filter 0.4s;
+}
+
+.ord-row:hover .ord-thumb img { filter: grayscale(0%); }
+
+.ord-thumb-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #767575;
+    border: 1px solid rgba(72,72,72,0.3);
+    background: transparent;
+}
+
+/* Total */
+.ord-row-right {
+    text-align: right;
+}
+
+.ord-row-total-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #767575;
+    margin-bottom: 4px;
+}
+
+.ord-row-total {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 400;
+    color: #e7e5e5;
+    letter-spacing: -0.01em;
+}
+
+/* View details button */
+.ord-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 1px solid rgba(72, 72, 72, 0.35);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #e7e5e5;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+.ord-view-btn:hover {
+    background: #1f2020;
+    border-color: rgba(198, 198, 199, 0.3);
+}
+
+/* ── Load more ──────────────────────────────────── */
+.ord-load-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 56px auto 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #767575;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+.ord-load-more:hover { color: #e7e5e5; }
+
+/* ── Empty state ────────────────────────────────── */
+.ord-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    gap: 16px;
+}
+
+.ord-empty svg { color: #2b2c2c; margin-bottom: 12px; }
+
+.ord-empty-title {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 400;
+    color: #e7e5e5;
+    letter-spacing: -0.02em;
+}
+
+.ord-empty-sub {
+    font-size: 13px;
+    color: #767575;
+}
+
+.ord-empty-cta {
+    margin-top: 12px;
+    padding: 14px 36px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    background: linear-gradient(135deg, #c6c6c7 0%, #454747 100%);
+    color: #0e0e0e;
+    transition: opacity 0.2s;
+}
+.ord-empty-cta:hover { opacity: 0.85; }
+
+/* ── Footer ─────────────────────────────────────── */
+.ord-footer {
+    border-top: 1px solid rgba(72, 72, 72, 0.12);
+    background: #0e0e0e;
+    padding: 48px;
+}
+
+@media (max-width: 768px) { .ord-footer { padding: 40px 20px; } }
+
+.ord-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.ord-footer-brand {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #e7e5e5;
+    letter-spacing: -0.02em;
+}
+
+.ord-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+.ord-footer-links a {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #484848;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.ord-footer-links a:hover { color: #c6c6c7; }
+
+.ord-footer-copy {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #484848;
+}
+
+/* ════════════════════════════════════════════════
+   TRACKING PAGE — keep existing styles working
+   ════════════════════════════════════════════════ */
+.orders-page,
+.tracking-page {
+    padding-top: 90px;
+    min-height: 80vh;
+}
+
+@media (min-width: 768px) {
+    .orders-page,
+    .tracking-page { padding-top: 120px; }
+}
+
+.page-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-grey-500);
+    text-decoration: none;
+}
+
+.highlight-id {
+    color: var(--color-grey-500);
+    font-weight: 400;
+}
+
+.tracking-timeline {
+<<<<<<< HEAD
+    margin: var(--space-12) 0;
+    position: relative;
+    max-width: 800px;
+=======
+    margin: var(--space-8) 0;
+    position: relative;
+    max-width: 800px;
+    overflow-x: auto;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.progress-bar-bg {
+    position: absolute;
+    top: 24px;
+<<<<<<< HEAD
+    /* Half height of circle + padding? Adjust visually */
+=======
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-grey-200);
+    z-index: 0;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-black);
+    width: 0;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+<<<<<<< HEAD
+}
+
+=======
+    min-width: 400px;
+}
+
+@media (min-width: 768px) { .steps-container { min-width: 0; } }
+
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+<<<<<<< HEAD
+    width: 120px;
+=======
+    width: 80px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    text-align: center;
+}
+
+.step-circle {
+<<<<<<< HEAD
+    width: 24px;
+    height: 24px;
+=======
+    width: 22px;
+    height: 22px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-grey-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+<<<<<<< HEAD
+=======
+    flex-shrink: 0;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.step-item.completed .step-circle {
+    background-color: var(--color-black);
+    border-color: var(--color-black);
+    color: white;
+}
+
+.step-item.current .step-circle {
+    border-color: var(--color-black);
+    transform: scale(1.2);
+}
+
+.step-label {
+<<<<<<< HEAD
+    font-size: var(--text-xs);
+=======
+    font-size: 9px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    font-weight: 500;
+    color: var(--color-grey-500);
+    text-transform: uppercase;
+}
+
+.step-item.completed .step-label,
+.step-item.current .step-label {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+<<<<<<< HEAD
+.tracking-details {
+    margin-top: var(--space-12);
+    border-top: 1px solid var(--color-grey-200);
+    padding-top: var(--space-8);
+}
+
+.tracking-items {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+=======
+.tracking-header { margin-bottom: var(--space-6); }
+.tracking-details {
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--color-grey-200);
+    padding-top: var(--space-6);
+}
+
+.tracking-items {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.tracking-item {
+    display: flex;
+    align-items: center;
+<<<<<<< HEAD
+    gap: var(--space-4);
+}
+
+.tracking-item img {
+    width: 80px;
+    height: 80px;
+=======
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.tracking-item img {
+    width: 60px;
+    height: 60px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.item-price {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+<<<<<<< HEAD
+@media (max-width: 768px) {
+    .step-label {
+        font-size: 10px;
+    }
+}
+=======
+.order-status {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.status-processing { background: #fff8e1; color: #f57f17; }
+.status-shipped    { background: #e3f2fd; color: #1976d2; }
+.status-delivered  { background: #e8f5e9; color: #388e3c; }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)

@@ -1,0 +1,251 @@
+<<<<<<< HEAD
+.featured-section {
+    background-color: var(--color-white);
+    padding: var(--space-16) 0;
+}
+
+.featured-section .section-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin-bottom: var(--space-8);
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+    .featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.featured-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-image-wrapper {
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+    aspect-ratio: 16/9;
+}
+
+.featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+}
+
+.featured-card:hover .featured-image {
+    transform: scale(1.05);
+}
+
+.featured-content {
+    padding: var(--space-4) 0;
+}
+
+.featured-date {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-grey-500);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+}
+
+.featured-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+}
+
+.featured-excerpt {
+    color: var(--color-grey-600);
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+}
+
+.read-more {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color var(--transition-fast);
+}
+
+.read-more:hover {
+    color: var(--color-grey-500);
+=======
+/* Clean featured section styles */
+.featured-section {
+    padding: var(--space-16) 0;
+    width: 100%;
+    margin-top: var(--space-12);
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .featured-section {
+        padding: var(--space-20) 0;
+        margin-top: var(--space-20);
+    }
+}
+
+/* Container for the two main cards */
+.featured-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    height: auto;
+    gap: 4px;
+}
+
+@media (min-width: 768px) {
+    .featured-categories-grid {
+        grid-template-columns: 1fr 1fr;
+        height: 700px;
+        gap: 0;
+    }
+}
+
+/* Individual Card Styling */
+.featured-category-card {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+@media (min-width: 480px) {
+    .featured-category-card {
+        height: 340px;
+    }
+}
+
+@media (min-width: 768px) {
+    .featured-category-card {
+        height: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .featured-category-card {
+        height: 100%;
+    }
+}
+
+/* Background Image */
+.featured-category-card .bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 1;
+}
+
+/* Dark Overlay */
+.collection-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    transition: background 0.4s ease;
+}
+
+/* Hover Effects */
+.featured-category-card:hover .bg-image {
+    transform: scale(1.05);
+}
+
+.featured-category-card:hover .collection-overlay {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Content Wrapper */
+.category-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--color-white);
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+    padding: 0 20px;
+}
+
+/* Typography */
+.category-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+@media (min-width: 480px) {
+    .category-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .category-title {
+        font-size: 3.5rem;
+        margin-bottom: var(--space-6);
+    }
+}
+
+@media (min-width: 1024px) {
+    .category-title {
+        font-size: 4rem;
+    }
+}
+
+/* Button */
+.btn-shop {
+    display: inline-block;
+    padding: 10px 22px;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .btn-shop {
+        padding: 16px 40px;
+        font-size: 1rem;
+    }
+}
+
+.btn-shop:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    transform: translateY(-2px);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}

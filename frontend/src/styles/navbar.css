@@ -1,0 +1,841 @@
+<<<<<<< HEAD
+/* Navbar Styles */
+=======
+/* ════════════════════════════════════════════════
+   NAVBAR — Dark Luxury Design
+   ════════════════════════════════════════════════ */
+
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+<<<<<<< HEAD
+    background: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+=======
+    background: rgba(14, 14, 14, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(72, 72, 72, 0.18);
+    transition: padding 0.3s ease, background 0.3s ease;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    padding: 20px 0;
+}
+
+.navbar.scrolled {
+<<<<<<< HEAD
+    background: var(--color-white);
+    /* Was rgba(255, 255, 255, 0.95) */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Could use variable for shadow color too potentially */
+    padding: 15px 0;
+}
+
+html.dark .navbar.scrolled {
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+}
+
+
+=======
+    background: rgba(14, 14, 14, 0.96);
+    padding: 14px 0;
+}
+
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-left,
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+}
+
+.navbar-right {
+    justify-content: flex-end;
+}
+
+.navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+<<<<<<< HEAD
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--color-black);
+    /* Was #000 */
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: var(--color-black);
+    /* Was #333 */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    position: relative;
+    opacity: 0.8;
+=======
+/* ── Logo ─────────────────────────────────────── */
+.logo {
+    font-family: 'Noto Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #e7e5e5;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.75; }
+
+/* ── Nav links ────────────────────────────────── */
+.nav-link {
+    color: #a1a1a1;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    transition: color 0.2s;
+    position: relative;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+<<<<<<< HEAD
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-black);
+    /* Was #000 */
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+=======
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #e7e5e5;
+    transition: width 0.25s ease;
+}
+
+.nav-link:hover { color: #e7e5e5; }
+.nav-link:hover::after { width: 100%; }
+
+/* ── Nav icons (search, cart, logout…) ───────── */
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+.nav-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+<<<<<<< HEAD
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--color-black);
+    /* Was #333 */
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.nav-icon:hover {
+    opacity: 1;
+}
+
+/* Mega Menu Styles */
+.nav-item-group {
+    position: static;
+    /* Vital for full width */
+}
+=======
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #a1a1a1;
+    transition: color 0.2s;
+    font-family: inherit;
+}
+.nav-icon:hover { color: #e7e5e5; }
+
+/* ── Cart button ──────────────────────────────── */
+.cart-btn {
+    letter-spacing: 0.15em;
+    color: #a1a1a1;
+}
+.cart-btn:hover { color: #e7e5e5; }
+
+/* ── Hamburger ────────────────────────────────── */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1100;
+    color: #e7e5e5;
+}
+
+/* ── Mobile overlay ───────────────────────────── */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ── Mobile drawer ────────────────────────────── */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 380px;
+    height: 100vh;
+    height: 100dvh;
+    background: #0e0e0e;
+    border-left: 1px solid rgba(72, 72, 72, 0.2);
+    z-index: 1060;
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 80px 28px 40px;
+}
+.mobile-menu.active { right: 0; }
+
+.mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #a1a1a1;
+    padding: 8px;
+    transition: color 0.2s;
+}
+.mobile-menu-close:hover { color: #e7e5e5; }
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e7e5e5;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(72, 72, 72, 0.18);
+    transition: color 0.2s, padding-left 0.2s;
+}
+.mobile-nav-link:hover { color: #a1a1a1; padding-left: 8px; }
+
+.mobile-nav-section { margin-top: 24px; margin-bottom: 8px; }
+
+.mobile-nav-section-title {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #484848;
+    margin-bottom: 12px;
+}
+
+.mobile-nav-sub-link {
+    display: block;
+    padding: 10px 0 10px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #767575;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.mobile-nav-sub-link:hover { color: #e7e5e5; }
+
+.mobile-nav-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(72, 72, 72, 0.18);
+}
+
+.mobile-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 12px 16px;
+    background: #191a1a;
+    border: 1px solid rgba(72, 72, 72, 0.25);
+    border-radius: 4px;
+}
+
+.mobile-search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #e7e5e5;
+    font-family: inherit;
+}
+.mobile-search-bar input::placeholder { color: #484848; }
+
+/* ── Mega Menu ────────────────────────────────── */
+.nav-item-group { position: static; }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+<<<<<<< HEAD
+    background: var(--color-white);
+    /* Was #fff */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    border-top: 1px solid var(--color-grey-100);
+    /* Was #f0f0f0 */
+}
+
+/* Fix shadow for dark mode */
+html.dark .mega-menu {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid var(--color-grey-800);
+=======
+    background: #0e0e0e;
+    border-top: 1px solid rgba(72, 72, 72, 0.2);
+    border-bottom: 1px solid rgba(72, 72, 72, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.nav-item-group:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mega-menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+<<<<<<< HEAD
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 300px;
+    /* 3 columns for links, 1 for image */
+    gap: 40px;
+}
+
+.mega-menu-column h3 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--color-black);
+    /* Was #000 */
+    letter-spacing: 1px;
+}
+
+.mega-menu-column a {
+    display: block;
+    color: var(--color-grey-500);
+    /* Was #666 */
+    text-decoration: none;
+    padding: 8px 0;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.mega-menu-column a:hover {
+    color: var(--color-black);
+    /* Was #000 */
+    transform: translateX(5px);
+    /* Gentle nudge */
+}
+
+.mega-menu-featured {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 300px;
+=======
+    padding: 36px 24px 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 280px;
+    gap: 40px;
+}
+
+.mega-menu-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.mega-col-heading {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e7e5e5;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(72, 72, 72, 0.35);
+    transition: opacity 0.2s;
+}
+.mega-col-heading:hover { opacity: 0.6; }
+
+.mega-sub-group {
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.mega-sub-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #484848;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mega-sub-label::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #484848;
+    flex-shrink: 0;
+}
+
+.mega-link {
+    display: flex;
+    align-items: center;
+    color: #767575;
+    text-decoration: none;
+    padding: 6px 0;
+    font-size: 13px;
+    font-weight: 400;
+    transition: color 0.18s ease, gap 0.18s ease;
+    gap: 0;
+}
+
+.mega-link::after {
+    content: '→';
+    font-size: 11px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.mega-link:hover { color: #e7e5e5; gap: 6px; }
+.mega-link:hover::after { opacity: 1; transform: translateX(0); }
+
+.mega-shop-all {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #e7e5e5;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(231, 229, 229, 0.3);
+    padding-bottom: 1px;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+}
+.mega-shop-all:hover { opacity: 1; }
+
+.mega-menu-featured {
+    position: relative;
+    overflow: hidden;
+    height: 290px;
+    text-decoration: none;
+    border-radius: 2px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.mega-menu-featured img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+<<<<<<< HEAD
+    transition: transform 0.5s ease;
+=======
+    filter: grayscale(20%);
+    transition: transform 0.5s ease, filter 0.5s ease;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.mega-menu-featured:hover img {
+    transform: scale(1.05);
+<<<<<<< HEAD
+=======
+    filter: grayscale(0%);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.featured-text {
+    position: absolute;
+<<<<<<< HEAD
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    /* Keep white for overlay text on image */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.featured-text span {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: inline-block;
+=======
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 32px 20px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    color: white;
+}
+
+.featured-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: white;
+    color: #000;
+    padding: 3px 8px;
+    margin-bottom: 8px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.featured-text p {
+    font-size: 18px;
+<<<<<<< HEAD
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Search Bar Styles */
+.search-bar-active {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-black);
+    /* Was #000 */
+    padding-bottom: 5px;
+    margin-right: 15px;
+=======
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.3px;
+}
+
+.featured-text small {
+    font-size: 11px;
+    opacity: 0.7;
+    font-weight: 400;
+}
+
+/* ── Search bar ───────────────────────────────── */
+.search-bar-active {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(231, 229, 229, 0.4);
+    padding-bottom: 4px;
+    margin-right: 12px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    animation: fadeIn 0.3s ease;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+<<<<<<< HEAD
+    font-size: 14px;
+    background: transparent;
+    width: 200px;
+    color: var(--color-black);
+    /* Was #000 */
+}
+
+.search-input::placeholder {
+    color: var(--color-grey-500);
+    /* Was #888 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        width: 0;
+    }
+
+    to {
+        opacity: 1;
+        width: 200px;
+    }
+}
+
+/* Search Suggestions */
+.search-container {
+    position: relative;
+    /* To anchor the suggestions absolute position */
+}
+=======
+    font-size: 12px;
+    background: transparent;
+    width: min(200px, 40vw);
+    color: #e7e5e5;
+    font-family: inherit;
+}
+.search-input::placeholder { color: #484848; }
+
+@keyframes fadeIn {
+    from { opacity: 0; width: 0; }
+    to   { opacity: 1; width: min(200px, 40vw); }
+}
+
+/* ── Search suggestions ───────────────────────── */
+.search-container { position: relative; }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+<<<<<<< HEAD
+    width: 250px;
+    /* Wider than input usually */
+    background: var(--color-white);
+    border: 1px solid var(--color-grey-200);
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1100;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+html.dark .search-suggestions {
+    background: var(--color-black);
+    border-color: var(--color-grey-800);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+=======
+    width: 280px;
+    background: #131313;
+    border: 1px solid rgba(72, 72, 72, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 1100;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 8px;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+<<<<<<< HEAD
+    padding: 10px 15px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-grey-100);
+}
+
+html.dark .suggestion-item {
+    border-color: var(--color-grey-800);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: var(--color-grey-50);
+}
+
+html.dark .suggestion-item:hover {
+    background-color: var(--color-grey-100);
+}
+=======
+    padding: 12px 16px;
+    transition: background 0.15s;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(72, 72, 72, 0.15);
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: #1f2020; }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+
+.suggestion-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+<<<<<<< HEAD
+    border-radius: 4px;
+    background-color: var(--color-grey-50);
+}
+
+.suggestion-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-black);
+}
+
+.suggestion-price {
+    font-size: 12px;
+    color: var(--color-grey-500);
+}
+=======
+    background: #191a1a;
+    flex-shrink: 0;
+}
+
+.suggestion-info { display: flex; flex-direction: column; }
+
+.suggestion-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e7e5e5;
+}
+
+.suggestion-price {
+    font-size: 11px;
+    color: #767575;
+    margin-top: 2px;
+}
+
+/* ════════════════════════════════════════════════
+   MOBILE — max-width: 768px
+   ════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .navbar { padding: 12px 0; }
+    .navbar.scrolled { padding: 10px 0; }
+
+    .navbar-container { padding: 0 16px; }
+
+    .navbar-left { display: none; }
+
+    .navbar-right .nav-link,
+    .navbar-right .search-bar-active,
+    .navbar-right .nav-icon:not(.cart-btn):not(.hamburger-btn) {
+        display: none;
+    }
+
+    .navbar-right { gap: 14px; flex: unset; }
+    .navbar-center { flex: unset; justify-content: flex-start; }
+
+    .logo { font-size: 19px; }
+
+    .hamburger-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-menu-overlay { display: block; }
+    .mobile-menu { display: block; }
+
+    .mega-menu { display: none !important; }
+
+    .search-suggestions { width: 100%; left: 0; right: 0; }
+}
+
+/* ════════════════════════════════════════════════
+   TABLET — 769px to 1023px
+   ════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .mega-menu-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        padding: 30px 20px;
+    }
+
+    .mega-menu-featured { display: none; }
+
+    .navbar-left,
+    .navbar-right { gap: 20px; }
+
+    .search-input { width: 150px; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; width: 0; }
+        to   { opacity: 1; width: 150px; }
+    }
+}
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)

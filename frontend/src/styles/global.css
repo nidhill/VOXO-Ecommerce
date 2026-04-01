@@ -1,0 +1,119 @@
+@import './variables.css';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--color-black);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+<<<<<<< HEAD
+    scroll-behavior: smooth;
+=======
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+body {
+    line-height: 1.5;
+    background-color: var(--color-white);
+<<<<<<< HEAD
+=======
+    overflow-x: hidden;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+<<<<<<< HEAD
+    padding: 0 var(--space-4);
+}
+
+.section {
+    padding: var(--space-8) 0;
+=======
+    padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
+}
+
+.section {
+    padding: var(--space-6) 0;
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: var(--space-8) 0;
+    }
+}
+
+/* Utility: hide on mobile, show on desktop */
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .desktop-only {
+        display: block;
+    }
+}
+
+/* Utility: show on mobile, hide on desktop */
+.mobile-only {
+    display: block;
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}

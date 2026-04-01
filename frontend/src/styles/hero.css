@@ -1,0 +1,219 @@
+.hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    overflow: hidden;
+    padding: var(--space-8) 0;
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+<<<<<<< HEAD
+    gap: var(--space-12);
+=======
+    gap: var(--space-8);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+@media (min-width: 1024px) {
+    .hero-container {
+        flex-direction: row;
+<<<<<<< HEAD
+=======
+        gap: var(--space-12);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    }
+}
+
+.hero-content {
+    flex: 1;
+    text-align: center;
+    z-index: 10;
+}
+
+@media (min-width: 1024px) {
+    .hero-content {
+        text-align: left;
+    }
+}
+
+.hero-title {
+    font-size: var(--text-giant);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--space-6);
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+<<<<<<< HEAD
+    font-size: var(--text-xl);
+    color: var(--color-grey-500);
+    margin-bottom: var(--space-12);
+=======
+    font-size: var(--text-lg);
+    color: var(--color-grey-500);
+    margin-bottom: var(--space-8);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+<<<<<<< HEAD
+@media (min-width: 1024px) {
+    .hero-subtitle {
+        margin-left: 0;
+        margin-right: 0;
+=======
+@media (max-width: 480px) {
+    .hero-subtitle {
+        font-size: var(--text-base);
+        margin-bottom: var(--space-6);
+        padding: 0 8px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-subtitle {
+        font-size: var(--text-xl);
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: var(--space-12);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    }
+}
+
+.hero-actions {
+    display: flex;
+<<<<<<< HEAD
+    gap: var(--space-4);
+    justify-content: center;
+=======
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+@media (min-width: 1024px) {
+    .hero-actions {
+        justify-content: flex-start;
+<<<<<<< HEAD
+=======
+        gap: var(--space-4);
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+    }
+}
+
+.btn-primary,
+.btn-secondary {
+<<<<<<< HEAD
+    padding: var(--space-4) var(--space-8);
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: transform var(--transition-fast);
+=======
+    padding: var(--space-3) var(--space-6);
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: transform var(--transition-fast);
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+
+    .btn-primary,
+    .btn-secondary {
+        padding: var(--space-4) var(--space-8);
+        font-size: var(--text-base);
+    }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
+
+.btn-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    border: 2px solid var(--color-black);
+    color: var(--color-black);
+}
+
+.btn-secondary:hover {
+    transform: scale(1.05);
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    position: relative;
+<<<<<<< HEAD
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image {
+    max-width: 120%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+=======
+    width: 100%;
+    max-width: 540px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12));
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: var(--space-8);
+    }
+
+    .hero-image-wrapper {
+        max-width: 82%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+    .hero {
+        min-height: 70vh;
+        padding-top: 100px;
+    }
+
+    .hero-image-wrapper {
+        max-width: 60%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-image-wrapper {
+        max-width: 580px;
+    }
+>>>>>>> 2fcbeb1 (Initial clean commit — WAVWAY e-commerce project)
+}
