@@ -26,6 +26,248 @@
     .av-right { display: none; }
 }
 
+@media (max-width: 768px) {
+    .av-page {
+        height: 100dvh;
+        height: auto;
+        min-height: 100vh;
+        padding-top: 0;
+    }
+
+    .av-left {
+        padding: 20px 16px 40px;
+        max-height: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .av-topbar {
+        margin-bottom: 20px;
+    }
+
+    .av-logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    .av-back {
+        font-size: 13px;
+    }
+
+    .av-form-wrap {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .av-title {
+        font-size: 22px;
+        margin-bottom: 16px;
+    }
+
+    .av-form {
+        gap: 10px;
+    }
+
+    .av-input {
+        padding: 12px 16px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .av-label {
+        font-size: 13px;
+    }
+
+    .av-google-wrap {
+        margin-bottom: 14px;
+    }
+
+    .av-or {
+        margin: 2px 0 10px;
+        font-size: 12px;
+    }
+
+    .av-submit {
+        padding: 12px;
+        min-height: 44px;
+        font-size: 14px;
+        border-radius: 8px;
+        margin-top: 2px;
+    }
+
+    .av-switch {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .av-switch-btn {
+        font-size: 13px;
+    }
+
+    .av-guest-btn {
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .av-checkbox-label {
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    .av-error {
+        font-size: 12px;
+        padding: 8px 12px;
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .av-page {
+        height: 100dvh;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .av-left {
+        padding: 16px 14px 32px;
+        flex: 0 0 auto;
+        min-height: auto;
+    }
+
+    .av-topbar {
+        margin-bottom: 18px;
+        gap: 10px;
+    }
+
+    .av-logo {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+    }
+
+    .av-back {
+        font-size: 12px;
+    }
+
+    .av-title {
+        font-size: 19px;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .av-form-wrap {
+        max-width: 100%;
+        justify-content: flex-start;
+        margin: 0;
+    }
+
+    .av-form {
+        gap: 9px;
+    }
+
+    .av-field {
+        gap: 5px;
+    }
+
+    .av-input {
+        padding: 11px 14px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1.5px solid #e4e4e7;
+    }
+
+    .av-input::placeholder {
+        font-size: 14px;
+    }
+
+    .av-label {
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .av-pass-wrap .av-input {
+        padding-right: 40px;
+    }
+
+    .av-eye {
+        right: 14px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .av-google-wrap {
+        margin-bottom: 12px;
+    }
+
+    .av-google-wrap > div,
+    .av-google-wrap iframe,
+    .av-google-wrap [data-text] {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .av-or {
+        margin: 1px 0 8px;
+        font-size: 11px;
+    }
+
+    .av-or::before,
+    .av-or::after {
+        height: 1px;
+    }
+
+    .av-checkbox-label {
+        font-size: 12px;
+        gap: 8px;
+        line-height: 1.4;
+    }
+
+    .av-checkbox-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+    .av-submit {
+        padding: 11px;
+        min-height: 44px;
+        font-size: 13px;
+        border-radius: 8px;
+        margin-top: 1px;
+        font-weight: 600;
+    }
+
+    .av-switch {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .av-switch-btn {
+        font-size: 12px;
+    }
+
+    .av-guest-btn {
+        padding: 10px 12px;
+        font-size: 11px;
+        border-radius: 8px;
+        margin-top: 8px;
+        gap: 6px;
+    }
+
+    .av-error {
+        font-size: 11px;
+        padding: 8px 11px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+
+    .av-link {
+        font-size: 12px;
+    }
+}
+
 .av-topbar {
     display: flex;
     align-items: center;
@@ -555,4 +797,257 @@
 .auth-guest-note {
     text-align: center; font-size: 11px;
     color: #a1a1aa; margin-top: 8px; line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE AUTH MODAL
+═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .auth-modal-backdrop {
+        padding: 16px;
+    }
+
+    .auth-modal {
+        max-width: 100%;
+        padding: 24px;
+        border-radius: 20px;
+        max-height: calc(100vh - 32px);
+    }
+
+    .auth-modal-close {
+        width: 28px;
+        height: 28px;
+        top: 12px;
+        right: 12px;
+    }
+
+    .auth-modal-logo {
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+
+    .auth-modal-pretitle {
+        font-size: 10px;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    .auth-modal .av-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .auth-tabs {
+        margin-bottom: 16px;
+    }
+
+    .auth-tab {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .auth-form {
+        gap: 10px;
+    }
+
+    .auth-field {
+        gap: 4px;
+    }
+
+    .auth-label {
+        font-size: 12px;
+    }
+
+    .auth-input {
+        padding: 11px 14px 11px 36px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .auth-input-icon {
+        left: 12px;
+        font-size: 14px;
+    }
+
+    .auth-eye-btn {
+        right: 12px;
+    }
+
+    .auth-submit-btn {
+        padding: 11px;
+        min-height: 44px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .auth-error {
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .auth-divider {
+        margin: 10px 0;
+        font-size: 11px;
+    }
+
+    .auth-google-wrap {
+        margin-bottom: 2px;
+    }
+
+    .auth-guest-wrap {
+        margin-top: 10px;
+    }
+
+    .auth-guest-btn {
+        padding: 10px;
+        font-size: 12px;
+        min-height: 44px;
+    }
+
+    .auth-guest-note {
+        font-size: 10px;
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-modal-backdrop {
+        padding: 12px;
+    }
+
+    .auth-modal {
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 16px;
+        max-height: calc(100vh - 24px);
+        width: 100%;
+    }
+
+    .auth-modal-close {
+        width: 26px;
+        height: 26px;
+        top: 10px;
+        right: 10px;
+        font-size: 16px;
+    }
+
+    .auth-modal-logo {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 2px;
+    }
+
+    .auth-modal-pretitle {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+        gap: 6px;
+    }
+
+    .auth-modal .av-title {
+        font-size: 16px;
+        margin-bottom: 14px;
+        text-align: left;
+    }
+
+    .auth-tabs {
+        margin-bottom: 14px;
+        border-radius: 8px;
+        padding: 2px;
+        gap: 1px;
+    }
+
+    .auth-tab {
+        padding: 7px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+
+    .auth-form {
+        gap: 8px;
+    }
+
+    .auth-field {
+        gap: 4px;
+    }
+
+    .auth-label {
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .auth-optional {
+        font-size: 10px;
+    }
+
+    .auth-input {
+        padding: 10px 12px 10px 34px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1.5px solid #e4e4e7;
+    }
+
+    .auth-input-icon {
+        left: 10px;
+        font-size: 13px;
+    }
+
+    .auth-input-pass {
+        padding-right: 38px;
+    }
+
+    .auth-eye-btn {
+        right: 10px;
+        font-size: 16px;
+    }
+
+    .auth-submit-btn {
+        padding: 10px;
+        min-height: 44px;
+        font-size: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        gap: 6px;
+    }
+
+    .auth-spinner {
+        width: 14px;
+        height: 14px;
+    }
+
+    .auth-error {
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 10px;
+        margin-bottom: 8px;
+    }
+
+    .auth-divider {
+        margin: 8px 0;
+        font-size: 10px;
+    }
+
+    .auth-google-wrap {
+        margin-bottom: 0;
+    }
+
+    .auth-guest-wrap {
+        margin-top: 8px;
+    }
+
+    .auth-guest-btn {
+        padding: 9px 10px;
+        font-size: 11px;
+        min-height: 44px;
+        border-radius: 8px;
+        gap: 5px;
+    }
+
+    .auth-guest-note {
+        font-size: 9px;
+        margin-top: 5px;
+    }
 }
