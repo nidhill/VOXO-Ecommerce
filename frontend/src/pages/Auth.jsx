@@ -69,9 +69,6 @@ const Auth = () => {
                     <h1 className="av-title">
                         {mode === 'signup' ? 'Create your account' : 'Welcome back'}
                     </h1>
-                    <p className="av-subtitle">
-                        {mode === 'signup' ? 'Step into the digital atelier.' : 'Sign in to continue shopping.'}
-                    </p>
 
                     {error && <div className="av-error">{error}</div>}
 
