@@ -6,7 +6,7 @@
     display: flex;
     height: 100vh;
     max-height: 100vh;
-    background: #fff;
+    background: #1a1a1a;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow: hidden;
 }
@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     padding: 32px 48px 40px;
-    background: #fff;
+    background: #1a1a1a;
     overflow: hidden;
 }
 
@@ -98,9 +98,12 @@
     }
 
     .av-input {
-        padding: 12px 16px;
+        padding: 12px 0;
         font-size: 16px;
-        border-radius: 8px;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #333333;
+        background: transparent;
     }
 
     .av-label {
@@ -119,9 +122,13 @@
     .av-submit {
         padding: 12px;
         min-height: 44px;
-        font-size: 14px;
-        border-radius: 8px;
-        margin-top: 2px;
+        font-size: 13px;
+        border-radius: 0;
+        margin-top: 8px;
+        background: #888888;
+        color: #000000;
+        letter-spacing: 1px;
+        text-transform: uppercase;
     }
 
     .av-switch {
@@ -135,9 +142,13 @@
 
     .av-guest-btn {
         padding: 10px;
-        font-size: 12px;
-        border-radius: 8px;
-        margin-top: 10px;
+        font-size: 11px;
+        border-radius: 0;
+        margin-top: 12px;
+        background: transparent;
+        border: 1px solid #333333;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .av-checkbox-label {
@@ -214,14 +225,18 @@
     }
 
     .av-input {
-        padding: 11px 14px;
+        padding: 11px 0;
         font-size: 16px;
-        border-radius: 8px;
-        border: 1.5px solid #e4e4e7;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #333333;
+        background: transparent;
+        color: #ffffff;
     }
 
     .av-input::placeholder {
         font-size: 14px;
+        color: #666666;
     }
 
     .av-label {
@@ -230,13 +245,13 @@
     }
 
     .av-pass-wrap .av-input {
-        padding-right: 40px;
+        padding-right: 0;
     }
 
     .av-eye {
-        right: 14px;
-        width: 40px;
-        height: 40px;
+        right: 0;
+        width: 32px;
+        height: 32px;
     }
 
     .av-google-wrap {
@@ -261,49 +276,61 @@
     }
 
     .av-checkbox-label {
-        font-size: 12px;
+        font-size: 11px;
         gap: 8px;
         line-height: 1.4;
+        color: #999999;
     }
 
     .av-checkbox-box {
-        width: 18px;
-        height: 18px;
-        border-radius: 4px;
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
         flex-shrink: 0;
+        border: 1.5px solid #666666;
+        background: transparent;
     }
 
     .av-submit {
         padding: 11px;
         min-height: 44px;
-        font-size: 13px;
-        border-radius: 8px;
-        margin-top: 1px;
-        font-weight: 600;
+        font-size: 12px;
+        border-radius: 0;
+        margin-top: 8px;
+        font-weight: 700;
+        background: #888888;
+        color: #000000;
+        letter-spacing: 1px;
+        text-transform: uppercase;
     }
 
     .av-switch {
-        font-size: 12px;
-        margin-top: 10px;
+        font-size: 11px;
+        margin-top: 12px;
     }
 
     .av-switch-btn {
-        font-size: 12px;
+        font-size: 11px;
+        font-style: italic;
     }
 
     .av-guest-btn {
         padding: 10px 12px;
-        font-size: 11px;
-        border-radius: 8px;
-        margin-top: 8px;
+        font-size: 10px;
+        border-radius: 0;
+        margin-top: 10px;
         gap: 6px;
+        background: transparent;
+        border: 1px solid #333333;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .av-error {
-        font-size: 11px;
+        font-size: 10px;
         padding: 8px 11px;
-        margin-bottom: 12px;
-        border-radius: 8px;
+        margin-bottom: 10px;
+        border-radius: 0;
     }
 
     .av-link {
@@ -323,7 +350,7 @@
     font-size: 17px;
     font-weight: 800;
     letter-spacing: 3px;
-    color: #0a0a0a;
+    color: #ffffff;
 }
 
 .av-back {
@@ -332,11 +359,11 @@
     gap: 6px;
     font-size: 14px;
     font-weight: 500;
-    color: #3f3f46;
+    color: #999999;
     text-decoration: none;
     transition: color 0.15s;
 }
-.av-back:hover { color: #0a0a0a; }
+.av-back:hover { color: #ffffff; }
 
 /* Form area */
 .av-form-wrap {
@@ -352,20 +379,29 @@
 .av-title {
     font-size: 26px;
     font-weight: 700;
-    color: #0a0a0a;
+    color: #ffffff;
     margin-bottom: 18px;
     letter-spacing: -0.3px;
     text-align: center;
 }
 
+.av-subtitle {
+    font-size: 12px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
 .av-error {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #dc2626;
-    font-size: 13px;
+    background: #3a2222;
+    border: 1px solid #6b3333;
+    color: #ff6b6b;
+    font-size: 12px;
     font-weight: 500;
     padding: 10px 14px;
-    border-radius: 10px;
+    border-radius: 2px;
     margin-bottom: 16px;
     text-align: center;
 }
@@ -390,15 +426,17 @@
     align-items: center;
     gap: 12px;
     margin: 4px 0 14px;
-    color: #a1a1aa;
-    font-size: 13px;
+    color: #666666;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 .av-or::before,
 .av-or::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: #e4e4e7;
+    background: #333333;
 }
 
 /* Form */
@@ -417,26 +455,30 @@
 .av-label {
     font-size: 14px;
     font-weight: 500;
-    color: #0a0a0a;
+    color: #cccccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 12px;
 }
 
 .av-input {
     width: 100%;
-    padding: 13px 20px;
-    border: 1.5px solid #e4e4e7;
-    border-radius: 100px;
+    padding: 14px 0;
+    border: none;
+    border-bottom: 1px solid #333333;
+    border-radius: 0;
     font-size: 14px;
-    color: #0a0a0a;
-    background: #fff;
+    color: #ffffff;
+    background: transparent;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s;
     font-family: inherit;
     box-sizing: border-box;
 }
-.av-input::placeholder { color: #a1a1aa; }
+.av-input::placeholder { color: #666666; }
 .av-input:focus {
-    border-color: #0a0a0a;
-    box-shadow: 0 0 0 3px rgba(10,10,10,0.06);
+    border-bottom-color: #ffffff;
+    box-shadow: none;
 }
 
 /* Password */
@@ -444,27 +486,27 @@
 .av-pass-wrap .av-input { padding-right: 50px; }
 .av-eye {
     position: absolute;
-    right: 18px;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    color: #71717a;
+    color: #999999;
     display: flex;
     align-items: center;
     padding: 0;
     line-height: 1;
 }
-.av-eye:hover { color: #0a0a0a; }
+.av-eye:hover { color: #ffffff; }
 
 /* Checkbox */
 .av-checkbox-label {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 14px;
-    color: #3f3f46;
+    font-size: 13px;
+    color: #999999;
     cursor: pointer;
     user-select: none;
 }
@@ -473,8 +515,8 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1.5px solid #d4d4d8;
-    background: #fff;
+    border: 1.5px solid #666666;
+    background: transparent;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -482,8 +524,8 @@
     transition: border-color 0.15s, background 0.15s;
 }
 .av-checkbox:checked + .av-checkbox-box {
-    background: #0a0a0a;
-    border-color: #0a0a0a;
+    background: #ffffff;
+    border-color: #ffffff;
 }
 .av-checkbox:checked + .av-checkbox-box::after {
     content: '';
@@ -495,7 +537,7 @@
     display: block;
 }
 .av-link {
-    color: #0a0a0a;
+    color: #ffffff;
     font-weight: 600;
     text-decoration: underline;
 }
@@ -504,12 +546,12 @@
 .av-submit {
     width: 100%;
     padding: 14px;
-    background: #0a0a0a;
-    color: #fff;
+    background: #888888;
+    color: #000000;
     border: none;
-    border-radius: 100px;
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.15s;
     font-family: inherit;
@@ -517,11 +559,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 4px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.av-submit:hover { opacity: 0.85; }
+.av-submit:hover { opacity: 0.9; }
 .av-submit:active { transform: scale(0.98); }
-.av-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+.av-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
 @keyframes av-spin { to { transform: rotate(360deg); } }
 .av-spinner {
@@ -536,20 +580,22 @@
 /* Switch */
 .av-switch {
     text-align: center;
-    font-size: 14px;
-    color: #71717a;
-    margin-top: 14px;
+    font-size: 13px;
+    color: #999999;
+    margin-top: 20px;
+    font-style: italic;
 }
 .av-switch-btn {
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: #0a0a0a;
+    color: #ffffff;
     cursor: pointer;
     padding: 0;
     font-family: inherit;
-    text-decoration: underline;
+    text-decoration: none;
+    font-style: italic;
 }
 
 /* Guest */
@@ -560,18 +606,20 @@
     gap: 8px;
     width: 100%;
     padding: 12px;
-    background: #f4f4f5;
-    color: #3f3f46;
-    border: none;
-    border-radius: 100px;
-    font-size: 13px;
+    background: transparent;
+    color: #cccccc;
+    border: 1px solid #333333;
+    border-radius: 2px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: all 0.15s;
     font-family: inherit;
-    margin-top: 12px;
+    margin-top: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-.av-guest-btn:hover { background: #e4e4e7; color: #0a0a0a; }
+.av-guest-btn:hover { background: transparent; color: #ffffff; border-color: #666666; }
 
 /* ── Right ──────────────────────────────── */
 .av-right {
@@ -580,7 +628,7 @@
     align-items: center;
     justify-content: center;
     padding: 32px 32px 32px 0;
-    background: #fff;
+    background: #000000;
 }
 
 .av-image-blob {
@@ -671,35 +719,36 @@
 }
 
 .auth-modal {
-    background: #fff;
-    border-radius: 24px;
+    background: #1a1a1a;
+    border-radius: 0;
     width: 100%;
     max-width: 400px;
     padding: 32px;
     position: relative;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.8);
     max-height: 90vh;
     overflow-y: auto;
+    border: 1px solid #333333;
 }
 
 .auth-modal-close {
     position: absolute;
     top: 16px; right: 16px;
     width: 30px; height: 30px;
-    background: #f4f4f5;
-    border: none; border-radius: 50%;
+    background: #333333;
+    border: none; border-radius: 0;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    color: #71717a;
+    color: #999999;
     transition: background 0.15s;
 }
-.auth-modal-close:hover { background: #e4e4e7; }
+.auth-modal-close:hover { background: #444444; color: #ffffff; }
 
 .auth-modal-logo {
     font-size: 15px;
     font-weight: 800;
     letter-spacing: 3px;
-    color: #0a0a0a;
+    color: #ffffff;
     margin-bottom: 4px;
     display: block;
 }
@@ -712,19 +761,19 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: #6366f1;
+    color: #999999;
     margin-bottom: 20px;
 }
 .auth-modal-pretitle-dot {
     width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #6366f1;
+    border-radius: 0;
+    background: #999999;
 }
 
 /* Modal reuses av- classes */
-.auth-modal .av-input { border-radius: 100px; }
-.auth-modal .av-submit { border-radius: 100px; }
-.auth-modal .av-guest-btn { border-radius: 100px; }
+.auth-modal .av-input { border-radius: 0; border: none; border-bottom: 1px solid #333333; background: transparent; }
+.auth-modal .av-submit { border-radius: 0; }
+.auth-modal .av-guest-btn { border-radius: 0; }
 .auth-modal .av-title {
     font-size: 20px;
     text-align: left;
