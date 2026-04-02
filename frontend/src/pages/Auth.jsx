@@ -15,6 +15,7 @@ const Auth = () => {
 
     const { login, register, googleLogin, continueAsGuest } = useAuth();
     const navigate = useNavigate();
+    const hasGoogleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== '';
 
     const handleChange = (e) => {
         setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -41,8 +42,8 @@ const Auth = () => {
         try {
             await googleLogin(credentialResponse.credential);
             navigate('/');
-        } catch {
-            setError('Google sign-in failed. Try again.');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Google sign-in failed. Try again.');
         }
     };
 
@@ -71,20 +72,23 @@ const Auth = () => {
 
                     {error && <div className="av-error">{error}</div>}
 
-                    {/* Google */}
-                    <div className="av-google-wrap">
-                        <GoogleLogin
-                            onSuccess={handleGoogle}
-                            onError={() => setError('Google sign-in failed')}
-                            theme="outline"
-                            size="large"
-                            width="360"
-                            text={mode === 'signup' ? 'signup_with' : 'signin_with'}
-                            shape="pill"
-                        />
-                    </div>
-
-                    <div className="av-or"><span>or</span></div>
+                    {/* Google - Only show if client ID is configured */}
+                    {hasGoogleClientId && (
+                        <>
+                            <div className="av-google-wrap">
+                                <GoogleLogin
+                                    onSuccess={handleGoogle}
+                                    onError={() => setError('Google sign-in failed')}
+                                    theme="outline"
+                                    size="large"
+                                    width={360}
+                                    text={mode === 'signup' ? 'signup_with' : 'signin_with'}
+                                    shape="pill"
+                                />
+                            </div>
+                            <div className="av-or"><span>or</span></div>
+                        </>
+                    )}
 
                     <form className="av-form" onSubmit={handleSubmit}>
                         {mode === 'signup' && (

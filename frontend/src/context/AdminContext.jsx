@@ -21,9 +21,9 @@ export const AdminProvider = ({ children }) => {
     }, []);
 
     const login = (email, password) => {
-        // Hardcoded credentials as requested
-        if (email === 'nidhiljabbar@gmail.com' && password === 'nidhil') {
-            const userData = { email, name: 'Nidhil Jabbar', role: 'admin' };
+        // Hardcoded credentials
+        if (email === 'admin@wavway.com' && password === 'admin123') {
+            const userData = { email, name: 'Admin', role: 'admin' };
             localStorage.setItem('admin_auth', JSON.stringify(userData));
             setAdminUser(userData);
             setIsAuthenticated(true);

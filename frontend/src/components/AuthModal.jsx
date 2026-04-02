@@ -14,6 +14,7 @@ const AuthModal = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [form, setForm] = useState({ name: '', email: '', password: '', phone: '' });
+    const hasGoogleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID && import.meta.env.VITE_GOOGLE_CLIENT_ID !== '';
 
     if (!authModal.open) return null;
 
@@ -84,18 +85,22 @@ const AuthModal = () => {
                             initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}
                         >
-                            {/* Google */}
-                            <div className="auth-google-wrap">
-                                <GoogleLogin onSuccess={handleGoogle} onError={() => setError('Google sign-in failed')}
-                                    theme="outline" size="large" width="100%"
-                                    text={tab === 'login' ? 'signin_with' : 'signup_with'} shape="pill" />
-                            </div>
+                            {/* Google - Only show if client ID is configured */}
+                            {hasGoogleClientId && (
+                                <>
+                                    <div className="auth-google-wrap">
+                                        <GoogleLogin onSuccess={handleGoogle} onError={() => setError('Google sign-in failed')}
+                                            theme="outline" size="large" width={300}
+                                            text={tab === 'login' ? 'signin_with' : 'signup_with'} shape="pill" />
+                                    </div>
 
-                            <div className="auth-divider">
-                                <div className="auth-divider-line" />
-                                <span className="auth-divider-text">or</span>
-                                <div className="auth-divider-line" />
-                            </div>
+                                    <div className="auth-divider">
+                                        <div className="auth-divider-line" />
+                                        <span className="auth-divider-text">or</span>
+                                        <div className="auth-divider-line" />
+                                    </div>
+                                </>
+                            )}
 
                             {error && <div className="auth-error">{error}</div>}
 
