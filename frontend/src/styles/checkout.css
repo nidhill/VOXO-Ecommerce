@@ -135,6 +135,237 @@
     .bag-main { padding: 40px 20px 60px; }
 }
 
+@media (max-width: 1023px) {
+    .bag-layout {
+        gap: 32px;
+    }
+
+    .bag-sidebar {
+        position: static;
+        top: auto;
+    }
+
+    .bag-sidebar-inner {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .bag-nav {
+        padding: 14px 16px;
+    }
+
+    .bag-nav-left {
+        gap: 16px;
+        min-width: 0;
+    }
+
+    .bag-nav-brand {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .bag-nav-right {
+        gap: 12px;
+    }
+
+    .bag-nav-user {
+        gap: 6px;
+        font-size: 11px;
+    }
+
+    .bag-main {
+        padding: 28px 16px 44px;
+    }
+
+    .bag-header {
+        margin-bottom: 32px;
+    }
+
+    .bag-title {
+        font-size: clamp(36px, 13vw, 54px);
+        line-height: 0.95;
+    }
+
+    .bag-subtitle {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        line-height: 1.5;
+        max-width: 24ch;
+    }
+
+    .bag-layout {
+        gap: 24px;
+    }
+
+    .bag-item {
+        gap: 18px;
+        padding-bottom: 28px;
+        margin-bottom: 28px;
+    }
+
+    .bag-item-img-wrap {
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+    }
+
+    .bag-item-top {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .bag-item-name {
+        font-size: clamp(20px, 7vw, 28px);
+        line-height: 1.05;
+        overflow-wrap: anywhere;
+    }
+
+    .bag-item-price {
+        font-size: 18px;
+        align-self: flex-start;
+    }
+
+    .bag-item-attrs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin: 18px 0;
+    }
+
+    .bag-item-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .bag-qty {
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 14px;
+    }
+
+    .bag-remove {
+        justify-content: center;
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid rgba(72, 72, 72, 0.25);
+        border-radius: 8px;
+    }
+
+    .bag-trust {
+        gap: 14px;
+        margin-top: 28px;
+        padding-top: 28px;
+    }
+
+    .bag-trust-item {
+        width: 100%;
+    }
+
+    .bag-field-group {
+        padding: 18px;
+    }
+
+    .bag-coupon-row {
+        flex-wrap: wrap;
+    }
+
+    .bag-coupon-input {
+        min-width: 0;
+        width: 100%;
+        order: 2;
+        padding-top: 4px;
+    }
+
+    .bag-coupon-apply {
+        margin-left: auto;
+    }
+
+    .bag-sidebar-inner {
+        padding: 20px;
+    }
+
+    .bag-mini-item {
+        gap: 10px;
+    }
+
+    .bag-mini-name {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        line-height: 1.25;
+    }
+
+    .bag-totals {
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .bag-cta-primary,
+    .bag-cta-secondary,
+    .bag-wa-btn {
+        width: 100%;
+        padding-left: 18px;
+        padding-right: 18px;
+        letter-spacing: 0.12em;
+    }
+
+    .bag-sidebar-note {
+        line-height: 1.6;
+    }
+
+    .bag-footer {
+        padding: 32px 16px;
+        gap: 18px;
+    }
+
+    .bag-footer-left {
+        gap: 14px;
+    }
+
+    .bag-footer-brand {
+        font-size: 26px;
+    }
+
+    .bag-footer-links {
+        gap: 14px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    .bag-main {
+        padding: 48px 32px 64px;
+    }
+
+    .bag-layout {
+        gap: 36px;
+    }
+
+    .bag-title {
+        font-size: clamp(54px, 6vw, 72px);
+    }
+
+    .bag-sidebar {
+        position: static;
+    }
+
+    .bag-sidebar-inner {
+        padding: 28px;
+    }
+
+    .bag-item-name {
+        font-size: clamp(24px, 3.8vw, 32px);
+    }
+
+    .bag-item-img-wrap {
+        max-width: 240px;
+    }
+
+    .bag-footer {
+        padding: 40px 32px;
+    }
+}
+
 /* ── Header ─────────────────────────────────────── */
 .bag-header {
     margin-bottom: 56px;

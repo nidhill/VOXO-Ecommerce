@@ -60,8 +60,29 @@ const Dashboard = () => {
             <style>{`
                 @media (max-width: 640px) {
                     .dash-page { padding: 16px !important; }
-                    .dash-grid4 { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+                    .dash-grid4 { grid-template-columns: 1fr !important; gap: 12px !important; }
                     .dash-grid2 { grid-template-columns: 1fr !important; }
+                    .dash-page .card { padding: 16px !important; }
+                    .dash-page .chartBox { height: 220px !important; }
+                    .dash-page .dash-grid4 .cardValue { font-size: 24px !important; }
+                    .dash-page .dash-grid2 > div { min-width: 0; }
+                    .dash-page .dash-grid2 svg { max-width: 100%; }
+                    .dash-page .dash-grid2 [style*="gridTemplateColumns: '1fr 1fr 1fr'"] { grid-template-columns: 1fr !important; }
+                    .dash-page .dash-grid2 [style*="gridTemplateColumns: '1fr 1fr 1fr'"],
+                    .dash-page .dash-grid2 [style*="gridTemplateColumns: '1fr 1fr 1fr'"] > div { width: 100% !important; }
+                    .dash-page .dash-grid2 [style*="display: flex; align-items: center; justify-content: space-between"] { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .dash-page .dash-grid2 [style*="display: flex; align-items: center; gap: '12px'"] { align-items: flex-start !important; }
+                    .dash-page .dash-grid2 [style*="display: flex; align-items: center; gap: '10px'; padding: '10px 12px'"] { flex-wrap: wrap !important; }
+                }
+                @media (min-width: 641px) and (max-width: 1023px) {
+                    .dash-page { padding: 20px !important; }
+                    .dash-grid4 { grid-template-columns: 1fr 1fr !important; gap: 14px !important; }
+                    .dash-grid2 { grid-template-columns: 1fr !important; gap: 14px !important; }
+                    .dash-page .card { padding: 18px !important; }
+                    .dash-page .chartBox { height: 240px !important; }
+                    .dash-page .dash-grid2 [style*="gridTemplateColumns: '1fr 1fr 1fr'"] { grid-template-columns: 1fr 1fr !important; }
+                    .dash-page .dash-grid2 [style*="gridTemplateColumns: '1fr 1fr 1fr'"] > div:last-child { grid-column: 1 / -1; }
+                    .dash-page .dash-grid2 [style*="display: flex; align-items: center; justify-content: space-between"] { gap: 14px !important; }
                 }
             `}</style>
             <div style={styles.header}>
