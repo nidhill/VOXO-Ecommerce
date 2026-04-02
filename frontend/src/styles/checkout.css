@@ -249,11 +249,14 @@
         gap: 18px;
         padding-bottom: 28px;
         margin-bottom: 28px;
+        flex-direction: row;
     }
 
     .bag-item-img-wrap {
-        max-width: 100%;
-        aspect-ratio: 4 / 5;
+        width: 110px;
+        flex-shrink: 0;
+        aspect-ratio: 3 / 4;
+        min-height: unset;
     }
 
     .bag-item-top {
@@ -868,10 +871,15 @@
         margin-bottom: 16px;
     }
 
+    .bag-item {
+        flex-direction: row;
+    }
+
     .bag-item-img-wrap {
-        max-width: 100%;
+        width: 90px;
+        flex-shrink: 0;
         aspect-ratio: 3 / 4;
-        min-height: 160px;
+        min-height: unset;
     }
 
     .bag-item-name {
