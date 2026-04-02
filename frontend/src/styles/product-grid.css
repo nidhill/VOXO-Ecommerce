@@ -85,6 +85,7 @@
     overflow: hidden;
     background-color: var(--color-grey-50);
     aspect-ratio: 3 / 4;
+    min-height: 200px;
 }
 
 @media (min-width: 768px) {

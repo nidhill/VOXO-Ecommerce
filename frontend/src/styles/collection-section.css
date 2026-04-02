@@ -33,6 +33,7 @@
     aspect-ratio: 4 / 5;
     display: block;
     background-color: var(--color-grey-100);
+    min-height: 240px;
 }
 
 .collection-image-wrapper-new {

@@ -102,7 +102,22 @@ const AdminBanners = () => {
             <style>{`
                 @media (max-width: 768px) {
                     .banners-page { padding: 16px !important; }
-                    .banners-grid { grid-template-columns: 1fr !important; }
+                    .banners-grid { 
+                        grid-template-columns: 1fr !important; 
+                        gap: 12px !important;
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .banners-page { padding: 12px !important; }
+                    .banners-grid { 
+                        grid-template-columns: 1fr !important;
+                        gap: 8px !important;
+                    }
+                }
+                
+                .banners-grid > div {
+                    min-height: 180px;
                 }
             `}</style>
 
