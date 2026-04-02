@@ -1,0 +1,443 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DEVICE-SPECIFIC RESPONSIVE DESIGN
+   Handles iOS, Android, tablets, and various screen sizes
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   iOS SPECIFIC FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Fix for notched iPhones and devices with home indicator */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+
+    .container {
+        padding-left: max(16px, calc(env(safe-area-inset-left) + 16px));
+        padding-right: max(16px, calc(env(safe-area-inset-right) + 16px));
+    }
+
+    /* Fixed elements (navbar, modals) */
+    .navbar, .mobile-menu, .auth-modal-backdrop {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 1024px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+        -webkit-user-select: text;
+        user-select: text;
+    }
+}
+
+/* iOS keyboard fix - adjust when virtual keyboard appears */
+@media (max-height: 500px) and (orientation: landscape) {
+    .navbar {
+        position: relative;
+        padding: 8px 0;
+    }
+    
+    .section {
+        padding: var(--space-4) 0;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   ANDROID SPECIFIC FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Fix for Chrome on Android - prevent text selection artifacts */
+body {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Allow text selection on actual text elements */
+p, span, a, button, label, input, textarea {
+    -webkit-user-select: auto;
+    -webkit-touch-callout: auto;
+}
+
+/* Remove extra space at bottom on Android browsers */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    position: relative;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   PHONE (Mobile) - Max 480px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+    /* Smaller padding for space efficiency */
+    .container {
+        padding: 0 12px;
+        padding-left: max(12px, calc(env(safe-area-inset-left) + 12px));
+        padding-right: max(12px, calc(env(safe-area-inset-right) + 12px));
+    }
+
+    /* Reduce font sizes for smaller screens */
+    body {
+        font-size: 14px;
+    }
+
+    /* Stack layouts vertically */
+    .grid-2-col,
+    .grid-3-col {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Make buttons and interactive elements touch-friendly */
+    button,
+    a:not(.text-link),
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Improve readability of forms on small screens */
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    /* Full-width modals on phone */
+    .modal,
+    .av-page,
+    .auth-modal {
+        margin: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    /* Reduce gap in grids for space */
+    .product-grid,
+    .collection-grid-new {
+        gap: 8px;
+    }
+
+    /* Reduce animations on low-end devices */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 100ms !important;
+            transition-duration: 100ms !important;
+        }
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   SMALL TABLET (Phablet) - 481px to 599px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 481px) and (max-width: 599px) {
+    .container {
+        padding: 0 14px;
+        padding-left: max(14px, calc(env(safe-area-inset-left) + 14px));
+        padding-right: max(14px, calc(env(safe-area-inset-right) + 14px));
+    }
+
+    /* 2-column layouts */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    button,
+    a:not(.text-link) {
+        min-height: 44px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   MEDIUM PHONE - 600px to 767px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .container {
+        padding: 0 16px;
+        padding-left: max(16px, calc(env(safe-area-inset-left) + 16px));
+        padding-right: max(16px, calc(env(safe-area-inset-right) + 16px));
+    }
+
+    /* 2-column grids */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    /* Improve spacing */
+    .section {
+        padding: var(--space-6) 0;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TABLET (Portrait) - 768px to 1023px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 24px;
+        padding-left: max(24px, calc(env(safe-area-inset-left) + 24px));
+        padding-right: max(24px, calc(env(safe-area-inset-right) + 24px));
+    }
+
+    /* Adjust for tablet screens */
+    body {
+        font-size: 16px;
+    }
+
+    /* 3-column grid for tablets */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 16px;
+    }
+
+    /* Better spacing on tablet */
+    .section {
+        padding: var(--space-10) 0;
+    }
+
+    /* Reduce navbar padding on tablet */
+    .navbar {
+        padding: 14px 0;
+    }
+
+    /* Full-width modals on tablet */
+    .modal {
+        max-width: 90vw;
+    }
+
+    /* 2-column layout for checkout on tablet */
+    .bag-layout {
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+    }
+
+    /* Sidebar navigation on tablet */
+    .sidebar {
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TABLET (Landscape) / iPad Mini - 1024px to 1279px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .container {
+        max-width: 960px;
+        padding: 0 28px;
+        padding-left: max(28px, calc(env(safe-area-inset-left) + 28px));
+        padding-right: max(28px, calc(env(safe-area-inset-right) + 28px));
+    }
+
+    /* 4-column grid */
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 18px;
+    }
+
+    /* Better spacing */
+    .section {
+        padding: var(--space-12) 0;
+    }
+
+    /* Checkout layout */
+    .bag-layout {
+        grid-template-columns: 1fr 400px;
+        gap: 48px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   DESKTOP - 1280px to 1535px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 32px;
+        padding-left: max(32px, calc(env(safe-area-inset-left) + 32px));
+        padding-right: max(32px, calc(env(safe-area-inset-right) + 32px));
+    }
+
+    /* 4-5 column grid */
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 20px;
+    }
+
+    /* Full spacing */
+    .section {
+        padding: var(--space-16) 0;
+    }
+
+    /* Large checkout */
+    .bag-layout {
+        grid-template-columns: 1fr 420px;
+        gap: 64px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   LARGE DESKTOP - 1536px+
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 40px;
+        padding-left: max(40px, calc(env(safe-area-inset-left) + 40px));
+        padding-right: max(40px, calc(env(safe-area-inset-right) + 40px));
+    }
+
+    /* 5-6 column grid */
+    .product-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 24px;
+    }
+
+    /* Maximum spacing */
+    .section {
+        padding: var(--space-20) 0;
+    }
+
+    /* Large checkout */
+    .bag-layout {
+        grid-template-columns: 1fr 480px;
+        gap: 80px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TOUCH DEVICE SPECIFIC
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Mobile/touch devices - always show hover states as visible states */
+    button,
+    a,
+    .interactive {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* Make overlays always visible on touch */
+    .add-to-cart-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Increase touch target sizes */
+    a,
+    button,
+    input:not([type="radio"]):not([type="checkbox"]) {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Better spacing for touch */
+    .product-card {
+        margin-bottom: 8px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   LANDSCAPE MODE FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        min-height: 100vh;
+    }
+
+    .section {
+        padding: var(--space-4) 0;
+    }
+
+    .navbar {
+        padding: 8px 0;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: var(--space-4) 0;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   DARK MODE & LIGHT MODE SUPPORT
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   ACCESSIBILITY & MOTION PREFERENCES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 100ms !important;
+        animation-delay: 0 !important;
+        transition-duration: 100ms !important;
+    }
+
+    .hero-image {
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    * {
+        border-width: 1px;
+        outline-width: 2px;
+    }
+}
+
+/* Reduced data mode - optimize for bandwidth */
+@media (prefers-reduced-data: reduce) {
+    img,
+    video,
+    audio {
+        background: var(--color-grey-100);
+    }
+
+    .hero-image,
+    .product-image {
+        animation: none !important;
+    }
+}

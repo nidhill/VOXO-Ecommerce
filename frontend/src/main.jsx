@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import './styles/tailwind.css'
 import './styles/global.css'
+import './styles/responsive.css'
 import App from './App.jsx'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
