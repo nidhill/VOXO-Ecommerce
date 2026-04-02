@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
+import { getHeroImages } from '../api/settings';
+import heroShoeUpdated from '../assets/hero-shoe-updated.png';
+import heroShoe3 from '../assets/hero-shoe-3.png';
+import heroNewBalance from '../assets/hero-new-balance.png';
+import newHeroShoes from '../assets/new-hero-shoes.png';
 import '../styles/hero.css';
 
-const images = [
-    '/images/hero/nb1.png',
-    '/images/hero/nb2.png',
-    '/images/hero/nb3.png',
-    '/images/hero/nb4.png',
-];
+const fallbackImages = [heroShoeUpdated, heroShoe3, heroNewBalance, newHeroShoes];
+
+const addVersion = (url, version) => {
+    if (!version) return url;
+    return url.includes('?') ? `${url}&v=${version}` : `${url}?v=${version}`;
+};
 
 const Hero = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const { data: heroConfig } = useQuery({
+        queryKey: ['hero-images'],
+        queryFn: getHeroImages,
+        retry: 1,
+    });
+
+    const version = heroConfig?.updatedAt ? new Date(heroConfig.updatedAt).getTime() : null;
+    const configuredImages = Array.isArray(heroConfig?.images) && heroConfig.images.length > 0
+        ? heroConfig.images.map((url) => addVersion(url, version))
+        : fallbackImages;
+    const images = configuredImages.length > 0 ? configuredImages : fallbackImages;
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -19,7 +36,7 @@ const Hero = () => {
         }, 4500);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [images.length]);
 
     const lineVariants = {
         hidden: { y: 100, opacity: 0 },

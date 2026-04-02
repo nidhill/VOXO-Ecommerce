@@ -10,6 +10,9 @@ const SiteSettingsSchema = new mongoose.Schema({
         men: { type: String, default: '/images/banners/men-featured.png' },
         women: { type: String, default: '/images/banners/women-featured.png' },
     },
+    heroImages: [{
+        type: String,
+    }],
     updatedAt: {
         type: Date,
         default: Date.now,
