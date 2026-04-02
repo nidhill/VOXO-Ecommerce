@@ -107,4 +107,101 @@ router.get('/product/:productId', async (req, res) => {
     }
 });
 
+/**
+ * POST /api/whatsapp/create-order-summary
+ * Create a comprehensive order summary with pricing and product URLs
+ */
+router.post('/create-order-summary', async (req, res) => {
+    try {
+        const { customerName, phone, address, city, zip, items } = req.body;
+
+        if (!customerName || !phone || !address || !items || items.length === 0) {
+            return res.status(400).json({ msg: 'Missing required order details' });
+        }
+
+        const frontendUrl = process.env.FRONTEND_URL || 'https://wavway.vercel.app';
+        
+        // Fetch full product details for each item
+        const enrichedItems = await Promise.all(
+            items.map(async (item) => {
+                const product = await Product.findById(item.productId);
+                if (!product) throw new Error(`Product ${item.productId} not found`);
+                
+                const quantity = item.quantity || 1;
+                const finalPrice = product.price * quantity;
+                const discountAmount = product.discount ? (product.discount - product.price) * quantity : 0;
+                const originalTotal = product.discount ? product.discount * quantity : product.price * quantity;
+
+                return {
+                    productId: product._id,
+                    name: product.name,
+                    quantity: quantity,
+                    price: product.price,
+                    originalPrice: product.discount || product.price,
+                    discount: product.discount ? product.discount - product.price : 0,
+                    discountPercentage: product.discount ? Math.round(((product.discount - product.price) / product.discount) * 100) : 0,
+                    image: product.image,
+                    productUrl: `${frontendUrl}/product/${product._id}`,
+                    itemTotal: finalPrice,
+                    itemOriginalTotal: originalTotal,
+                    itemDiscountTotal: discountAmount
+                };
+            })
+        );
+
+        // Calculate totals
+        const subtotal = enrichedItems.reduce((sum, item) => sum + item.itemTotal, 0);
+        const originalPrice = enrichedItems.reduce((sum, item) => sum + item.itemOriginalTotal, 0);
+        const totalDiscount = enrichedItems.reduce((sum, item) => sum + item.itemDiscountTotal, 0);
+
+        // Build formatted message
+        const itemsList = enrichedItems.map((item, idx) => {
+            const discountLine = item.discount > 0 
+                ? `\n   Original: ~~₹${item.originalPrice}~~ → ₹${item.price} (${item.discountPercentage}% off)`
+                : '';
+            return `${idx + 1}. ${item.name} × ${item.quantity}\n   Total: ₹${item.itemTotal}${discountLine}\n   🔗 Link: ${item.productUrl}`;
+        }).join('\n\n');
+
+        const message = `
+*New Order from WAVWAY* 🎯
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*Customer:* ${customerName}
+*Phone:* ${phone}
+*Address:* ${address}${city ? ', ' + city : ''}${zip ? ' - ' + zip : ''}
+
+*Items:*
+${itemsList}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*Subtotal:* ₹${subtotal}
+${totalDiscount > 0 ? `*Discount:* -₹${totalDiscount}` : ''}
+*Final Total:* ₹${subtotal}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+        `.trim();
+
+        res.json({
+            success: true,
+            message: message,
+            orderSummary: {
+                customerName,
+                phone,
+                address,
+                city,
+                zip,
+                items: enrichedItems,
+                subtotal,
+                originalPrice,
+                totalDiscount,
+                finalTotal: subtotal
+            }
+        });
+    } catch (error) {
+        console.error('Error creating order summary:', error);
+        res.status(500).json({ msg: 'Error creating order summary', error: error.message });
+    }
+});
+
 module.exports = router;

@@ -11,7 +11,11 @@ const OrderSchema = new mongoose.Schema({
         productId: String,
         name: String,
         quantity: Number,
-        price: Number
+        price: Number,
+        originalPrice: Number,
+        discount: Number,
+        image: String,
+        productUrl: String
     }],
     totalAmount: { type: Number, required: true },
     couponCode: String,

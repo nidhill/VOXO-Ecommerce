@@ -23,6 +23,16 @@ export const getProductForWhatsapp = async (productId) => {
     }
 };
 
+export const createOrderSummary = async (orderData) => {
+    try {
+        const response = await axios.post('/whatsapp/create-order-summary', orderData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating order summary:', error);
+        throw error;
+    }
+};
+
 export const generateWhatsappShareLink = (productId, productName) => {
     const frontendUrl = import.meta.env.VITE_FRONTEND_URL || 'https://wavway.vercel.app';
     const productLink = `${frontendUrl}/product/${productId}`;
