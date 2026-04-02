@@ -2,7 +2,7 @@ import api from './axios';
 
 export const getProducts = async () => {
     const response = await api.get('/products');
-    return response.data;
+    return Array.isArray(response.data) ? response.data : [];
 };
 
 export const createProduct = async (productData) => {

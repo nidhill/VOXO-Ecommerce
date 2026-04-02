@@ -2,7 +2,7 @@ import api from './axios';
 
 export const getCoupons = async () => {
     const response = await api.get('/coupons');
-    return response.data;
+    return Array.isArray(response.data) ? response.data : [];
 };
 
 export const createCoupon = async (couponData) => {
