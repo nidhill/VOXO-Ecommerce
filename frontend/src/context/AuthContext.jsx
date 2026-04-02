@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 
 const AuthContext = createContext();
 
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
             return;
         }
         if (token) {
-            axios.get('/api/auth/me', { headers: { Authorization: `Bearer ${token}` } })
+            api.get('/auth/me', { headers: { Authorization: `Bearer ${token}` } })
                 .then(res => setUser(res.data))
                 .catch(() => localStorage.removeItem('wavway_token'))
                 .finally(() => setLoading(false));
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const { data } = await axios.post('/api/auth/login', { email, password });
+        const { data } = await api.post('/auth/login', { email, password });
         localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, password, phone) => {
-        const { data } = await axios.post('/api/auth/register', { name, email, password, phone });
+        const { data } = await api.post('/auth/register', { name, email, password, phone });
         localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const googleLogin = async (credential) => {
-        const { data } = await axios.post('/api/auth/google', { credential });
+        const { data } = await api.post('/auth/google', { credential });
         localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
