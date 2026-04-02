@@ -132,7 +132,9 @@
 @media (max-width: 768px) {
     .bag-nav { padding: 16px 20px; }
     .bag-nav-links { display: none; }
+    .bag-nav-left { gap: 20px; }
     .bag-main { padding: 40px 20px 60px; }
+    .bag-layout { display: flex; flex-direction: column; gap: 32px; }
 }
 
 @media (max-width: 1023px) {
@@ -153,16 +155,21 @@
 @media (max-width: 640px) {
     .bag-nav {
         padding: 14px 16px;
+        flex-wrap: wrap;
     }
 
     .bag-nav-left {
-        gap: 16px;
+        gap: 12px;
         min-width: 0;
+        flex: 1;
     }
 
     .bag-nav-brand {
-        font-size: 16px;
-        letter-spacing: 2px;
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .bag-nav-right {
@@ -175,7 +182,8 @@
     }
 
     .bag-main {
-        padding: 28px 16px 44px;
+        padding: 24px 12px 40px;
+        max-width: 100%;
     }
 
     .bag-header {
@@ -195,7 +203,9 @@
     }
 
     .bag-layout {
-        gap: 24px;
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
     }
 
     .bag-item {
@@ -282,7 +292,14 @@
     }
 
     .bag-sidebar-inner {
-        padding: 20px;
+        padding: 20px 16px;
+        background: rgba(19, 19, 19, 0.8);
+        border: none;
+    }
+
+    .bag-sidebar {
+        width: 100%;
+        position: static !important;
     }
 
     .bag-mini-item {
@@ -634,6 +651,22 @@
 }
 .bag-back-step:hover { color: #e7e5e5; }
 
+@media (max-width: 640px) {
+    .bag-back-step {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bag-back-step {
+        font-size: 9px;
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+}
+
 .bag-form-title {
     font-family: 'Noto Serif', Georgia, serif;
     font-style: italic;
@@ -642,6 +675,20 @@
     letter-spacing: -0.02em;
     color: #e7e5e5;
     margin-bottom: 32px;
+}
+
+@media (max-width: 640px) {
+    .bag-form-title {
+        font-size: clamp(24px, 6vw, 32px);
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bag-form-title {
+        font-size: clamp(20px, 5vw, 28px);
+        margin-bottom: 16px;
+    }
 }
 
 .bag-form {
@@ -676,7 +723,175 @@
 }
 
 @media (max-width: 480px) {
-    .bag-field-row { grid-template-columns: 1fr; }
+    .bag-nav {
+        padding: 12px 12px;
+    }
+
+    .bag-nav-brand {
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    .bag-nav-right {
+        gap: 8px;
+    }
+
+    .bag-nav-user {
+        font-size: 10px;
+        gap: 4px;
+    }
+
+    .bag-main {
+        padding: 16px 8px 28px;
+    }
+
+    .bag-header {
+        margin-bottom: 20px;
+    }
+
+    .bag-title {
+        font-size: clamp(28px, 11vw, 40px);
+        margin-bottom: 8px;
+    }
+
+    .bag-subtitle {
+        font-size: 8px;
+        letter-spacing: 0.15em;
+    }
+
+    .bag-layout {
+        gap: 16px;
+    }
+
+    .bag-item {
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+    }
+
+    .bag-item-img-wrap {
+        max-width: 100%;
+        aspect-ratio: 3 / 4;
+        min-height: 160px;
+    }
+
+    .bag-item-name {
+        font-size: clamp(16px, 5vw, 20px);
+        line-height: 1.2;
+    }
+
+    .bag-item-price {
+        font-size: 14px;
+    }
+
+    .bag-item-top {
+        gap: 6px;
+        margin-bottom: 2px;
+    }
+
+    .bag-qty {
+        padding: 8px 12px;
+        gap: 12px;
+    }
+
+    .bag-remove {
+        font-size: 9px;
+        gap: 4px;
+    }
+
+    .bag-trust {
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 16px;
+        flex-direction: column;
+    }
+
+    .bag-trust-item {
+        width: 100%;
+        font-size: 9px;
+    }
+
+    .bag-field-group {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .bag-field-group-label {
+        font-size: 8px;
+        margin-top: 4px;
+        margin-bottom: -4px;
+    }
+
+    .bag-field-row { 
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .bag-sidebar-inner {
+        padding: 16px 12px;
+    }
+
+    .bag-sidebar-label {
+        font-size: 9px;
+        margin-bottom: 16px;
+    }
+
+    .bag-mini-items {
+        gap: 12px;
+    }
+
+    .bag-mini-item {
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+
+    .bag-totals {
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .bag-cta-primary,
+    .bag-cta-secondary,
+    .bag-wa-btn {
+        padding: 10px 14px;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+    }
+
+    .bag-wa-btn {
+        gap: 6px;
+    }
+
+    .bag-footer {
+        padding: 24px 12px;
+        gap: 16px;
+    }
+
+    .bag-footer-brand {
+        font-size: 20px;
+    }
+
+    .bag-footer-links {
+        gap: 12px;
+        font-size: 9px;
+    }
+
+    .bag-empty {
+        padding: 40px 12px;
+    }
+
+    .bag-empty-title {
+        font-size: 24px;
+    }
+
+    .bag-empty-sub {
+        font-size: 12px;
+    }
+
+    .bag-empty-cta {
+        padding: 12px 24px;
+        font-size: 10px;
+    }
 }
 
 .bag-field {
@@ -833,6 +1048,20 @@
     padding: 10px 12px;
 }
 
+@media (max-width: 640px) {
+    .bag-coupon-row {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bag-coupon-row {
+        padding: 6px 8px;
+        gap: 4px;
+    }
+}
+
 .bag-coupon-icon { color: #767575; flex-shrink: 0; }
 
 .bag-coupon-input {
@@ -847,6 +1076,12 @@
     font-family: inherit;
 }
 .bag-coupon-input::placeholder { color: #484848; letter-spacing: 0.15em; }
+
+@media (max-width: 480px) {
+    .bag-coupon-input {
+        font-size: 10px;
+    }
+}
 
 .bag-coupon-apply {
     background: none;
@@ -863,6 +1098,13 @@
     white-space: nowrap;
 }
 .bag-coupon-apply:hover:not(:disabled) { color: #e7e5e5; }
+
+@media (max-width: 480px) {
+    .bag-coupon-apply {
+        font-size: 9px;
+        letter-spacing: 0.1em;
+    }
+}
 .bag-coupon-apply:disabled { opacity: 0.3; cursor: not-allowed; }
 
 .bag-coupon-applied {
