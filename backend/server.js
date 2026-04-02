@@ -27,6 +27,7 @@ app.use('/api/orders', require('./routes/orders'));
 app.use('/api/storage', require('./routes/storage'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/settings', require('./routes/settings'));
+app.use('/api/whatsapp', require('./routes/whatsapp'));
 
 const PORT = process.env.PORT || 5001;
 
