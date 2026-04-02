@@ -19,6 +19,7 @@ import AdminDashboard from '../admin/pages/AdminDashboard';
 import AdminProducts from '../admin/pages/AdminProducts';
 import AdminOrders from '../admin/pages/AdminOrders';
 import AdminCoupons from '../admin/pages/AdminCoupons';
+import AdminBanners from '../admin/pages/AdminBanners';
 
 const AdminProtectedRoute = ({ children }) => {
     const { isAuthenticated, loading } = useAdminAuth();
@@ -93,6 +94,7 @@ const AdminRoutes = () => {
             }>
                 <Route index element={<AdminDashboard />} />
                 <Route path="products" element={<AdminProducts />} />
+                <Route path="banners" element={<AdminBanners />} />
                 <Route path="orders" element={<AdminOrders />} />
                 <Route path="coupons" element={<AdminCoupons />} />
             </Route>

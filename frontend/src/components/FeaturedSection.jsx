@@ -11,8 +11,9 @@ const FeaturedSection = () => {
         retry: 1,
     });
 
-    const menBanner = banners?.men || '/images/banners/men-featured.png';
-    const womenBanner = banners?.women || '/images/banners/women-featured.png';
+    const version = banners?.updatedAt ? `?v=${new Date(banners.updatedAt).getTime()}` : '';
+    const menBanner = `${banners?.men || '/images/banners/men-featured.png'}${version}`;
+    const womenBanner = `${banners?.women || '/images/banners/women-featured.png'}${version}`;
 
     return (
         <section className="section featured-section">

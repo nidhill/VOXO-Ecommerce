@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBag, ShoppingCart, Tag, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, ShoppingCart, Tag, Image, LogOut, Menu, X } from 'lucide-react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
 const AdminLayout = () => {
@@ -269,6 +269,10 @@ const AdminLayout = () => {
                     <NavLink to="/admin/products" className={({ isActive }) => `admin-nav-link ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
                         <span className="admin-nav-link-icon"><ShoppingBag size={19} /></span>
                         Products
+                    </NavLink>
+                    <NavLink to="/admin/banners" className={({ isActive }) => `admin-nav-link ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
+                        <span className="admin-nav-link-icon"><Image size={19} /></span>
+                        Banners
                     </NavLink>
                     <NavLink to="/admin/orders" className={({ isActive }) => `admin-nav-link ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
                         <span className="admin-nav-link-icon"><ShoppingCart size={19} /></span>
