@@ -50,8 +50,8 @@ router.post('/', (req, res) => {
 
                     await r2.send(command);
 
-                    // Check if we have a valid public URL configured
-                    const publicDomain = process.env.R2_PUBLIC_URL;
+                    // Accept either R2_PUBLIC_URL or RX_PUBLIC_URL (legacy typo) from env
+                    const publicDomain = process.env.R2_PUBLIC_URL || process.env.RX_PUBLIC_URL;
                     let fileUrl;
 
                     if (publicDomain && !publicDomain.includes('xxxxx')) {
@@ -59,8 +59,9 @@ router.post('/', (req, res) => {
                         const baseUrl = publicDomain.endsWith('/') ? publicDomain.slice(0, -1) : publicDomain;
                         fileUrl = `${baseUrl}/${fileName}`;
                     } else {
-                        // Fallback: serve through our own backend proxy
-                        fileUrl = `/api/upload/file/${fileName}`;
+                        // Fallback: serve through backend proxy with absolute URL
+                        const backendBase = process.env.BACKEND_URL || `${req.protocol}://${req.get('host')}`;
+                        fileUrl = `${backendBase}/api/upload/file/${fileName}`;
                     }
 
                     res.json({

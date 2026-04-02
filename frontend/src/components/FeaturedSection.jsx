@@ -1,8 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getHomepageBanners } from '../api/settings';
 import '../styles/featured-section.css';
 
 const FeaturedSection = () => {
+    const { data: banners } = useQuery({
+        queryKey: ['homepage-banners'],
+        queryFn: getHomepageBanners,
+        retry: 1,
+    });
+
+    const menBanner = banners?.men || '/images/banners/men-featured.png';
+    const womenBanner = banners?.women || '/images/banners/women-featured.png';
+
     return (
         <section className="section featured-section">
             <div className="container-fluid p-0"> {/* Use full width container if preferred, or standard container */}
@@ -12,7 +23,7 @@ const FeaturedSection = () => {
                     <div className="featured-category-card men-card">
                         <div className="collection-overlay"></div>
                         <img
-                            src="/images/banners/men-featured.png"
+                            src={menBanner}
                             alt="Men's Collection"
                             className="bg-image"
                         />
@@ -26,7 +37,7 @@ const FeaturedSection = () => {
                     <div className="featured-category-card women-card">
                         <div className="collection-overlay"></div>
                         <img
-                            src="/images/banners/women-featured.png"
+                            src={womenBanner}
                             alt="Women's Collection"
                             className="bg-image"
                         />

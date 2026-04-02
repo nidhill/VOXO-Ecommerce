@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProducts, createProduct, updateProduct, deleteProduct, uploadImage } from '../api/products';
-import { Search, Plus, Upload, X, Loader2, Trash2, Eye, EyeOff, Edit3, Image as ImageIcon, Package } from 'lucide-react';
+import { getHomepageBanners, updateHomepageBanners } from '../api/settings';
+import { Search, Plus, Upload, X, Loader2, Trash2, Eye, EyeOff, Edit3, Image as ImageIcon, Package, Save } from 'lucide-react';
 
 const CATEGORIES = ['Shoe', 'Slipper', 'Sandal', 'Watch', 'Perfume', 'Belt', 'Shirt', 'Jacket', 'Tshirt', 'Pants', 'Joggers', 'Sunglasses', 'Socks', 'Other'];
 const GENDERS = ['Men', 'Women', 'Unisex', 'Kids'];
@@ -14,15 +15,41 @@ const Products = () => {
     const [formData, setFormData] = useState({
         name: '', gender: 'Men', category: 'Shoe', price: '', discountPrice: '', description: '', images: [], isHidden: false
     });
+    const [bannerForm, setBannerForm] = useState({
+        men: '/images/banners/men-featured.png',
+        women: '/images/banners/women-featured.png',
+    });
     const [uploading, setUploading] = useState(false);
+    const [bannerUploading, setBannerUploading] = useState({ men: false, women: false });
     const queryClient = useQueryClient();
 
     const { data: products = [], isLoading } = useQuery({ queryKey: ['products'], queryFn: getProducts });
+    const { data: banners } = useQuery({
+        queryKey: ['homepage-banners'],
+        queryFn: getHomepageBanners,
+    });
+
+    useEffect(() => {
+        if (banners) {
+            setBannerForm({
+                men: banners?.men || '/images/banners/men-featured.png',
+                women: banners?.women || '/images/banners/women-featured.png',
+            });
+        }
+    }, [banners]);
 
     const createMutation = useMutation({ mutationFn: createProduct, onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });
     const updateMutation = useMutation({ mutationFn: ({ id, data }) => updateProduct(id, data), onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });
     const deleteMutation = useMutation({ mutationFn: deleteProduct, onSuccess: () => queryClient.invalidateQueries(['products']) });
     const toggleVisibility = useMutation({ mutationFn: ({ id, isHidden }) => updateProduct(id, { isHidden }), onSuccess: () => queryClient.invalidateQueries(['products']) });
+    const saveBannersMutation = useMutation({
+        mutationFn: updateHomepageBanners,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['homepage-banners']);
+            alert('Homepage banners updated successfully');
+        },
+        onError: () => alert('Failed to save homepage banners'),
+    });
 
     const openCreate = () => { setEditingProduct(null); setFormData({ name: '', gender: 'Men', category: 'Shoe', price: '', discountPrice: '', description: '', images: [], isHidden: false }); setIsModalOpen(true); };
     const openEdit = (p) => { setEditingProduct(p); setFormData({ name: p.name, gender: p.gender, category: p.category, price: p.price.toString(), discountPrice: p.discountPrice?.toString() || '', description: p.description, images: p.images || [], isHidden: p.isHidden }); setIsModalOpen(true); };
@@ -50,6 +77,23 @@ const Products = () => {
         }
         catch (err) { alert('Image upload failed'); }
         finally { setUploading(false); }
+    };
+
+    const handleBannerUpload = async (type, file) => {
+        if (!file) return;
+        setBannerUploading(prev => ({ ...prev, [type]: true }));
+        try {
+            const remoteUrl = await uploadImage(file);
+            setBannerForm(prev => ({ ...prev, [type]: remoteUrl }));
+        } catch (err) {
+            alert('Banner upload failed');
+        } finally {
+            setBannerUploading(prev => ({ ...prev, [type]: false }));
+        }
+    };
+
+    const saveHomepageBanners = () => {
+        saveBannersMutation.mutate({ men: bannerForm.men, women: bannerForm.women });
     };
 
     const handleSubmit = () => {
@@ -114,6 +158,49 @@ const Products = () => {
 
             {/* Table */}
             <div className="products-body" style={{ flex: 1, overflowY: 'auto', padding: '24px 32px' }}>
+                <div style={{ background: '#111113', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', padding: '18px', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', gap: '12px', flexWrap: 'wrap' }}>
+                        <div>
+                            <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#fafafa', margin: 0 }}>Homepage Featured Banners</h3>
+                            <p style={{ fontSize: '12px', color: '#52525b', margin: '4px 0 0 0' }}>Upload the Men/Women images used in the home featured section.</p>
+                        </div>
+                        <button
+                            onClick={saveHomepageBanners}
+                            disabled={saveBannersMutation.isPending || bannerUploading.men || bannerUploading.women}
+                            style={{ background: '#6366f1', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 14px', fontSize: '12px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: (saveBannersMutation.isPending || bannerUploading.men || bannerUploading.women) ? 0.6 : 1 }}
+                        >
+                            {saveBannersMutation.isPending ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Save size={14} />}
+                            Save Banners
+                        </button>
+                    </div>
+
+                    <div className="products-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                        <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '12px' }}>
+                            <p style={{ margin: '0 0 8px 0', fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>Men Banner</p>
+                            <div style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', marginBottom: '8px', background: '#0a0a0a' }}>
+                                <img src={bannerForm.men} alt="Men banner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#e5e5e5', fontSize: '12px', fontWeight: 600 }}>
+                                {bannerUploading.men ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Upload size={14} />}
+                                Upload Men Image
+                                <input type="file" style={{ display: 'none' }} accept="image/*" onChange={(e) => handleBannerUpload('men', e.target.files?.[0])} />
+                            </label>
+                        </div>
+
+                        <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '12px' }}>
+                            <p style={{ margin: '0 0 8px 0', fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>Women Banner</p>
+                            <div style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', marginBottom: '8px', background: '#0a0a0a' }}>
+                                <img src={bannerForm.women} alt="Women banner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#e5e5e5', fontSize: '12px', fontWeight: 600 }}>
+                                {bannerUploading.women ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Upload size={14} />}
+                                Upload Women Image
+                                <input type="file" style={{ display: 'none' }} accept="image/*" onChange={(e) => handleBannerUpload('women', e.target.files?.[0])} />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 {isLoading ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '240px' }}>
                         <Loader2 size={28} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />
