@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Mail } from 'lucide-react';
 import axios from 'axios';
+import useMeta from '../hooks/useMeta';
 import '../styles/auth.css';
 
 const ForgotPassword = () => {
+    useMeta('Forgot Password', 'Reset your WAVWAY account password.');
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [sent, setSent] = useState(false);

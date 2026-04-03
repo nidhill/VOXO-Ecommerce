@@ -7,6 +7,8 @@ import { useAuth } from '../context/AuthContext';
 import { validateCoupon } from '../api/coupons';
 import { createOrder } from '../api/orders';
 import '../styles/checkout.css';
+import '../styles/checkout-mobile-enhancements.css';
+import '../styles/mobile-responsive-fixes.css';
 
 const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999';
 

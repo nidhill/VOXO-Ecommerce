@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useOrder } from '../context/OrderContext';
 import { motion } from 'framer-motion';
+import useMeta from '../hooks/useMeta';
 import '../styles/orders.css';
 
 const OrderTracking = () => {
+    useMeta('Track Order', 'Track the live status of your WAVWAY order.');
     const { id } = useParams();
     const { getOrder } = useOrder();
     const [order, setOrder] = useState(null);

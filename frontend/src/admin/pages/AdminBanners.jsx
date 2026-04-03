@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Upload, Loader2, Save, Image as ImageIcon } from 'lucide-react';
-import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages } from '../api/settings';
+import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages } from '../../api/settings';
 import { uploadImage } from '../api/products';
 
 const AdminBanners = () => {

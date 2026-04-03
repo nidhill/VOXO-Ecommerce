@@ -5,6 +5,8 @@ import { useOrder } from '../context/OrderContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { ShoppingBag, User, LogOut, ChevronDown, Package } from 'lucide-react';
+import useMeta from '../hooks/useMeta';
+import { EmptyState } from '../components/EmptyState';
 import '../styles/orders.css';
 
 const ITEMS_PER_PAGE = 5;
@@ -18,6 +20,7 @@ const STATUS_LABEL = {
 };
 
 const Orders = () => {
+    useMeta('My Orders', 'Track and manage your WAVWAY orders.');
     const { orders } = useOrder();
     const { cartCount } = useCart();
     const { user, logout } = useAuth();
@@ -65,12 +68,7 @@ const Orders = () => {
                 </header>
 
                 {orders.length === 0 ? (
-                    <div className="ord-empty">
-                        <Package size={56} strokeWidth={0.7} />
-                        <h2 className="ord-empty-title">No orders yet</h2>
-                        <p className="ord-empty-sub">Your past acquisitions will appear here.</p>
-                        <Link to="/collections/all" className="ord-empty-cta">Explore Collections</Link>
-                    </div>
+                    <EmptyState type="orders" />
                 ) : (
                     <>
                         <div className="ord-list">

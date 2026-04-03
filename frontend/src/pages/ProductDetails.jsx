@@ -5,6 +5,8 @@ import { useCart } from '../context/CartContext';
 import { getProducts } from '../api/products';
 import { pageTransition } from '../utils/animations';
 import { ChevronLeft, ChevronRight, ShoppingBag, MessageCircle, Shield, RotateCcw, Truck, ArrowLeft } from 'lucide-react';
+import useMeta from '../hooks/useMeta';
+import SkeletonProductDetail from '../components/skeletons/SkeletonProductDetail';
 import '../styles/product-details.css';
 
 const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999';
@@ -18,6 +20,13 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [selectedIdx, setSelectedIdx] = useState(0);
     const [added, setAdded] = useState(false);
+
+    useMeta(
+        product ? product.name : 'Product',
+        product ? `${product.name} — ${product.description || 'Shop now on WAVWAY'}` : '',
+        product?.images?.[0] || undefined,
+        typeof window !== 'undefined' ? window.location.href : undefined
+    );
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -35,11 +44,7 @@ const ProductDetails = () => {
         fetchProduct();
     }, [id]);
 
-    if (loading) return (
-        <div className="pd-loading">
-            <div className="pd-spinner" />
-        </div>
-    );
+    if (loading) return <SkeletonProductDetail />;
 
     if (!product) return (
         <div className="pd-not-found">
@@ -97,7 +102,7 @@ const ProductDetails = () => {
                                     className={`pd-thumb ${selectedIdx === i ? 'active' : ''}`}
                                     onClick={() => setSelectedIdx(i)}
                                 >
-                                    <img src={img} alt={`view ${i + 1}`} />
+                                    <img src={img} alt={`${product.name} — view ${i + 1}`} loading="lazy" decoding="async" />
                                 </button>
                             ))}
                         </div>
@@ -133,7 +138,7 @@ const ProductDetails = () => {
                         <div className="pd-thumbs-mobile">
                             {images.map((img, i) => (
                                 <button key={i} className={`pd-thumb ${selectedIdx === i ? 'active' : ''}`} onClick={() => setSelectedIdx(i)}>
-                                    <img src={img} alt={`view ${i + 1}`} />
+                                    <img src={img} alt={`${product.name} — view ${i + 1}`} loading="lazy" decoding="async" />
                                 </button>
                             ))}
                         </div>

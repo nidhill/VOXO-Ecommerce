@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
 import { AnimatePresence } from 'framer-motion';
 import Home from '../pages/Home';
 import Auth from '../pages/Auth';
@@ -59,26 +60,28 @@ const AnimatedRoutes = () => {
 
     return (
         <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-                {/* Store Routes */}
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/collections" element={<Shop />} />
-                <Route path="/collections/:category" element={<Shop />} />
-                <Route path="/product/:id" element={<ProductDetails />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/order-tracking/:id" element={<OrderTracking />} />
+            <ErrorBoundary>
+                <Routes location={location} key={location.pathname}>
+                    {/* Store Routes */}
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/collections" element={<Shop />} />
+                    <Route path="/collections/:category" element={<Shop />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
+                    <Route path="/orders" element={<Orders />} />
+                    <Route path="/order-tracking/:id" element={<OrderTracking />} />
 
-                {/* Admin Routes */}
-                <Route path="/admin/*" element={
-                    <AdminAuthProvider>
-                        <AdminRoutes />
-                    </AdminAuthProvider>
-                } />
-            </Routes>
+                    {/* Admin Routes */}
+                    <Route path="/admin/*" element={
+                        <AdminAuthProvider>
+                            <AdminRoutes />
+                        </AdminAuthProvider>
+                    } />
+                </Routes>
+            </ErrorBoundary>
         </AnimatePresence>
     );
 };

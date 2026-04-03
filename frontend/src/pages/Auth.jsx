@@ -3,9 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { Eye, EyeOff, ArrowLeft, ShoppingBag, Recycle, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import useMeta from '../hooks/useMeta';
 import '../styles/auth.css';
 
 const Auth = () => {
+    useMeta('Sign In', 'Sign in or create your WAVWAY account.');
     const [mode, setMode] = useState('signup'); // 'login' | 'signup'
     const [showPass, setShowPass] = useState(false);
     const [agreed, setAgreed] = useState(false);

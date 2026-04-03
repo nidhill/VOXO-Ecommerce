@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { getProducts } from '../api/products';
+import SkeletonGrid from './skeletons/SkeletonGrid';
 import '../styles/product-grid.css';
 
 const ProductGrid = () => {
@@ -45,7 +46,16 @@ const ProductGrid = () => {
         show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
     };
 
-    if (isLoading) return null;
+    if (isLoading) return (
+        <section className="section product-section">
+            <div className="container">
+                <div className="section-header">
+                    <h2 className="section-title">New Arrivals</h2>
+                </div>
+                <SkeletonGrid count={4} />
+            </div>
+        </section>
+    );
 
     if (products.length === 0) return null;
 
@@ -72,6 +82,8 @@ const ProductGrid = () => {
                                         src={product.images && product.images.length > 0 ? product.images[0] : 'https://placehold.co/300x400?text=No+Image'}
                                         alt={product.name}
                                         className="product-image"
+                                        loading="lazy"
+                                        decoding="async"
                                         onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x400?text=No+Image'; }}
                                     />
                                 </Link>

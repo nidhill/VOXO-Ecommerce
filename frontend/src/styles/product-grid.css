@@ -63,12 +63,20 @@
     }
 }
 
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (min-width: 1024px) {
     .product-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: var(--space-8);
     }
 }
+
+.product-card { width: 100%; max-width: 100%; overflow: hidden; }
 
 .product-card {
     display: flex;

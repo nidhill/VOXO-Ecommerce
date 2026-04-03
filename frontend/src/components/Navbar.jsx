@@ -28,14 +28,19 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Lock body scroll when mobile menu is open
+    // Lock body scroll when mobile menu is open + close on Escape
     useEffect(() => {
         if (mobileMenuOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
-        return () => { document.body.style.overflow = ''; };
+        const handleKeyDown = (e) => { if (e.key === 'Escape') setMobileMenuOpen(false); };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, [mobileMenuOpen]);
 
     // Search Suggestions Logic

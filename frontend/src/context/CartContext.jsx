@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 const CartContext = createContext();
 
@@ -39,9 +40,11 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (product) => {
         const productId = getId(product);
+        let isNew = true;
         setCartItems(prevItems => {
             const existingItem = prevItems.find(item => getId(item) === productId);
             if (existingItem) {
+                isNew = false;
                 return prevItems.map(item =>
                     getId(item) === productId
                         ? { ...item, quantity: item.quantity + 1 }
@@ -50,11 +53,20 @@ export const CartProvider = ({ children }) => {
             }
             return [...prevItems, { ...product, quantity: 1 }];
         });
+        toast.success(isNew ? 'Added to bag' : 'Quantity updated', {
+            description: product.name,
+        });
         setIsCartOpen(true);
     };
 
     const removeFromCart = (productId) => {
+        const item = cartItems.find(i => getId(i) === productId);
         setCartItems(prevItems => prevItems.filter(item => getId(item) !== productId));
+        if (item) {
+            toast('Removed from bag', {
+                description: item.name,
+            });
+        }
     };
 
     const updateQuantity = (productId, newQuantity) => {

@@ -6,6 +6,8 @@ import { getProducts } from '../api/products';
 import { useCart } from '../context/CartContext';
 import { pageTransition } from '../utils/animations';
 import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
+import useMeta from '../hooks/useMeta';
+import SkeletonGrid from '../components/skeletons/SkeletonGrid';
 import '../styles/shop.css';
 import '../styles/product-grid.css';
 
@@ -30,6 +32,8 @@ const Shop = () => {
     const { addToCart } = useCart();
     const navigate = useNavigate();
     const [filtersOpen, setFiltersOpen] = useState(!categoryFilter);
+
+    useMeta('Collections', "Browse WAVWAY's full collection — clothing, footwear and accessories for men, women and unisex.");
 
     const { data: fetchedProducts, isLoading } = useQuery({
         queryKey: ['products', genderParam, categoryFilter, searchQuery],
@@ -180,10 +184,7 @@ const Shop = () => {
 
                 {/* Products */}
                 {isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
-                        <div style={{ width: '32px', height: '32px', border: '2.5px solid var(--color-grey-200)', borderTopColor: 'var(--color-black)', borderRadius: '50%', animation: 'spin 0.75s linear infinite' }} />
-                        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-                    </div>
+                    <SkeletonGrid count={8} />
                 ) : products.length === 0 ? (
                     <div style={{ textAlign: 'center', padding: '80px 20px' }}>
                         <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚫</div>
@@ -221,6 +222,8 @@ const Shop = () => {
                                             src={product.images?.[0] || 'https://placehold.co/300x400?text=No+Image'}
                                             alt={product.name}
                                             className="product-image"
+                                            loading="lazy"
+                                            decoding="async"
                                             onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x400?text=No+Image'; }}
                                         />
                                     </Link>

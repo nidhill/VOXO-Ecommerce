@@ -159,3 +159,45 @@ ol {
         display: block;
     }
 }
+/* ── Focus styles (keyboard navigation) ───────────────────────────────────── */
+:focus { outline: none; }
+:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+.btn-primary:focus-visible,
+button[style*="background: var(--color-black)"]:focus-visible {
+    outline-color: var(--color-white);
+    outline-offset: 3px;
+}
+
+/* ── Skip to main content link ─────────────────────────────────────────────── */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 1rem;
+    z-index: 9999;
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+}
+.skip-link:focus {
+    left: 1rem;
+}
+
+/* ── Touch target helpers ──────────────────────────────────────────────────── */
+.icon-btn,
+.qty-btn,
+.size-chip {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+}

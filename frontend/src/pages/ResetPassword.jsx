@@ -3,9 +3,11 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { ArrowLeft, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import useMeta from '../hooks/useMeta';
 import '../styles/auth.css';
 
 const ResetPassword = () => {
+    useMeta('Reset Password', 'Set a new password for your WAVWAY account.');
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
     const navigate = useNavigate();

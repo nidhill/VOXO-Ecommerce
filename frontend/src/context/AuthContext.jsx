@@ -1,75 +1,72 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../api/axios';
+import { toast } from 'sonner';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isGuest, setIsGuest] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [user, setUser]           = useState(null);
+    const [isGuest, setIsGuest]     = useState(false);
+    const [loading, setLoading]     = useState(true);
     const [authModal, setAuthModal] = useState({ open: false, redirectAfter: null });
 
+    // On mount: restore session from HttpOnly cookie (cookie sent automatically)
     useEffect(() => {
-        const token = localStorage.getItem('wavway_token');
         const guest = localStorage.getItem('wavway_guest');
         if (guest === 'true') {
             setIsGuest(true);
             setLoading(false);
             return;
         }
-        if (token) {
-            api.get('/auth/me', { headers: { Authorization: `Bearer ${token}` } })
-                .then(res => setUser(res.data))
-                .catch(() => localStorage.removeItem('wavway_token'))
-                .finally(() => setLoading(false));
-        } else {
-            setLoading(false);
-        }
+
+        api.get('/auth/me')
+            .then(res => setUser(res.data))
+            .catch(() => {/* no session — stay logged out */})
+            .finally(() => setLoading(false));
     }, []);
 
     const login = async (email, password) => {
         const { data } = await api.post('/auth/login', { email, password });
-        localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
+        toast.success(`Welcome back, ${data.user.name.split(' ')[0]}!`);
     };
 
     const register = async (name, email, password, phone) => {
         const { data } = await api.post('/auth/register', { name, email, password, phone });
-        localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
+        toast.success(`Welcome to WAVWAY, ${data.user.name.split(' ')[0]}!`);
     };
 
     const googleLogin = async (credential) => {
         const { data } = await api.post('/auth/google', { credential });
-        localStorage.setItem('wavway_token', data.token);
         localStorage.removeItem('wavway_guest');
         setUser(data.user);
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
+        toast.success(`Welcome, ${data.user.name.split(' ')[0]}!`);
     };
 
     const continueAsGuest = () => {
         localStorage.setItem('wavway_guest', 'true');
-        localStorage.removeItem('wavway_token');
         setIsGuest(true);
         setUser(null);
         setAuthModal({ open: false, redirectAfter: null });
     };
 
-    const logout = () => {
-        localStorage.removeItem('wavway_token');
+    const logout = async () => {
+        try { await api.post('/auth/logout'); } catch { /* ignore */ }
         localStorage.removeItem('wavway_guest');
         setUser(null);
         setIsGuest(false);
+        toast('Logged out successfully');
     };
 
-    // Call this to open the auth modal (e.g. when adding to cart)
     const requireAuth = (callback) => {
         if (user || isGuest) {
             callback && callback();
@@ -79,7 +76,7 @@ export const AuthProvider = ({ children }) => {
         return false;
     };
 
-    const openAuthModal = () => setAuthModal({ open: true, onSuccess: null });
+    const openAuthModal  = () => setAuthModal({ open: true, onSuccess: null });
     const closeAuthModal = () => setAuthModal({ open: false, onSuccess: null });
 
     return (
