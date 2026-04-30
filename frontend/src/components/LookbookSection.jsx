@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
@@ -43,6 +43,76 @@ const LookbookSection = () => {
     }, []);
 
     const displayProducts = products.length > 0 ? products : FALLBACK_PRODUCTS;
+
+    // ── Hover: magnetic pull + glow bloom (no 3D tilt) ───────────────────
+    const handleMouseMove = useCallback((e) => {
+        if (!heroRef.current || !watchRef.current) return;
+        const rect = heroRef.current.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width  - 0.5; // -0.5 → 0.5
+        const ny = (e.clientY - rect.top)  / rect.height - 0.5;
+
+        // Watch drifts slightly toward cursor (magnetic pull)
+        gsap.to(watchRef.current, {
+            x: nx * 22,
+            y: ny * 14,
+            duration: 0.55,
+            ease: 'power2.out',
+            overwrite: 'auto',
+        });
+
+        // Image scales up subtly
+        const img = watchRef.current.querySelector('img');
+        if (img) {
+            gsap.to(img, {
+                scale: 1.06,
+                filter: 'drop-shadow(0 28px 90px rgba(0,0,0,0.85)) drop-shadow(0 0 55px rgba(198,167,110,0.3))',
+                duration: 0.4,
+                ease: 'power2.out',
+                overwrite: 'auto',
+            });
+        }
+
+        // Glow bloom follows cursor
+        gsap.to('.lb-glow', {
+            x: nx * 50,
+            y: ny * 30,
+            scale: 1.5,
+            opacity: 1,
+            duration: 0.7,
+            ease: 'power2.out',
+            overwrite: 'auto',
+        });
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        if (!watchRef.current) return;
+
+        gsap.to(watchRef.current, {
+            x: 0, y: 0,
+            duration: 1.4,
+            ease: 'elastic.out(1, 0.35)',
+            overwrite: 'auto',
+        });
+
+        const img = watchRef.current.querySelector('img');
+        if (img) {
+            gsap.to(img, {
+                scale: 1,
+                filter: 'drop-shadow(0 24px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(180,150,90,0.15))',
+                duration: 1,
+                ease: 'power3.out',
+                overwrite: 'auto',
+            });
+        }
+
+        gsap.to('.lb-glow', {
+            x: 0, y: 0,
+            scale: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            overwrite: 'auto',
+        });
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -165,6 +235,8 @@ const LookbookSection = () => {
             ═══════════════════════════════════════════ */}
             <div
                 ref={heroRef}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
                 style={{
                     position: 'relative',
                     minHeight: 'clamp(420px, 60vw, 700px)',

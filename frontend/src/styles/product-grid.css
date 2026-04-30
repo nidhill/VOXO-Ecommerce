@@ -26,6 +26,12 @@ html.dark .product-section {
     font-family: var(--font-serif);
 }
 
+.section-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-grey-500);
+    margin-top: 4px;
+}
+
 @media (min-width: 768px) {
     .section-title {
         font-size: var(--text-3xl);

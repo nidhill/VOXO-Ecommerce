@@ -74,7 +74,7 @@ const Hero = () => {
                             whileHover={{ x: 10, color: '#6b7280' }}
                             transition={{ type: 'spring', stiffness: 300 }}
                         >
-                            Step Into
+                            Elevate Your
                         </motion.span>
                         <motion.span
                             className="block"
@@ -82,7 +82,7 @@ const Hero = () => {
                             whileHover={{ x: 10, color: '#6b7280' }}
                             transition={{ type: 'spring', stiffness: 300 }}
                         >
-                            Luxury
+                            Style Game
                         </motion.span>
                     </motion.h1>
                     <motion.p
@@ -91,8 +91,7 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
                     >
-                        Handcrafted footwear designed for the modern journey.
-                        Comfort meets uncompromising style.
+                        Premium shoes, watches, and fragrances curated for those who stand out.
                     </motion.p>
                     <motion.div
                         className="hero-actions"

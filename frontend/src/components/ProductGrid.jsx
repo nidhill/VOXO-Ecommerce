@@ -76,7 +76,7 @@ const ProductGrid = () => {
         <section className="section product-section">
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">New Arrivals</h2>
+                    <h2 className="section-title">Just Dropped</h2>
                 </div>
                 <SkeletonGrid count={4} />
             </div>
@@ -89,7 +89,10 @@ const ProductGrid = () => {
         <section className="section product-section">
             <div className="container">
                 <div ref={headerRef} className="section-header">
-                    <h2 className="section-title">New Arrivals</h2>
+                    <div>
+                        <h2 className="section-title">Just Dropped</h2>
+                        <p className="section-subtitle">Latest trending styles handpicked for you</p>
+                    </div>
                     <Link to="/collections" className="view-all-link">View All</Link>
                 </div>
 
