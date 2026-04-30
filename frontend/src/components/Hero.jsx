@@ -10,8 +10,6 @@ import heroShoe3 from '../assets/hero-shoe-3.png';
 import newHeroShoes from '../assets/new-hero-shoes.png';
 import '../styles/hero.css';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const fallbackImages = [heroShoeUpdated, heroShoe3, newHeroShoes];
 
 const addVersion = (url, version) => {
@@ -56,6 +54,7 @@ const Hero = () => {
                     start: 'top top',
                     end: 'bottom top',
                     scrub: 1.5,
+                    invalidateOnRefresh: true,
                 },
             });
         }, heroRef);

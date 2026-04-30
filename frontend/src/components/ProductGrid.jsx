@@ -10,8 +10,6 @@ import { getProducts } from '../api/products';
 import SkeletonGrid from './skeletons/SkeletonGrid';
 import '../styles/product-grid.css';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ProductGrid = () => {
     const { addToCart } = useCart();
     const { requireAuth } = useAuth();
@@ -67,6 +65,7 @@ const ProductGrid = () => {
                     trigger: headerRef.current,
                     start: 'top 90%',
                     once: true,
+                    invalidateOnRefresh: true,
                 },
             });
         });

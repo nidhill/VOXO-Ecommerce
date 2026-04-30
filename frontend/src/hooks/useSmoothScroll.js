@@ -4,8 +4,6 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const useSmoothScroll = () => {
     const location  = useLocation();
     const lenisRef  = useRef(null);
@@ -32,13 +30,16 @@ const useSmoothScroll = () => {
 
         lenisRef.current = lenis;
 
-        // Bridge Lenis virtual scroll into GSAP ScrollTrigger so that
+        // Bridge Lenis virtual scroll into GSAP ScrollTrigger so
         // scroll-triggered animations track the smoothed position.
         lenis.on('scroll', ScrollTrigger.update);
 
         const ticker = (time) => lenis.raf(time * 1000);
         gsap.ticker.add(ticker);
         gsap.ticker.lagSmoothing(0);
+
+        // Recalculate trigger positions now that Lenis scroll is active
+        ScrollTrigger.refresh();
 
         return () => {
             gsap.ticker.remove(ticker);

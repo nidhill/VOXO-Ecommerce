@@ -6,8 +6,17 @@ import './styles/tailwind.css'
 import './styles/global.css'
 import './styles/responsive.css'
 import App from './App.jsx'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+// Register once globally so all components share the same plugin instance
+gsap.registerPlugin(ScrollTrigger)
+
+// After all images/fonts finish loading, recalculate every trigger position
+// so animations fire at the correct scroll offsets in production
+window.addEventListener('load', () => ScrollTrigger.refresh())
 
 const queryClient = new QueryClient()
 

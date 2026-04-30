@@ -5,8 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getProducts } from '../api/products';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const FALLBACK_PRODUCTS = [
     { label: 'Signature', name: 'Oud Wood', sub: 'Eau de Parfum', src: '/images/misc/parfum-new.png', link: '/collections/all?category=Perfume', gold: true },
     { label: 'Signature', name: 'Parfum No.2', sub: 'Eau de Parfum', src: '/images/misc/parfum-new.png', link: '/collections/all?category=Perfume' },
@@ -54,7 +52,12 @@ const LookbookSection = () => {
                 opacity: 0,
                 duration: 1.1,
                 ease: 'power3.out',
-                scrollTrigger: { trigger: heroRef.current, start: 'top 82%' },
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top 82%',
+                    once: true,
+                    invalidateOnRefresh: true,
+                },
             });
 
             // Watch slides in from right
@@ -63,7 +66,12 @@ const LookbookSection = () => {
                 opacity: 0,
                 duration: 1.2,
                 ease: 'power3.out',
-                scrollTrigger: { trigger: heroRef.current, start: 'top 82%' },
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top 82%',
+                    once: true,
+                    invalidateOnRefresh: true,
+                },
             });
 
             // Watch subtle float on scroll
@@ -75,6 +83,7 @@ const LookbookSection = () => {
                     start: 'top bottom',
                     end: 'bottom top',
                     scrub: 1.5,
+                    invalidateOnRefresh: true,
                 },
             });
 
@@ -85,12 +94,17 @@ const LookbookSection = () => {
                 duration: 0.7,
                 stagger: 0.1,
                 ease: 'power3.out',
-                scrollTrigger: { trigger: stripRef.current, start: 'top 88%' },
+                scrollTrigger: {
+                    trigger: stripRef.current,
+                    start: 'top 88%',
+                    once: true,
+                    invalidateOnRefresh: true,
+                },
             });
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [displayProducts.length]);
+    }, []);
 
     return (
         <section ref={sectionRef} style={{ background: '#080808', overflow: 'hidden' }}>
