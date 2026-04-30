@@ -46,52 +46,103 @@ const LookbookSection = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Hero text fade-in from left
-            gsap.from(textRef.current, {
-                x: -40,
+            // ── Text: each child element staggers in from below ──
+            gsap.from(Array.from(textRef.current.children), {
+                y: 28,
                 opacity: 0,
-                duration: 1.1,
+                duration: 0.9,
+                stagger: 0.14,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: heroRef.current,
-                    start: 'top 82%',
+                    start: 'top 80%',
                     once: true,
                     invalidateOnRefresh: true,
                 },
             });
 
-            // Watch slides in from right
+            // ── Watch entrance: slides in from right + scales up ──
             gsap.from(watchRef.current, {
-                x: 60,
+                x: 120,
                 opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out',
+                scale: 0.86,
+                duration: 1.5,
+                ease: 'expo.out',
                 scrollTrigger: {
                     trigger: heroRef.current,
-                    start: 'top 82%',
+                    start: 'top 80%',
                     once: true,
                     invalidateOnRefresh: true,
                 },
             });
 
-            // Watch subtle float on scroll
+            // ── Watch parallax: floats upward as user scrolls through ──
             gsap.to(watchRef.current, {
-                y: -30,
+                y: -55,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: heroRef.current,
                     start: 'top bottom',
                     end: 'bottom top',
-                    scrub: 1.5,
+                    scrub: 2,
                     invalidateOnRefresh: true,
                 },
             });
 
-            // Product strip stagger reveal
+            // ── Watch image: subtle Z-rotation for depth on scroll ──
+            const watchImg = watchRef.current.querySelector('img');
+            if (watchImg) {
+                gsap.to(watchImg, {
+                    rotation: 7,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 3.5,
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                // ── Watch scale pulse: grows as it reaches center viewport ──
+                gsap.fromTo(watchImg,
+                    { scale: 0.92 },
+                    {
+                        scale: 1.06,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: heroRef.current,
+                            start: 'top bottom',
+                            end: 'center center',
+                            scrub: 2,
+                            invalidateOnRefresh: true,
+                        },
+                    }
+                );
+            }
+
+            // ── Gold glow: blooms in as watch enters viewport ──
+            gsap.fromTo('.lb-glow',
+                { opacity: 0, scale: 0.7 },
+                {
+                    opacity: 1,
+                    scale: 1.3,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: 'top 75%',
+                        end: 'center 45%',
+                        scrub: 1.5,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+
+            // ── Product strip: cards stagger-reveal on enter ──
             gsap.from('.lb-product-card', {
-                y: 30,
+                y: 36,
                 opacity: 0,
-                duration: 0.7,
+                duration: 0.75,
                 stagger: 0.1,
                 ease: 'power3.out',
                 scrollTrigger: {
@@ -131,10 +182,10 @@ const LookbookSection = () => {
                 }} />
 
                 {/* Gold atmospheric glow behind watch */}
-                <div style={{
+                <div className="lb-glow" style={{
                     position: 'absolute', right: '-5%', top: '50%', transform: 'translateY(-50%)',
                     width: '65%', height: '120%',
-                    background: 'radial-gradient(ellipse, rgba(180,150,90,0.08) 0%, transparent 65%)',
+                    background: 'radial-gradient(ellipse, rgba(180,150,90,0.12) 0%, transparent 65%)',
                     filter: 'blur(40px)', zIndex: 2, pointerEvents: 'none',
                 }} />
 
@@ -232,9 +283,10 @@ const LookbookSection = () => {
                             width: '100%',
                             height: 'auto',
                             objectFit: 'contain',
-                            filter: 'drop-shadow(0 24px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(180,150,90,0.12))',
+                            filter: 'drop-shadow(0 24px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(180,150,90,0.15))',
                             willChange: 'transform',
                             display: 'block',
+                            transformOrigin: 'center center',
                         }}
                     />
                 </div>
