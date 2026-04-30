@@ -226,35 +226,17 @@ const LookbookSection = () => {
                     }}
                 >
                     <img
-                        src="/images/misc/620F68C1-EFFF-4286-9F87-A69C1C805B12.PNG"
+                        src="/images/misc/watch-bg-removed.png"
                         alt="Patek Philippe Nautilus"
                         style={{
                             width: '100%',
                             height: 'auto',
                             objectFit: 'contain',
+                            filter: 'drop-shadow(0 24px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(180,150,90,0.12))',
                             willChange: 'transform',
                             display: 'block',
                         }}
                     />
-                    {/* Vignette to blend white image background into dark section */}
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'radial-gradient(ellipse 55% 60% at 55% 50%, transparent 40%, #080808 80%)',
-                        pointerEvents: 'none',
-                    }} />
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(to left, transparent 30%, #080808 100%)',
-                        pointerEvents: 'none',
-                    }} />
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(to bottom, #080808 0%, transparent 20%, transparent 80%, #080808 100%)',
-                        pointerEvents: 'none',
-                    }} />
                 </div>
 
                 {/* Bottom fade into product strip */}
