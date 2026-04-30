@@ -32,6 +32,15 @@ html.dark .product-section {
     margin-top: 4px;
 }
 
+@media (max-width: 480px) {
+    .section-subtitle {
+        font-size: 12px;
+    }
+    .section-title {
+        font-size: var(--text-xl);
+    }
+}
+
 @media (min-width: 768px) {
     .section-title {
         font-size: var(--text-3xl);

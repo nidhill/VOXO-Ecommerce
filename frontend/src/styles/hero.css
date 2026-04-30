@@ -194,12 +194,33 @@
 @media (max-width: 768px) {
     .hero {
         min-height: auto;
-        padding-top: 80px;
-        padding-bottom: var(--space-8);
+        padding-top: 72px;
+        padding-bottom: var(--space-6);
     }
 
     .hero-image-wrapper {
-        max-width: 82%;
+        max-width: 78%;
+        min-height: 200px;
+    }
+
+    .hero-eyebrow {
+        font-size: 9px;
+        margin-bottom: 14px;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 11vw, 3rem);
+        margin-bottom: var(--space-4);
+    }
+
+    .hero-subtitle {
+        font-size: 13px;
+        margin-bottom: var(--space-5);
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: var(--space-3) var(--space-5);
+        font-size: 13px;
     }
 }
 

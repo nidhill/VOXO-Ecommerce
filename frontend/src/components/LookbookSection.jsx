@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getProducts } from '../api/products';
+import '../styles/lookbook.css';
 
 const FALLBACK_PRODUCTS = [
     { label: 'Signature', name: 'Oud Wood', sub: 'Eau de Parfum', src: '/images/misc/parfum-new.png', link: '/collections/all?category=Perfume', gold: true },
@@ -235,6 +236,7 @@ const LookbookSection = () => {
             ═══════════════════════════════════════════ */}
             <div
                 ref={heroRef}
+                className="lb-hero"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{
@@ -264,6 +266,7 @@ const LookbookSection = () => {
                 {/* Left: Text content */}
                 <div
                     ref={textRef}
+                    className="lb-text"
                     style={{
                         position: 'relative', zIndex: 10,
                         flex: '0 0 auto', width: 'clamp(280px, 42%, 520px)',
@@ -278,7 +281,7 @@ const LookbookSection = () => {
                         Signature Collection
                     </span>
 
-                    <h2 style={{
+                    <h2 className="lb-hero-title" style={{
                         fontFamily: "'Playfair Display', Georgia, serif",
                         fontSize: 'clamp(42px, 6vw, 90px)',
                         lineHeight: 0.88,
@@ -303,7 +306,7 @@ const LookbookSection = () => {
                         Spring / Summer 2026
                     </p>
 
-                    <p style={{
+                    <p className="lb-hero-desc" style={{
                         fontSize: 'clamp(13px, 1.4vw, 15px)', lineHeight: 1.65,
                         color: 'rgba(255,255,255,0.45)', maxWidth: '340px',
                         marginBottom: '36px',
@@ -338,6 +341,7 @@ const LookbookSection = () => {
                 {/* Right: Watch — large, overlapping */}
                 <div
                     ref={watchRef}
+                    className="lb-watch"
                     style={{
                         position: 'absolute',
                         right: 'clamp(-60px, -4vw, -20px)',
@@ -376,13 +380,14 @@ const LookbookSection = () => {
             ═══════════════════════════════════════════ */}
             <div
                 ref={stripRef}
+                className="lb-strip-wrapper"
                 style={{
                     background: '#080808',
                     padding: 'clamp(20px, 3vw, 48px) clamp(16px, 4vw, 64px) clamp(40px, 5vw, 72px)',
                 }}
             >
                 {/* Strip header */}
-                <div style={{
+                <div className="lb-strip-header" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     marginBottom: 'clamp(20px, 2.5vw, 36px)',
                 }}>
@@ -421,10 +426,7 @@ const LookbookSection = () => {
                 </div>
 
                 {/* Product cards row */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(5, 1fr)',
-                    gap: 'clamp(8px, 1.2vw, 16px)',
+                <div className="lb-product-grid" style={{
                     alignItems: 'end',
                 }}>
                     {displayProducts.map((p, i) => (
