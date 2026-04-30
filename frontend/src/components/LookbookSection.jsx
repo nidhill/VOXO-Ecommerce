@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
@@ -19,7 +19,6 @@ const LookbookSection = () => {
     const watchRef    = useRef(null);
     const textRef     = useRef(null);
     const stripRef    = useRef(null);
-    const cursorRef   = useRef(null);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -44,87 +43,6 @@ const LookbookSection = () => {
     }, []);
 
     const displayProducts = products.length > 0 ? products : FALLBACK_PRODUCTS;
-
-    // ── Hover: 3D tilt + glow follows cursor ──────────────────────────────
-    const handleMouseMove = useCallback((e) => {
-        if (!heroRef.current || !watchRef.current) return;
-        const rect = heroRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 2; // -1 → 1
-        const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2; // -1 → 1
-
-        // Custom cursor dot follows mouse
-        if (cursorRef.current) {
-            gsap.to(cursorRef.current, {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top,
-                opacity: 1,
-                duration: 0.15,
-                ease: 'power1.out',
-            });
-        }
-
-        gsap.to(watchRef.current, {
-            rotateX: -y * 8,
-            rotateY:  x * 12,
-            duration: 0.5,
-            ease: 'power2.out',
-        });
-
-        gsap.to('.lb-glow', {
-            x: x * 40,
-            y: y * 24,
-            scale: 1.5,
-            opacity: 1,
-            duration: 0.7,
-            ease: 'power2.out',
-        });
-
-        // Lift the watch image slightly toward the cursor
-        const watchImg = watchRef.current.querySelector('img');
-        if (watchImg) {
-            gsap.to(watchImg, {
-                x: x * 10,
-                y: y * 6,
-                filter: 'drop-shadow(0 32px 100px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(198,167,110,0.28))',
-                duration: 0.5,
-                ease: 'power2.out',
-                overwrite: 'auto',
-            });
-        }
-    }, []);
-
-    const handleMouseLeave = useCallback(() => {
-        if (!watchRef.current) return;
-
-        gsap.to(watchRef.current, {
-            rotateX: 0,
-            rotateY: 0,
-            duration: 1.8,
-            ease: 'elastic.out(1, 0.28)',
-        });
-
-        gsap.to('.lb-glow', {
-            x: 0, y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-        });
-
-        const watchImg = watchRef.current.querySelector('img');
-        if (watchImg) {
-            gsap.to(watchImg, {
-                x: 0, y: 0,
-                filter: 'drop-shadow(0 24px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(180,150,90,0.15))',
-                duration: 1.2,
-                ease: 'power3.out',
-                overwrite: 'auto',
-            });
-        }
-
-        if (cursorRef.current) {
-            gsap.to(cursorRef.current, { opacity: 0, duration: 0.3 });
-        }
-    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -247,8 +165,6 @@ const LookbookSection = () => {
             ═══════════════════════════════════════════ */}
             <div
                 ref={heroRef}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
                 style={{
                     position: 'relative',
                     minHeight: 'clamp(420px, 60vw, 700px)',
@@ -256,21 +172,8 @@ const LookbookSection = () => {
                     alignItems: 'center',
                     overflow: 'hidden',
                     background: 'radial-gradient(ellipse 120% 80% at 70% 50%, #12100d 0%, #080808 60%)',
-                    perspective: '1000px',
-                    cursor: 'none',
                 }}
             >
-                {/* Custom cursor dot */}
-                <div ref={cursorRef} style={{
-                    position: 'absolute', zIndex: 20, pointerEvents: 'none',
-                    width: '48px', height: '48px',
-                    borderRadius: '50%',
-                    border: '1px solid rgba(198,167,110,0.5)',
-                    transform: 'translate(-50%, -50%)',
-                    opacity: 0,
-                    mixBlendMode: 'screen',
-                }} />
-
                 {/* Subtle grain texture overlay */}
                 <div style={{
                     position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
@@ -371,7 +274,6 @@ const LookbookSection = () => {
                         width: 'clamp(340px, 54%, 700px)',
                         zIndex: 8,
                         pointerEvents: 'none',
-                        transformStyle: 'preserve-3d',
                     }}
                 >
                     <img
