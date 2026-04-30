@@ -2,8 +2,17 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
-const r2 = require('../config/r2');
+
+let r2Dependencies;
+function getR2Dependencies() {
+    if (!r2Dependencies) {
+        const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+        const r2 = require('../config/r2');
+        r2Dependencies = { PutObjectCommand, GetObjectCommand, r2 };
+    }
+
+    return r2Dependencies;
+}
 
 // use memory storage to keep file in buffer
 const storage = multer.memoryStorage();
@@ -39,6 +48,7 @@ router.post('/', (req, res) => {
                 res.status(400).json({ msg: 'No file selected!' });
             } else {
                 try {
+                    const { PutObjectCommand, r2 } = getR2Dependencies();
                     const fileName = 'products/' + Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(req.file.originalname);
 
                     const command = new PutObjectCommand({
@@ -80,6 +90,7 @@ router.post('/', (req, res) => {
 // GET /api/upload/file/:folder/:filename - Serve image from R2 via proxy
 router.get('/file/:folder/:filename', async (req, res) => {
     try {
+        const { GetObjectCommand, r2 } = getR2Dependencies();
         const key = `${req.params.folder}/${req.params.filename}`;
         const command = new GetObjectCommand({
             Bucket: process.env.R2_BUCKET_NAME,

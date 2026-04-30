@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { Search, X, Menu, ShoppingBag, User, LogOut } from 'lucide-react';
+import { Search, X, Menu, ShoppingBag, LogOut } from 'lucide-react';
 
 import { useAuth } from '../context/AuthContext';
+import { API_BASE } from '../api/axios';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import heroShoeUpdated from '../assets/hero-shoe-updated.png';
+import heroShoe3 from '../assets/hero-shoe-3.png';
+import newHeroShoes from '../assets/new-hero-shoes.png';
 import '../styles/navbar.css';
 
 const Navbar = () => {
@@ -16,9 +20,12 @@ const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mobileSearchQuery, setMobileSearchQuery] = useState('');
     const { cartCount } = useCart();
-    const { user, isGuest, logout } = useAuth();
+    const auth = useAuth() || {};
+    const { user = null, isGuest = false, logout = async () => {} } = auth;
     const navigate = useNavigate();
     const searchRef = useRef(null);
+
+    const navRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,6 +34,21 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Keep --navbar-height CSS var in sync so the mega-menu top aligns perfectly
+    useEffect(() => {
+        const updateHeight = () => {
+            if (navRef.current) {
+                document.documentElement.style.setProperty(
+                    '--navbar-height',
+                    `${navRef.current.offsetHeight}px`
+                );
+            }
+        };
+        updateHeight();
+        window.addEventListener('resize', updateHeight);
+        return () => window.removeEventListener('resize', updateHeight);
+    }, [scrolled]);
 
     // Lock body scroll when mobile menu is open + close on Escape
     useEffect(() => {
@@ -53,7 +75,7 @@ const Navbar = () => {
             }
 
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/search?q=${encodeURIComponent(searchQuery)}`);
+                const response = await fetch(`${API_BASE}/products/search?q=${encodeURIComponent(searchQuery)}`);
                 if (response.ok) {
                     const data = await response.json();
                     setSuggestions(data);
@@ -117,76 +139,124 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <nav ref={navRef} className={`navbar ${scrolled ? 'scrolled' : ''}`}>
                 <div className="container navbar-container">
                     {/* Desktop Left Nav */}
                     <div className="navbar-left">
+
+                        {/* ── MEN ── */}
                         <div className="nav-item-group">
-                            <Link to="/collections/all" className="nav-link">Products</Link>
+                            <Link to="/collections/men" className="nav-link">Men</Link>
                             <div className="mega-menu">
                                 <div className="mega-menu-container">
                                     <div className="mega-menu-column">
-                                        <Link to="/collections/men" className="mega-col-heading">Men</Link>
+                                        <Link to="/collections/men" className="mega-col-heading">Men's Collection</Link>
                                         <div className="mega-sub-group">
                                             <div className="mega-sub-label">Footwear</div>
                                             <Link to="/collections/men?category=Shoe" className="mega-link">Shoes</Link>
-                                            <Link to="/collections/men?category=Slipper" className="mega-link">Slippers</Link>
                                             <Link to="/collections/men?category=Sandal" className="mega-link">Sandals</Link>
-                                            <Link to="/collections/men?category=Socks" className="mega-link">Socks</Link>
+                                            <Link to="/collections/men?category=Slipper" className="mega-link">Slippers</Link>
                                         </div>
                                         <div className="mega-sub-group">
                                             <div className="mega-sub-label">Clothing</div>
                                             <Link to="/collections/men?category=Shirt" className="mega-link">Shirts</Link>
                                             <Link to="/collections/men?category=Tshirt" className="mega-link">T-Shirts</Link>
-                                            <Link to="/collections/men?category=Jacket" className="mega-link">Jackets</Link>
-                                            <Link to="/collections/men?category=Pants" className="mega-link">Pants</Link>
-                                            <Link to="/collections/men?category=Joggers" className="mega-link">Joggers</Link>
                                         </div>
-                                        <Link to="/collections/men" className="mega-shop-all">Shop all Men →</Link>
+                                        <Link to="/collections/men" className="mega-shop-all">Shop All Men</Link>
                                     </div>
-
                                     <div className="mega-menu-column">
-                                        <Link to="/collections/women" className="mega-col-heading">Women</Link>
+                                        <Link to="/collections/men" className="mega-col-heading">Accessories</Link>
                                         <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Footwear</div>
-                                            <Link to="/collections/women?category=Shoe" className="mega-link">Shoes</Link>
-                                            <Link to="/collections/women?category=Slipper" className="mega-link">Slippers</Link>
-                                            <Link to="/collections/women?category=Sandal" className="mega-link">Sandals</Link>
-                                            <Link to="/collections/women?category=Socks" className="mega-link">Socks</Link>
+                                            <div className="mega-sub-label">Style</div>
+                                            <Link to="/collections/men?category=Watch" className="mega-link">Watches</Link>
+                                            <Link to="/collections/men?category=Belt" className="mega-link">Belts</Link>
+                                            <Link to="/collections/men?category=Perfume" className="mega-link">Perfumes</Link>
                                         </div>
-                                        <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Clothing</div>
-                                            <Link to="/collections/women?category=Shirt" className="mega-link">Shirts</Link>
-                                            <Link to="/collections/women?category=Tshirt" className="mega-link">T-Shirts</Link>
-                                            <Link to="/collections/women?category=Jacket" className="mega-link">Jackets</Link>
-                                            <Link to="/collections/women?category=Pants" className="mega-link">Pants</Link>
-                                            <Link to="/collections/women?category=Joggers" className="mega-link">Joggers</Link>
-                                        </div>
-                                        <Link to="/collections/women" className="mega-shop-all">Shop all Women →</Link>
                                     </div>
-
-                                    <div className="mega-menu-column">
-                                        <span className="mega-col-heading" style={{ cursor: 'default' }}>Accessories</span>
-                                        <div className="mega-sub-group" style={{ marginTop: 0 }}>
-                                            <Link to="/collections/all?category=Watch" className="mega-link">Watches</Link>
-                                            <Link to="/collections/all?category=Perfume" className="mega-link">Perfumes</Link>
-                                            <Link to="/collections/all?category=Belt" className="mega-link">Belts</Link>
-                                            <Link to="/collections/all?category=Sunglasses" className="mega-link">Sunglasses</Link>
-                                        </div>
-                                        <Link to="/collections/all" className="mega-shop-all">Shop all →</Link>
-                                    </div>
-
-                                    <Link to="/collections/all" className="mega-menu-featured">
-                                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="New Arrivals" />
+                                    <div className="mega-menu-column" />
+                                    <Link to="/collections/men" className="mega-menu-featured">
+                                        <img src={heroShoeUpdated} alt="Men's Collection" />
                                         <div className="featured-text">
                                             <span className="featured-badge">New</span>
-                                            <p>Spring Collection</p>
-                                            <small>Explore the latest arrivals</small>
+                                            <p>Men's Drop</p>
+                                            <small>Shop the latest styles</small>
                                         </div>
                                     </Link>
                                 </div>
                             </div>
                         </div>
+
+                        {/* ── WOMEN ── */}
+                        <div className="nav-item-group">
+                            <Link to="/collections/women" className="nav-link">Women</Link>
+                            <div className="mega-menu">
+                                <div className="mega-menu-container">
+                                    <div className="mega-menu-column">
+                                        <Link to="/collections/women" className="mega-col-heading">Women's Collection</Link>
+                                        <div className="mega-sub-group">
+                                            <div className="mega-sub-label">Footwear</div>
+                                            <Link to="/collections/women?category=Shoe" className="mega-link">Shoes</Link>
+                                            <Link to="/collections/women?category=Sandal" className="mega-link">Sandals</Link>
+                                            <Link to="/collections/women?category=Slipper" className="mega-link">Slippers</Link>
+                                        </div>
+                                        <div className="mega-sub-group">
+                                            <div className="mega-sub-label">Clothing</div>
+                                            <Link to="/collections/women?category=Shirt" className="mega-link">Shirts</Link>
+                                            <Link to="/collections/women?category=Tshirt" className="mega-link">T-Shirts</Link>
+                                        </div>
+                                        <Link to="/collections/women" className="mega-shop-all">Shop All Women</Link>
+                                    </div>
+                                    <div className="mega-menu-column">
+                                        <Link to="/collections/women" className="mega-col-heading">Accessories</Link>
+                                        <div className="mega-sub-group">
+                                            <div className="mega-sub-label">Style</div>
+                                            <Link to="/collections/women?category=Watch" className="mega-link">Watches</Link>
+                                            <Link to="/collections/women?category=Belt" className="mega-link">Belts</Link>
+                                            <Link to="/collections/women?category=Perfume" className="mega-link">Perfumes</Link>
+                                        </div>
+                                    </div>
+                                    <div className="mega-menu-column" />
+                                    <Link to="/collections/women" className="mega-menu-featured">
+                                        <img src={heroShoe3} alt="Women's Collection" />
+                                        <div className="featured-text">
+                                            <span className="featured-badge">New</span>
+                                            <p>Women's Drop</p>
+                                            <small>Shop the latest styles</small>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ── ACCESSORIES ── */}
+                        <div className="nav-item-group">
+                            <Link to="/collections/all" className="nav-link">Accessories</Link>
+                            <div className="mega-menu">
+                                <div className="mega-menu-container">
+                                    <div className="mega-menu-column">
+                                        <Link to="/collections/all" className="mega-col-heading">All Accessories</Link>
+                                        <div className="mega-sub-group">
+                                            <div className="mega-sub-label">Categories</div>
+                                            <Link to="/collections/all?category=Watch" className="mega-link">Watches</Link>
+                                            <Link to="/collections/all?category=Perfume" className="mega-link">Perfumes</Link>
+                                            <Link to="/collections/all?category=Belt" className="mega-link">Belts</Link>
+                                        </div>
+                                        <Link to="/collections/all" className="mega-shop-all">Shop All Accessories</Link>
+                                    </div>
+                                    <div className="mega-menu-column" />
+                                    <div className="mega-menu-column" />
+                                    <Link to="/collections/all" className="mega-menu-featured">
+                                        <img src={newHeroShoes} alt="Accessories" />
+                                        <div className="featured-text">
+                                            <span className="featured-badge">Featured</span>
+                                            <p>Accessories</p>
+                                            <small>Complete your look</small>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     {/* Center Logo */}
@@ -283,6 +353,8 @@ const Navbar = () => {
                                 </span>
                             )}
                         </button>
+
+                        <ThemeToggle className="desktop-theme-toggle" />
 
                         {/* Mobile Hamburger — visible only on mobile via CSS */}
                         <button

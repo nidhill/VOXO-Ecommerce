@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -9,13 +10,18 @@ import { getProducts } from '../api/products';
 import SkeletonGrid from './skeletons/SkeletonGrid';
 import '../styles/product-grid.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const ProductGrid = () => {
     const { addToCart } = useCart();
     const { requireAuth } = useAuth();
+    const headerRef = useRef(null);
 
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['new-arrivals'],
-        queryFn: () => getProducts({})
+        queryFn: () => getProducts({}),
+        retry: false,
+        refetchOnWindowFocus: false,
     });
 
     const handleAddToCart = (e, product) => {
@@ -46,6 +52,27 @@ const ProductGrid = () => {
         show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
     };
 
+    // Fade-up only the section header — cards are already animated by framer-motion.
+    // Running GSAP opacity:0 on the cards too causes them to stay invisible if the
+    // section is already in the viewport when products finish loading.
+    useEffect(() => {
+        if (!headerRef.current) return;
+        const ctx = gsap.context(() => {
+            gsap.from(headerRef.current, {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: headerRef.current,
+                    start: 'top 90%',
+                    once: true,
+                },
+            });
+        });
+        return () => ctx.revert();
+    }, []);
+
     if (isLoading) return (
         <section className="section product-section">
             <div className="container">
@@ -62,7 +89,7 @@ const ProductGrid = () => {
     return (
         <section className="section product-section">
             <div className="container">
-                <div className="section-header">
+                <div ref={headerRef} className="section-header">
                     <h2 className="section-title">New Arrivals</h2>
                     <Link to="/collections" className="view-all-link">View All</Link>
                 </div>

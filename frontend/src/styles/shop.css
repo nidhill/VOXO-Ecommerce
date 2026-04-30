@@ -1,39 +1,217 @@
-.shop-title {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-3);
-    font-weight: 400;
-    letter-spacing: -0.02em;
+/* ════════════════════════════════════════════════
+   SHOP PAGE — Premium editorial layout
+   ════════════════════════════════════════════════ */
+
+.shop-page {
+    background: var(--color-white);
+    min-height: 100vh;
 }
 
-@media (min-width: 768px) {
-    .shop-title {
-        font-size: var(--text-4xl);
-        margin-bottom: var(--space-4);
-    }
+/* ── Editorial hero header ──────────────────────── */
+.shop-hero {
+    padding-top: clamp(90px, 12vw, 130px);
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--color-grey-200);
 }
 
-.shop-subtitle {
+.shop-eyebrow {
+    font-size: 9px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
     color: var(--color-grey-500);
-    margin-bottom: var(--space-8);
-    max-width: 400px;
-    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
-@media (min-width: 768px) {
-    .shop-subtitle {
-        margin-bottom: var(--space-12);
-        font-size: var(--text-base);
-    }
+.shop-hero-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-.shop-page .container {
-    padding-top: 90px !important;
-    padding-bottom: 60px !important;
+.shop-editorial-title {
+    font-family: 'Playfair Display', var(--font-serif);
+    font-size: clamp(44px, 7vw, 76px);
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    color: var(--color-black);
+    margin: 0;
 }
 
-@media (min-width: 768px) {
-    .shop-page .container {
-        padding-top: 120px !important;
-        padding-bottom: 80px !important;
-    }
+.shop-count {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-grey-500);
+    font-weight: 600;
+    padding-bottom: 8px;
+    white-space: nowrap;
+}
+
+/* ── Sticky filter bar ──────────────────────────── */
+.shop-filter-bar-wrap {
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-grey-200);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Gender tabs row + chips combined ───────────── */
+.shop-gender-tabs {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0;
+}
+.shop-gender-tabs::-webkit-scrollbar { display: none; }
+
+.shop-gender-tab {
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-grey-500);
+    transition: color 0.18s, border-color 0.18s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+}
+.shop-gender-tab:hover { color: var(--color-black); }
+.shop-gender-tab.active {
+    color: var(--color-black);
+    border-bottom-color: var(--color-black);
+}
+
+.shop-tab-divider {
+    width: 1px;
+    background: var(--color-grey-200);
+    margin: 12px 10px;
+    flex-shrink: 0;
+}
+
+/* ── Category chips ─────────────────────────────── */
+.shop-chips-scroll {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 12px 0;
+    flex: 1;
+}
+.shop-chips-scroll::-webkit-scrollbar { display: none; }
+
+.shop-chip-group {
+    font-size: 7.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--color-grey-500);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0 6px;
+    opacity: 0.6;
+}
+
+.shop-chip-sep {
+    width: 1px;
+    height: 14px;
+    background: var(--color-grey-200);
+    flex-shrink: 0;
+    margin: 0 6px;
+}
+
+.shop-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 13px;
+    border-radius: 2px;
+    font-size: 9.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--color-grey-200);
+    background: transparent;
+    color: var(--color-grey-500);
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+.shop-chip:hover {
+    border-color: var(--color-grey-500);
+    color: var(--color-black);
+}
+.shop-chip.active {
+    background: var(--color-black);
+    border-color: var(--color-black);
+    color: var(--color-white);
+}
+
+/* ── Products wrapper ───────────────────────────── */
+.shop-products-wrap {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+/* ── Empty state ────────────────────────────────── */
+.shop-empty {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.shop-empty-title {
+    font-family: 'Playfair Display', var(--font-serif);
+    font-size: clamp(24px, 4vw, 36px);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: 10px;
+}
+
+.shop-empty-sub {
+    font-size: 13px;
+    color: var(--color-grey-500);
+    margin-bottom: 28px;
+}
+
+.shop-empty-clear {
+    padding: 11px 28px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-family: inherit;
+}
+.shop-empty-clear:hover { opacity: 0.75; }
+
+/* ── Mobile adjustments ─────────────────────────── */
+@media (max-width: 767px) {
+    .shop-hero { padding-top: clamp(72px, 20vw, 100px); padding-bottom: 24px; }
+    .shop-filter-bar-wrap { top: 52px; }
+    .shop-gender-tab { padding: 13px 14px; font-size: 8px; letter-spacing: 1.5px; }
+    .shop-chip { padding: 4px 11px; font-size: 9px; }
+    .shop-chip-group { font-size: 7px; }
+    .shop-products-wrap { padding-top: 28px; }
 }

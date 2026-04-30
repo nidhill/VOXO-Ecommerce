@@ -44,9 +44,7 @@ const Footer = () => {
                 <div className="footer-bottom">
                     <p className="footer-copyright">© 2026 Wavway. All rights reserved.</p>
                     <div className="footer-social">
-                        <a href="#">Instagram</a>
-                        <a href="#">Twitter</a>
-                        <a href="#">Pinterest</a>
+                        <a href="https://www.instagram.com/wavway.in/" target="_blank" rel="noopener noreferrer">Instagram</a>
                     </div>
                 </div>
             </div>

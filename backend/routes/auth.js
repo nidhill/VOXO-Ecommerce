@@ -6,10 +6,28 @@ const User = require('../models/User');
 const { protect } = require('../middleware/auth');
 const validate = require('../middleware/validate');
 const { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } = require('../validators/authSchema');
-const { OAuth2Client } = require('google-auth-library');
 const { sendWelcomeEmail, sendPasswordResetEmail } = require('../services/emailService');
 
-const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+let googleClient = null;
+
+const getGoogleClient = () => {
+    if (!process.env.GOOGLE_CLIENT_ID) {
+        return null;
+    }
+
+    if (googleClient) {
+        return googleClient;
+    }
+
+    try {
+        const { OAuth2Client } = require('google-auth-library');
+        googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+        return googleClient;
+    } catch (error) {
+        console.error(`Google auth disabled: ${error.message}`);
+        return null;
+    }
+};
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -66,6 +84,12 @@ router.post('/login', validate(loginSchema), async (req, res) => {
 router.post('/google', async (req, res) => {
     try {
         const { credential } = req.body;
+        const googleClient = getGoogleClient();
+
+        if (!googleClient) {
+            return res.status(503).json({ message: 'Google login is not available right now' });
+        }
+
         const ticket = await googleClient.verifyIdToken({
             idToken: credential,
             audience: process.env.GOOGLE_CLIENT_ID,

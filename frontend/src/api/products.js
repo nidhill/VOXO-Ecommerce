@@ -11,10 +11,12 @@ export const getProducts = async (filters = {}) => {
         if (gender) params.gender = gender;
         if (search && search.trim()) params.search = search.trim();
 
-        const response = await api.get('/products', { params });
+        const response = await api.get('/products', {
+            params,
+            skipErrorToast: true,
+        });
         return response.data;
     } catch (error) {
-        console.warn('Backend unavailable, using local data', error);
         let filtered = [...products];
         const { category, gender, search } = filters;
 

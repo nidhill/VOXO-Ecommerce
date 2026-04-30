@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 
 // @route   GET api/products
@@ -7,6 +8,10 @@ const Product = require('../models/Product');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            return res.json([]);
+        }
+
         const { category, gender, search } = req.query;
         let query = { isHidden: false };
 
@@ -24,11 +29,11 @@ router.get('/', async (req, res) => {
             query.name = { $regex: search.trim(), $options: 'i' };
         }
 
-        const products = await Product.find(query).sort({ createdAt: -1 });
+        const products = await Product.find(query).sort({ createdAt: -1 }).maxTimeMS(5000);
         res.json(products);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+        console.error("Products fetch failed:", err.message);
+        res.json([]);
     }
 });
 
@@ -37,6 +42,10 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/search', async (req, res) => {
     try {
+        if (mongoose.connection.readyState !== 1) {
+            return res.json([]);
+        }
+
         const { q } = req.query;
         if (!q) return res.json([]);
 

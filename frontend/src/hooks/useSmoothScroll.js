@@ -1,10 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const useSmoothScroll = () => {
-    const location = useLocation();
-    const lenisRef = useRef(null);
+    const location  = useLocation();
+    const lenisRef  = useRef(null);
 
     const excluded = location.pathname.startsWith('/admin') ||
         location.pathname === '/auth' ||
@@ -28,15 +32,17 @@ const useSmoothScroll = () => {
 
         lenisRef.current = lenis;
 
-        let raf;
-        const animate = (time) => {
-            lenis.raf(time);
-            raf = requestAnimationFrame(animate);
-        };
-        raf = requestAnimationFrame(animate);
+        // Bridge Lenis virtual scroll into GSAP ScrollTrigger so that
+        // scroll-triggered animations track the smoothed position.
+        lenis.on('scroll', ScrollTrigger.update);
+
+        const ticker = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(ticker);
+        gsap.ticker.lagSmoothing(0);
 
         return () => {
-            cancelAnimationFrame(raf);
+            gsap.ticker.remove(ticker);
+            lenis.off('scroll', ScrollTrigger.update);
             lenis.destroy();
             lenisRef.current = null;
         };

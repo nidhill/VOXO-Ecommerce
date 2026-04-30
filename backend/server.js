@@ -1,15 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
-const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const loadEnv = require('./config/loadEnv');
 
 // Load environment variables
-dotenv.config();
+loadEnv();
 
 // Connect to Database
 connectDB();
@@ -24,27 +22,39 @@ app.use(helmet({
 
 // ── Security: CORS allowlist ──────────────────────────────────────────────────
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'http://localhost:5175',
-        'http://localhost:3000',
-        'https://wavway.vercel.app',
-        process.env.FRONTEND_URL,
-    ].filter(Boolean),
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true); // allow requests with no origin (like mobile apps or curl requests)
+
+        const allowedList = [
+            'http://localhost:5173',
+            'http://localhost:5174',
+            'http://localhost:5175',
+            'http://localhost:3000',
+            'https://wavway.vercel.app',
+            process.env.FRONTEND_URL,
+        ].filter(Boolean);
+
+        if (allowedList.includes(origin) || origin.startsWith('http://192.168.') || origin.startsWith('http://10.')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
 }));
 
 app.use(express.json({ limit: '10kb' })); // limit body size
 app.use(cookieParser());
 
-// ── Security: strip MongoDB operators from user input ─────────────────────────
-app.use(mongoSanitize());
-
-// ── Security: prevent HTTP Parameter Pollution ───────────────────────────────
-app.use(hpp());
-
 app.use('/uploads', express.static('uploads'));
+
+app.get('/api/health', (req, res) => {
+    res.json({
+        ok: true,
+        mongoReadyState: require('mongoose').connection.readyState,
+        timestamp: new Date().toISOString(),
+    });
+});
 
 // ── Rate limiters ─────────────────────────────────────────────────────────────
 const authLimiter = rateLimit({
@@ -57,7 +67,7 @@ const authLimiter = rateLimit({
 
 const apiLimiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 100,
+    max: 200,
     message: { message: 'Too many requests. Please slow down.' },
     standardHeaders: true,
     legacyHeaders: false,

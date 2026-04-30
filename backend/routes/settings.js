@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const SiteSettings = require('../models/SiteSettings');
 
 const DEFAULT_BANNERS = {
@@ -15,15 +16,32 @@ const DEFAULT_HERO_IMAGES = [
 ];
 
 async function getOrCreateSettings() {
-    let settings = await SiteSettings.findOne({ key: 'global' });
-    if (!settings) {
-        settings = await SiteSettings.create({
-            key: 'global',
+    if (mongoose.connection.readyState !== 1) {
+        return {
             homepageBanners: DEFAULT_BANNERS,
             heroImages: DEFAULT_HERO_IMAGES,
-        });
+            updatedAt: null,
+        };
     }
-    return settings;
+
+    try {
+        let settings = await SiteSettings.findOne({ key: 'global' }).maxTimeMS(5000);
+        if (!settings) {
+            settings = await SiteSettings.create({
+                key: 'global',
+                homepageBanners: DEFAULT_BANNERS,
+                heroImages: DEFAULT_HERO_IMAGES,
+            });
+        }
+        return settings;
+    } catch (error) {
+        console.error("DB Settings fetch failed:", error.message);
+        return {
+            homepageBanners: DEFAULT_BANNERS,
+            heroImages: DEFAULT_HERO_IMAGES,
+            updatedAt: null,
+        };
+    }
 }
 
 router.get('/homepage-banners', async (req, res) => {
@@ -42,8 +60,16 @@ router.get('/homepage-banners', async (req, res) => {
 
 router.put('/homepage-banners', async (req, res) => {
     try {
+        if (require('mongoose').connection.readyState !== 1) {
+            return res.status(503).json({ message: 'Database not connected. Please try again shortly.' });
+        }
+
         const { men, women } = req.body;
         const settings = await getOrCreateSettings();
+
+        if (typeof settings.save !== 'function') {
+            return res.status(503).json({ message: 'Database unavailable. Please try again.' });
+        }
 
         settings.homepageBanners = {
             men: typeof men === 'string' && men.trim() ? men.trim() : (settings.homepageBanners?.men || DEFAULT_BANNERS.men),
@@ -60,6 +86,7 @@ router.put('/homepage-banners', async (req, res) => {
             updatedAt: settings.updatedAt,
         });
     } catch (err) {
+        console.error('PUT homepage-banners error:', err.message);
         res.status(500).json({ message: err.message });
     }
 });
@@ -83,8 +110,16 @@ router.get('/hero-images', async (req, res) => {
 
 router.put('/hero-images', async (req, res) => {
     try {
+        if (require('mongoose').connection.readyState !== 1) {
+            return res.status(503).json({ message: 'Database not connected. Please try again shortly.' });
+        }
+
         const { images } = req.body;
         const settings = await getOrCreateSettings();
+
+        if (typeof settings.save !== 'function') {
+            return res.status(503).json({ message: 'Database unavailable. Please try again.' });
+        }
 
         const sanitized = Array.isArray(images)
             ? images.filter((url) => typeof url === 'string' && url.trim()).map((url) => url.trim())

@@ -1,5 +1,32 @@
-const { Resend } = require('resend');
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+let resendClient = null;
+let resendInitAttempted = false;
+
+const getResendClient = () => {
+    if (!process.env.RESEND_API_KEY) {
+        return null;
+    }
+
+    // Keep local development startup independent from the optional email SDK.
+    if (process.env.NODE_ENV !== 'production' && process.env.ENABLE_EMAIL !== 'true') {
+        return null;
+    }
+
+    if (resendInitAttempted) {
+        return resendClient;
+    }
+
+    resendInitAttempted = true;
+
+    try {
+        const { Resend } = require('resend');
+        resendClient = new Resend(process.env.RESEND_API_KEY);
+    } catch (error) {
+        console.error(`Email service disabled: ${error.message}`);
+        resendClient = null;
+    }
+
+    return resendClient;
+};
 
 const FROM = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 const BRAND = 'WAVWAY';
@@ -129,6 +156,7 @@ const itemsTable = (items, totalAmount, discount) => `
 
 // ─── 1. Welcome Email ────────────────────────────────────────────────────────
 const sendWelcomeEmail = async ({ name, email }) => {
+    const resend = getResendClient();
     if (!resend) return;
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,
@@ -168,6 +196,7 @@ const sendWelcomeEmail = async ({ name, email }) => {
 
 // ─── 2. Order Confirmation ───────────────────────────────────────────────────
 const sendOrderConfirmation = async (order) => {
+    const resend = getResendClient();
     if (!resend || !order.email) return;
     const orderId = order._id?.toString().slice(-8).toUpperCase();
     return resend.emails.send({
@@ -215,6 +244,7 @@ const sendOrderConfirmation = async (order) => {
 
 // ─── 3. Order Status Update ──────────────────────────────────────────────────
 const sendOrderStatusUpdate = async (order) => {
+    const resend = getResendClient();
     if (!resend || !order.email) return;
     const orderId = order._id?.toString().slice(-8).toUpperCase();
     const statusInfo = {
@@ -271,6 +301,7 @@ const sendOrderStatusUpdate = async (order) => {
 
 // ─── 4. Password Reset ───────────────────────────────────────────────────────
 const sendPasswordResetEmail = async ({ name, email, resetToken }) => {
+    const resend = getResendClient();
     if (!resend) return;
     const resetUrl = `${BRAND_URL}/reset-password?token=${resetToken}`;
     return resend.emails.send({
@@ -299,6 +330,7 @@ const sendPasswordResetEmail = async ({ name, email, resetToken }) => {
 
 // ─── 5. New Coupon / Promo ───────────────────────────────────────────────────
 const sendPromoEmail = async ({ name, email, couponCode, discount, expiryDate }) => {
+    const resend = getResendClient();
     if (!resend) return;
     return resend.emails.send({
         from: `${BRAND} <${FROM}>`,

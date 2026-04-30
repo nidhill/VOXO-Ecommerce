@@ -1,6 +1,10 @@
 .product-section {
-    background-color: var(--color-white);
+    background-color: #faf9f7;
     color: var(--color-black);
+}
+
+html.dark .product-section {
+    background-color: var(--color-white);
 }
 
 .section-header {

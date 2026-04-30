@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Upload, Loader2, Save, Image as ImageIcon } from 'lucide-react';
-import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages } from '../../api/settings';
+import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages } from '../api/settings';
 import { uploadImage } from '../api/products';
 
 const AdminBanners = () => {
@@ -43,19 +43,25 @@ const AdminBanners = () => {
     const saveBannersMutation = useMutation({
         mutationFn: updateHomepageBanners,
         onSuccess: () => {
-            queryClient.invalidateQueries(['homepage-banners']);
+            queryClient.invalidateQueries({ queryKey: ['homepage-banners'] });
             alert('Homepage banners updated successfully');
         },
-        onError: () => alert('Failed to save homepage banners'),
+        onError: (err) => {
+            const msg = err?.response?.data?.message || err?.message || 'Network error — is the backend running?';
+            alert(`Failed to save banners: ${msg}`);
+        },
     });
 
     const saveHeroMutation = useMutation({
         mutationFn: updateHeroImages,
         onSuccess: () => {
-            queryClient.invalidateQueries(['hero-images']);
+            queryClient.invalidateQueries({ queryKey: ['hero-images'] });
             alert('Hero images updated successfully');
         },
-        onError: () => alert('Failed to save hero images'),
+        onError: (err) => {
+            const msg = err?.response?.data?.message || err?.message || 'Network error — is the backend running?';
+            alert(`Failed to save hero images: ${msg}`);
+        },
     });
 
     const handleBannerUpload = async (type, file) => {

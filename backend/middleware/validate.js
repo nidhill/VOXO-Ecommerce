@@ -1,7 +1,5 @@
-const { ZodError } = require('zod');
-
 /**
- * Express middleware factory — validates req.body against a Zod schema.
+ * Express middleware factory — validates req.body against a schema-like object.
  * Returns 400 with the first validation error message on failure.
  */
 const validate = (schema) => (req, res, next) => {

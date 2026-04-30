@@ -1,7 +1,7 @@
 const { S3Client } = require('@aws-sdk/client-s3');
-const dotenv = require('dotenv');
+const loadEnv = require('./loadEnv');
 
-dotenv.config();
+loadEnv();
 
 const r2 = new S3Client({
     region: 'auto',

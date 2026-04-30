@@ -41,6 +41,22 @@
   /* Animation */
   --transition-fast: 0.2s ease;
   --transition-medium: 0.4s ease;
+
+  /* Navbar — light mode */
+  --nav-bg:               #ffffff;
+  --nav-border:           rgba(0, 0, 0, 0.08);
+  --nav-text:             #0a0a0a;
+  --nav-text-muted:       #6b7280;
+  --nav-text-dim:         #9ca3af;
+  --nav-search-bg:        #f4f4f4;
+  --nav-drawer-bg:        #ffffff;
+  --nav-drawer-border:    rgba(0, 0, 0, 0.08);
+  --nav-mega-bg:          #ffffff;
+  --nav-mega-border:      rgba(0, 0, 0, 0.06);
+  --nav-suggestion-bg:    #ffffff;
+  --nav-suggestion-hover: #f4f4f4;
+  --nav-col-heading:      #0a0a0a;
+  --nav-sub-label:        #9ca3af;
 }
 
 html.dark {
@@ -52,6 +68,22 @@ html.dark {
   --color-grey-500: #a1a1aa;
   --color-grey-800: #f4f4f5;
   --color-accent: #ffffff;
+
+  /* Navbar — dark mode */
+  --nav-bg:               #0e0e0e;
+  --nav-border:           rgba(72, 72, 72, 0.18);
+  --nav-text:             #e7e5e5;
+  --nav-text-muted:       #a1a1a1;
+  --nav-text-dim:         #484848;
+  --nav-search-bg:        #191a1a;
+  --nav-drawer-bg:        #0e0e0e;
+  --nav-drawer-border:    rgba(72, 72, 72, 0.20);
+  --nav-mega-bg:          #0e0e0e;
+  --nav-mega-border:      rgba(72, 72, 72, 0.20);
+  --nav-suggestion-bg:    #131313;
+  --nav-suggestion-hover: #1f2020;
+  --nav-col-heading:      #e7e5e5;
+  --nav-sub-label:        #484848;
 }
 
 /* ===== Mobile-First Variable Overrides ===== */
