@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
     LayoutDashboard, ShoppingBag, ShoppingCart, Tag, Image,
-    LogOut, Menu, X, Users, Mail, Megaphone, ChevronRight
+    LogOut, Menu, X, Users, Mail, Megaphone, ChevronRight, Database, KeyRound
 } from 'lucide-react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
@@ -14,6 +14,7 @@ const NAV_GROUPS = [
             { to: '/admin/products', icon: <ShoppingBag size={17} />, label: 'Products' },
             { to: '/admin/orders', icon: <ShoppingCart size={17} />, label: 'Orders' },
             { to: '/admin/customers', icon: <Users size={17} />, label: 'Customers' },
+            { to: '/admin/categories', icon: <Tag size={17} />, label: 'Categories' },
         ],
     },
     {
@@ -28,6 +29,13 @@ const NAV_GROUPS = [
         label: 'Content',
         items: [
             { to: '/admin/banners', icon: <Image size={17} />, label: 'Banners & Media' },
+        ],
+    },
+    {
+        label: 'System',
+        items: [
+            { to: '/admin/database', icon: <Database size={17} />, label: 'Database' },
+            { to: '/admin/change-password', icon: <KeyRound size={17} />, label: 'Change Password' },
         ],
     },
 ];

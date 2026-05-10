@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getProducts, createProduct, updateProduct, deleteProduct, uploadImage } from '../api/products';
+import { getCategories } from '../api/categories';
 import { Search, Plus, Upload, X, Loader2, Trash2, Eye, EyeOff, Edit3, Image as ImageIcon, Package } from 'lucide-react';
 
-const CATEGORIES = ['Shoe', 'Slipper', 'Sandal', 'Watch', 'Perfume', 'Belt', 'Shirt', 'Jacket', 'Tshirt', 'Pants', 'Joggers', 'Sunglasses', 'Socks', 'Other'];
+const FALLBACK_CATEGORIES = ['Shoe', 'Slipper', 'Sandal', 'Watch', 'Perfume', 'Belt', 'Shirt', 'Jacket', 'Tshirt', 'Pants', 'Joggers', 'Sunglasses', 'Socks', 'Other'];
 const GENDERS = ['Men', 'Women', 'Unisex', 'Kids'];
 
 function proxyImageUrl(url) {
@@ -26,6 +27,8 @@ const Products = () => {
     const queryClient = useQueryClient();
 
     const { data: products = [], isLoading } = useQuery({ queryKey: ['products'], queryFn: getProducts });
+    const { data: catData = [] } = useQuery({ queryKey: ['categories'], queryFn: getCategories });
+    const CATEGORIES = catData.length > 0 ? catData.map(c => c.name) : FALLBACK_CATEGORIES;
 
     const createMutation = useMutation({ mutationFn: createProduct, onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });
     const updateMutation = useMutation({ mutationFn: ({ id, data }) => updateProduct(id, data), onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });

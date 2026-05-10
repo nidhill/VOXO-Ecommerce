@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-import { User, Package, LogOut, ChevronRight, Check } from 'lucide-react';
+import { User, Package, LogOut, ChevronRight, Check, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import useMeta from '../hooks/useMeta';
@@ -17,6 +17,7 @@ const Profile = () => {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState('');
+    const [disconnecting, setDisconnecting] = useState(false);
     const [form, setForm] = useState({ name: user?.name || '', phone: user?.phone || '' });
 
     if (!user) {
@@ -58,8 +59,23 @@ const Profile = () => {
     const handleGoogleLink = async (cr) => {
         try {
             await googleLogin(cr.credential);
+            window.location.reload();
         } catch {
             setError('Google sign-in failed.');
+        }
+    };
+
+    const handleDisconnectGoogle = async () => {
+        if (!window.confirm('Remove Google from your account?')) return;
+        setDisconnecting(true);
+        setError('');
+        try {
+            await api.post('/auth/disconnect-google');
+            window.location.reload();
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to disconnect Google.');
+        } finally {
+            setDisconnecting(false);
         }
     };
 
@@ -187,9 +203,15 @@ const Profile = () => {
                                     </div>
                                 </div>
                                 {user.googleId ? (
-                                    <span className="prof-connected-badge">
-                                        <Check size={11} /> Connected
-                                    </span>
+                                    <button
+                                        type="button"
+                                        className="prof-disconnect-btn"
+                                        onClick={handleDisconnectGoogle}
+                                        disabled={disconnecting}
+                                    >
+                                        <X size={14} />
+                                        {disconnecting ? 'Disconnecting…' : 'Disconnect'}
+                                    </button>
                                 ) : (
                                     <div className="prof-google-btn-wrap">
                                         <GoogleLogin

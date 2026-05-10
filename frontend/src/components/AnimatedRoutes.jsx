@@ -30,6 +30,10 @@ import AdminBanners from '../admin/pages/AdminBanners';
 import AdminAnnouncement from '../admin/pages/AdminAnnouncement';
 import AdminCustomers from '../admin/pages/AdminCustomers';
 import AdminSubscribers from '../admin/pages/AdminSubscribers';
+import AdminCategories from '../admin/pages/AdminCategories';
+import AdminDatabase from '../admin/pages/AdminDatabase';
+import AdminForgotPassword from '../admin/pages/AdminForgotPassword';
+import AdminChangePassword from '../admin/pages/AdminChangePassword';
 
 const AdminProtectedRoute = ({ children }) => {
     const { isAuthenticated, loading } = useAdminAuth();
@@ -105,6 +109,7 @@ const AdminRoutes = () => {
     return (
         <Routes>
             <Route path="/login" element={<AdminLogin />} />
+            <Route path="/forgot-password" element={<AdminForgotPassword />} />
             <Route path="/" element={
                 <AdminProtectedRoute>
                     <AdminLayout />
@@ -118,6 +123,9 @@ const AdminRoutes = () => {
                 <Route path="announcement" element={<AdminAnnouncement />} />
                 <Route path="customers" element={<AdminCustomers />} />
                 <Route path="subscribers" element={<AdminSubscribers />} />
+                <Route path="categories" element={<AdminCategories />} />
+                <Route path="database" element={<AdminDatabase />} />
+                <Route path="change-password" element={<AdminChangePassword />} />
             </Route>
         </Routes>
     );

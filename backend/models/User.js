@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true, minlength: 6 },
     phone: { type: String, trim: true },
     avatar: { type: String, default: '' },
+    googleId: { type: String, default: null },
     resetPasswordToken: { type: String },
     resetPasswordExpire: { type: Date },
 }, { timestamps: true });

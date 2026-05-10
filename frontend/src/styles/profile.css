@@ -375,6 +375,30 @@
     border-radius: 50px;
 }
 
+.prof-disconnect-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.prof-disconnect-btn:hover:not(:disabled) {
+    border-color: #d0d0d0;
+    background: #fafafa;
+    color: #111;
+}
+.prof-disconnect-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* Empty state */
 .prof-empty {
     display: flex;

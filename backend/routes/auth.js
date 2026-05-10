@@ -122,13 +122,16 @@ router.post('/google', async (req, res) => {
         let user = await User.findOne({ email });
         const isNew = !user;
         if (!user) {
-            user = new User({ name, email, password: sub + process.env.JWT_SECRET, avatar: picture });
+            user = new User({ name, email, password: sub + process.env.JWT_SECRET, avatar: picture, googleId: sub });
+            await user.save();
+        } else if (!user.googleId) {
+            user.googleId = sub;
             await user.save();
         }
         if (isNew) sendWelcomeEmail({ name: user.name, email: user.email }).catch(console.error);
 
         sendTokens(res, user._id);
-        res.json({ user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar } });
+        res.json({ user: { id: user._id, name: user.name, email: user.email, phone: user.phone, avatar: user.avatar, googleId: user.googleId } });
     } catch (err) {
         res.status(401).json({ message: 'Google authentication failed' });
     }
@@ -149,6 +152,20 @@ router.put('/profile', protect, async (req, res) => {
             { new: true }
         );
         res.json({ id: user._id, name: user.name, email: user.email, phone: user.phone });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// ── Disconnect Google ─────────────────────────────────────────────────────────
+router.post('/disconnect-google', protect, async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.user._id,
+            { googleId: null },
+            { new: true }
+        );
+        res.json({ message: 'Google account disconnected', user: { id: user._id, name: user.name, email: user.email, phone: user.phone, googleId: user.googleId } });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

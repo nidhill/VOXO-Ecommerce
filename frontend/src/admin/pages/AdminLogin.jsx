@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
-import { useNavigate } from 'react-router-dom';
-import { Loader2, Eye, EyeOff, Lock, Mail, ShoppingBag, Users, TrendingUp, Package } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Loader2, Eye, EyeOff, Lock, Mail, ShoppingBag, Users, TrendingUp, Package, AlertCircle } from 'lucide-react';
 
 const STAT_PILLS = [
     { icon: <ShoppingBag size={13} />, label: 'Products' },
@@ -21,14 +21,26 @@ const AdminLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!email.trim()) { setError('Email is required'); return; }
+        if (!password)     { setError('Password is required'); return; }
+
         setIsLoading(true);
         setError('');
-        setTimeout(() => {
-            const success = login(email, password);
-            if (success) navigate('/admin');
-            else setError('Invalid email or password');
+
+        try {
+            const result = await login(email.trim(), password);
+            if (result.success) {
+                navigate('/admin');
+            } else {
+                setError(result.message || 'Invalid email or password.');
+            }
+        } catch (err) {
+            const msg = err?.response?.data?.message || 'Login failed. Please try again.';
+            setError(msg);
+        } finally {
             setIsLoading(false);
-        }, 500);
+        }
     };
 
     const inp = {
@@ -51,6 +63,8 @@ const AdminLogin = () => {
                 .login-inp:focus { border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important; background: #fff !important; }
                 .login-btn:hover:not(:disabled) { background: #4f46e5 !important; }
                 .login-left { display: flex; }
+                .forgot-link { color: #6366f1; font-size: 12.5px; font-weight: 500; text-decoration: none; transition: color 0.15s; }
+                .forgot-link:hover { color: #4f46e5; text-decoration: underline; }
                 @media (max-width: 768px) { .login-left { display: none !important; } }
             `}</style>
 
@@ -60,7 +74,6 @@ const AdminLogin = () => {
                 padding: '60px', flexDirection: 'column', justifyContent: 'space-between',
                 position: 'relative', overflow: 'hidden',
             }}>
-                {/* Background circles */}
                 <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '320px', height: '320px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
@@ -103,7 +116,7 @@ const AdminLogin = () => {
                 <div style={{ width: '100%', maxWidth: '360px' }}>
                     <div style={{ marginBottom: '36px' }}>
                         <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#111827', marginBottom: '6px' }}>Admin Sign In</h1>
-                        <p style={{ fontSize: '14px', color: '#6b7280' }}>Sign in to manage your store</p>
+                        <p style={{ fontSize: '14px', color: '#6b7280' }}>Sign in to manage your Wavway store</p>
                     </div>
 
                     {error && (
@@ -113,11 +126,12 @@ const AdminLogin = () => {
                             color: '#dc2626', fontSize: '13.5px', marginBottom: '20px',
                             display: 'flex', alignItems: 'center', gap: '8px',
                         }}>
-                            <span style={{ fontSize: '16px' }}>⚠</span> {error}
+                            <AlertCircle size={16} /> {error}
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                        {/* Email */}
                         <div>
                             <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px', letterSpacing: '0.02em' }}>
                                 Email address
@@ -132,10 +146,16 @@ const AdminLogin = () => {
                             </div>
                         </div>
 
+                        {/* Password */}
                         <div>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px', letterSpacing: '0.02em' }}>
-                                Password
-                            </label>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '7px' }}>
+                                <label style={{ fontSize: '12px', fontWeight: '600', color: '#374151', letterSpacing: '0.02em' }}>
+                                    Password
+                                </label>
+                                <Link to="/admin/forgot-password" className="forgot-link">
+                                    Forgot password?
+                                </Link>
+                            </div>
                             <div style={{ position: 'relative' }}>
                                 <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
                                 <input

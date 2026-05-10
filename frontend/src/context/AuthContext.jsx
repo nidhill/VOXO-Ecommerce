@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         api.get('/auth/me')
-            .then(res => setUser(res.data))
+            .then(res => setUser({ ...res.data, googleId: res.data.googleId || null }))
             .catch(() => {/* no session — stay logged out */})
             .finally(() => setLoading(false));
     }, []);
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         const { data } = await api.post('/auth/login', { email, password });
         localStorage.removeItem('wavway_guest');
-        setUser(data.user);
+        setUser({ ...data.user, googleId: data.user.googleId || null });
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
         toast.success(`Welcome back, ${data.user.name.split(' ')[0]}!`);
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (name, email, password, phone, otp) => {
         const { data } = await api.post('/auth/register', { name, email, password, phone, otp });
         localStorage.removeItem('wavway_guest');
-        setUser(data.user);
+        setUser({ ...data.user, googleId: data.user.googleId || null });
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
         toast.success(`Welcome to WAVWAY, ${data.user.name.split(' ')[0]}!`);
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     const googleLogin = async (credential) => {
         const { data } = await api.post('/auth/google', { credential });
         localStorage.removeItem('wavway_guest');
-        setUser(data.user);
+        setUser({ ...data.user, googleId: data.user.googleId || null });
         setIsGuest(false);
         setAuthModal({ open: false, redirectAfter: null });
         toast.success(`Welcome, ${data.user.name.split(' ')[0]}!`);
