@@ -18,7 +18,8 @@ const ProductGrid = () => {
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['new-arrivals'],
         queryFn: () => getProducts({}),
-        retry: false,
+        retry: 3,
+        retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
         refetchOnWindowFocus: false,
     });
 

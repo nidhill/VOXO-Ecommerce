@@ -1,44 +1,14 @@
 import api from './axios';
 
-import { products } from '../data/products';
-
 export const getProducts = async (filters = {}) => {
-    try {
-        const { category, gender, search } = filters;
-        // Only send params that have actual values — never send null/undefined
-        const params = {};
-        if (category) params.category = category;
-        if (gender) params.gender = gender;
-        if (search && search.trim()) params.search = search.trim();
+    const { category, gender, search } = filters;
+    const params = {};
+    if (category) params.category = category;
+    if (gender) params.gender = gender;
+    if (search && search.trim()) params.search = search.trim();
 
-        const response = await api.get('/products', {
-            params,
-            skipErrorToast: true,
-        });
-        return response.data;
-    } catch (error) {
-        let filtered = [...products];
-        const { category, gender, search } = filters;
-
-        if (gender) {
-            filtered = filtered.filter(p =>
-                p.gender === gender || p.gender === 'Unisex'
-            );
-        }
-        if (category) {
-            filtered = filtered.filter(p =>
-                p.category?.toLowerCase() === category.toLowerCase()
-            );
-        }
-        if (search && search.trim()) {
-            const lowerSearch = search.trim().toLowerCase();
-            filtered = filtered.filter(p =>
-                p.name.toLowerCase().includes(lowerSearch) ||
-                p.category.toLowerCase().includes(lowerSearch)
-            );
-        }
-        return filtered;
-    }
+    const response = await api.get('/products', { params, skipErrorToast: true });
+    return response.data;
 };
 
 export const createProduct = async (productData) => {
