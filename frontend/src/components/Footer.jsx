@@ -4,7 +4,7 @@ import '../styles/footer.css';
 import { API_BASE } from '../api/axios';
 
 const InstagramIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" strokeWidth="1.8" fill="none"/>
         <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
         <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
@@ -12,7 +12,7 @@ const InstagramIcon = () => (
 );
 
 const WhatsAppIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
             d="M12 2C6.477 2 2 6.477 2 12c0 1.89.522 3.66 1.432 5.18L2 22l4.82-1.432A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" />
         <path stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"
