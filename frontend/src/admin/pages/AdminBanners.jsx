@@ -26,9 +26,9 @@ const Toast = ({ msg, type }) => (
 );
 
 const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }) => (
-    <div style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '12px' }}>
+    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '10px', padding: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <p style={{ margin: 0, fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>{label}</p>
+            <p style={{ margin: 0, fontSize: '12px', fontWeight: 600, color: '#6b7280' }}>{label}</p>
             {url && (
                 <button onClick={onClear} title="Remove image"
                     style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444', padding: '2px', display: 'flex' }}>
@@ -39,8 +39,8 @@ const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }
 
         <div style={{
             width: '100%', aspectRatio: aspect, borderRadius: '8px', overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.06)', marginBottom: '8px',
-            background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            border: '1px solid #e5e7eb', marginBottom: '8px',
+            background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
             {url ? (
                 <img
@@ -53,7 +53,7 @@ const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }
             <div style={{
                 width: '100%', height: '100%', display: url ? 'none' : 'flex',
                 alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '6px',
-                color: '#3f3f46', fontSize: '12px',
+                color: '#9ca3af', fontSize: '12px',
             }}>
                 <ImageIcon size={24} strokeWidth={1} />
                 <span>No image uploaded</span>
@@ -62,8 +62,8 @@ const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }
 
         <label style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
-            padding: '8px 10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)',
-            cursor: uploading ? 'not-allowed' : 'pointer', color: '#e5e5e5',
+            padding: '8px 10px', borderRadius: '8px', border: '1px solid #e5e7eb',
+            cursor: uploading ? 'not-allowed' : 'pointer', color: '#374151',
             fontSize: '12px', fontWeight: 600, opacity: uploading ? 0.6 : 1,
         }}>
             {uploading ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <Upload size={14} />}
@@ -184,7 +184,7 @@ const AdminBanners = () => {
         saveHeroMutation.mutate({ images: updated.filter(Boolean) });
     };
 
-    const card = { background: '#111113', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', padding: '18px' };
+    const card = { background: '#ffffff', borderRadius: '14px', border: '1px solid #e8eaed', padding: '18px' };
     const sectionHead = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', gap: '12px', flexWrap: 'wrap' };
     const saveBtn = (pending) => ({
         background: '#6366f1', color: 'white', border: 'none', borderRadius: '8px',
@@ -193,7 +193,7 @@ const AdminBanners = () => {
     });
 
     return (
-        <div style={{ height: '100%', overflowY: 'auto', padding: '24px 32px', fontFamily: 'Inter, system-ui, sans-serif', background: '#0a0a0a' }}>
+        <div style={{ height: '100%', overflowY: 'auto', padding: '28px 32px', fontFamily: 'Inter, system-ui, sans-serif', background: '#f5f6fa' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @media (max-width: 768px) {
@@ -203,9 +203,9 @@ const AdminBanners = () => {
 
             {toast && <Toast msg={toast.msg} type={toast.type} />}
 
-            <div style={{ marginBottom: '20px' }}>
-                <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#fafafa', margin: 0 }}>Homepage Banners</h1>
-                <p style={{ fontSize: '13px', color: '#52525b', marginTop: '4px' }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#111827', margin: 0 }}>Banners & Media</h1>
+                <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '4px' }}>
                     Images upload and save automatically. Changes reflect on the website immediately.
                 </p>
             </div>
@@ -215,7 +215,7 @@ const AdminBanners = () => {
                 <div style={sectionHead}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <Megaphone size={16} color="#818cf8" />
-                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: 0 }}>Announcement Bar</p>
+                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#111827', margin: 0 }}>Announcement Bar</p>
                     </div>
                     <button
                         onClick={() => saveAnnouncementMutation.mutate({ text: announcementText, enabled: announcementEnabled })}
@@ -277,7 +277,7 @@ const AdminBanners = () => {
                 <div style={sectionHead}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <ImageIcon size={16} color="#818cf8" />
-                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: 0 }}>Featured Section Images</p>
+                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#111827', margin: 0 }}>Featured Section Images</p>
                     </div>
                     <button
                         onClick={() => saveBannersMutation.mutate(bannerForm)}
@@ -312,7 +312,7 @@ const AdminBanners = () => {
                 <div style={sectionHead}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <ImageIcon size={16} color="#818cf8" />
-                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: 0 }}>Hero Carousel Images</p>
+                        <p style={{ fontSize: '14px', fontWeight: 600, color: '#111827', margin: 0 }}>Hero Carousel Images</p>
                     </div>
                     <button
                         onClick={() => saveHeroMutation.mutate({ images: heroImages.filter(Boolean) })}

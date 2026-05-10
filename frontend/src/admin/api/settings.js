@@ -29,3 +29,18 @@ export const updateAnnouncementBar = async (payload) => {
     const response = await api.put('/settings/announcement-bar', payload);
     return response.data;
 };
+
+export const getAdminUsers = async () => {
+    const response = await api.get('/admin/users');
+    return response.data;
+};
+
+export const getAdminSubscribers = async () => {
+    const response = await api.get('/admin/subscribers');
+    return response.data;
+};
+
+export const deleteSubscriber = async (id) => {
+    const response = await api.delete(`/admin/subscribers/${id}`);
+    return response.data;
+};

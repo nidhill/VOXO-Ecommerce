@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
+import { API_BASE } from '../api/axios';
 
 const InstagramIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,10 +30,25 @@ const WhatsAppIcon = () => (
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [joined, setJoined] = useState(false);
+    const [subError, setSubError] = useState('');
 
-    const handleJoin = (e) => {
+    const handleJoin = async (e) => {
         e.preventDefault();
-        if (email.trim()) {
+        if (!email.trim()) return;
+        try {
+            const res = await fetch(`${API_BASE}/newsletter/subscribe`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email.trim() }),
+            });
+            if (res.ok || res.status === 409) {
+                setJoined(true);
+                setEmail('');
+                setSubError('');
+            } else {
+                setSubError('Something went wrong. Try again.');
+            }
+        } catch {
             setJoined(true);
             setEmail('');
         }

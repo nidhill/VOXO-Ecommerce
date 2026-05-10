@@ -88,6 +88,8 @@ app.use('/api/auth', require('./routes/auth'));
 // Optional routes — only load if files exist
 try { app.use('/api/settings', require('./routes/settings')); } catch(e) {}
 try { app.use('/api/whatsapp', require('./routes/whatsapp')); } catch(e) {}
+try { app.use('/api/admin', require('./routes/admin')); } catch(e) {}
+try { app.use('/api/newsletter', require('./routes/newsletter')); } catch(e) {}
 
 // ── Global error handler ──────────────────────────────────────────────────────
 app.use((err, req, res, next) => {

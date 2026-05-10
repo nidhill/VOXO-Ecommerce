@@ -75,7 +75,7 @@ const Products = () => {
     });
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: '#0a0a0a' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: '#f5f6fa' }}>
             <style>{`
                 @media (max-width: 640px) {
                     .products-header { padding: 16px !important; flex-wrap: wrap !important; gap: 10px !important; }
@@ -89,25 +89,25 @@ const Products = () => {
                 }
             `}</style>
             {/* Header */}
-            <header className="products-header" style={{ padding: '24px 32px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="products-header" style={{ padding: '24px 32px', borderBottom: '1px solid #e8eaed', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                    <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#fafafa', margin: 0, letterSpacing: '-0.3px' }}>Products</h1>
-                    <p style={{ fontSize: '13px', color: '#52525b', marginTop: '2px' }}>{filtered.length} product{filtered.length !== 1 ? 's' : ''}</p>
+                    <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#111827', margin: 0, letterSpacing: '-0.3px' }}>Products</h1>
+                    <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '2px' }}>{filtered.length} product{filtered.length !== 1 ? 's' : ''}</p>
                 </div>
                 <div className="products-controls" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div className="products-search" style={{ position: 'relative' }}>
-                        <Search size={15} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#52525b' }} />
+                        <Search size={15} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
                         <input
                             type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                             placeholder="Search products..."
-                            style={{ width: '220px', background: '#18181b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '9px 12px 9px 36px', color: '#e5e5e5', fontSize: '13px', outline: 'none', boxSizing: 'border-box' }}
+                            style={{ width: '220px', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '9px 12px 9px 36px', color: '#111827', fontSize: '13px', outline: 'none', boxSizing: 'border-box' }}
                             onFocus={e => e.target.style.borderColor = '#6366f1'}
-                            onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                            onBlur={e => e.target.style.borderColor = '#e5e7eb'}
                         />
                     </div>
                     <select
                         value={filterCategory} onChange={e => setFilterCategory(e.target.value)}
-                        style={{ background: '#18181b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '9px 12px', color: '#a1a1aa', fontSize: '13px', outline: 'none', cursor: 'pointer', appearance: 'auto' }}
+                        style={{ background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '9px 12px', color: '#6b7280', fontSize: '13px', outline: 'none', cursor: 'pointer', appearance: 'auto' }}
                     >
                         <option value="">All Categories</option>
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -131,33 +131,33 @@ const Products = () => {
                 ) : filtered.length === 0 ? (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '240px', gap: '10px' }}>
                         <Package size={32} color="#27272a" />
-                        <p style={{ color: '#52525b', fontSize: '14px', fontWeight: 500 }}>No products found</p>
+                        <p style={{ color: '#9ca3af', fontSize: '14px', fontWeight: 500 }}>No products found</p>
                     </div>
                 ) : (
-                    <div style={{ background: '#111113', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', overflowX: 'auto' }}>
+                    <div style={{ background: '#ffffff', borderRadius: '14px', border: '1px solid #e8eaed', overflowX: 'auto' }}>
                         <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left' }}>
                             <thead>
-                                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                                <tr style={{ borderBottom: '1px solid #e8eaed' }}>
                                     {['Product', 'Category', 'Gender', 'Price', 'Status', 'Actions'].map(h => (
-                                        <th key={h} style={{ padding: '14px 20px', fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '1px', background: 'rgba(255,255,255,0.02)', ...(h === 'Actions' ? { textAlign: 'right' } : {}) }}>{h}</th>
+                                        <th key={h} style={{ padding: '14px 20px', fontSize: '11px', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '1px', background: '#f9fafb', ...(h === 'Actions' ? { textAlign: 'right' } : {}) }}>{h}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
                                 {filtered.map((product, idx) => (
-                                    <tr key={product._id} style={{ borderBottom: idx < filtered.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none', transition: 'background 0.15s' }}
-                                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                                    <tr key={product._id} style={{ borderBottom: idx < filtered.length - 1 ? '1px solid #f3f4f6' : 'none', transition: 'background 0.15s' }}
+                                        onMouseEnter={e => e.currentTarget.style.background = '#fafafa'}
                                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                                     >
                                         {/* Product */}
                                         <td style={{ padding: '14px 20px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                                <div style={{ width: '42px', height: '42px', borderRadius: '10px', overflow: 'hidden', background: '#18181b', border: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <div style={{ width: '42px', height: '42px', borderRadius: '10px', overflow: 'hidden', background: '#f9fafb', border: '1px solid #e8eaed', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                     {product.images?.[0] ? <img src={proxyImageUrl(product.images[0])} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <ImageIcon size={14} color="#3f3f46" />}
                                                 </div>
                                                 <div>
-                                                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#fafafa', margin: 0 }}>{product.name}</p>
-                                                    <p style={{ fontSize: '11px', color: '#3f3f46', margin: '2px 0 0 0', fontFamily: 'monospace' }}>#{product._id.slice(-6)}</p>
+                                                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#111827', margin: 0 }}>{product.name}</p>
+                                                    <p style={{ fontSize: '11px', color: '#9ca3af', margin: '2px 0 0 0', fontFamily: 'monospace' }}>#{product._id.slice(-6)}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -166,12 +166,12 @@ const Products = () => {
                                             <span style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 600, borderRadius: '6px', background: 'rgba(99,102,241,0.1)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.15)' }}>{product.category}</span>
                                         </td>
                                         {/* Gender */}
-                                        <td style={{ padding: '14px 20px', fontSize: '13px', color: '#a1a1aa' }}>{product.gender}</td>
+                                        <td style={{ padding: '14px 20px', fontSize: '13px', color: '#6b7280' }}>{product.gender}</td>
                                         {/* Price */}
                                         <td style={{ padding: '14px 20px' }}>
                                             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#fafafa' }}>₹{product.price}</span>
-                                                {product.discountPrice && <span style={{ fontSize: '12px', color: '#52525b', textDecoration: 'line-through' }}>₹{product.discountPrice}</span>}
+                                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#111827' }}>₹{product.price}</span>
+                                                {product.discountPrice && <span style={{ fontSize: '12px', color: '#9ca3af', textDecoration: 'line-through' }}>₹{product.discountPrice}</span>}
                                             </div>
                                         </td>
                                         {/* Status */}
@@ -179,9 +179,9 @@ const Products = () => {
                                             <button onClick={() => toggleVisibility.mutate({ id: product._id, isHidden: !product.isHidden })}
                                                 style={{
                                                     display: 'flex', alignItems: 'center', gap: '6px', padding: '5px 12px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.15s',
-                                                    background: product.isHidden ? 'rgba(245,158,11,0.08)' : 'rgba(34,197,94,0.08)',
-                                                    color: product.isHidden ? '#fbbf24' : '#4ade80',
-                                                    borderColor: product.isHidden ? 'rgba(245,158,11,0.15)' : 'rgba(34,197,94,0.15)',
+                                                    background: product.isHidden ? '#fffbeb' : '#f0fdf4',
+                                                    color: product.isHidden ? '#d97706' : '#16a34a',
+                                                    borderColor: product.isHidden ? '#fde68a' : '#bbf7d0',
                                                 }}
                                             >
                                                 {product.isHidden ? <><EyeOff size={12} /> Hidden</> : <><Eye size={12} /> Visible</>}
@@ -190,13 +190,13 @@ const Products = () => {
                                         {/* Actions */}
                                         <td style={{ padding: '14px 20px', textAlign: 'right' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
-                                                <button onClick={() => openEdit(product)} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#52525b', transition: 'all 0.15s', display: 'flex' }}
+                                                <button onClick={() => openEdit(product)} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', transition: 'all 0.15s', display: 'flex' }}
                                                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.1)'; e.currentTarget.style.color = '#818cf8'; }}
-                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#52525b'; }}
+                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#9ca3af'; }}
                                                 ><Edit3 size={15} /></button>
-                                                <button onClick={() => { if (confirm('Delete this product?')) deleteMutation.mutate(product._id); }} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#52525b', transition: 'all 0.15s', display: 'flex' }}
-                                                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; e.currentTarget.style.color = '#f87171'; }}
-                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#52525b'; }}
+                                                <button onClick={() => { if (confirm('Delete this product?')) deleteMutation.mutate(product._id); }} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', transition: 'all 0.15s', display: 'flex' }}
+                                                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; e.currentTarget.style.color = '#ef4444'; }}
+                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#9ca3af'; }}
                                                 ><Trash2 size={15} /></button>
                                             </div>
                                         </td>
@@ -211,13 +211,13 @@ const Products = () => {
             {/* Modal */}
             {isModalOpen && (
                 <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }} onClick={e => { if (e.target === e.currentTarget) closeModal(); }}>
-                    <div style={{ background: '#111113', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', width: '100%', maxWidth: '600px', maxHeight: '85vh', overflowY: 'auto', boxShadow: '0 24px 48px rgba(0,0,0,0.5)' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e8eaed', borderRadius: '16px', width: '100%', maxWidth: '600px', maxHeight: '85vh', overflowY: 'auto', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}>
                         {/* Modal Header */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'sticky', top: 0, background: '#111113', zIndex: 10, borderRadius: '16px 16px 0 0' }}>
-                            <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#fafafa', margin: 0 }}>{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
-                            <button onClick={closeModal} style={{ padding: '6px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'all 0.15s' }}
-                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#fafafa'; }}
-                                onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#71717a'; }}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid #e8eaed', position: 'sticky', top: 0, background: '#ffffff', zIndex: 10, borderRadius: '16px 16px 0 0' }}>
+                            <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#111827', margin: 0 }}>{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
+                            <button onClick={closeModal} style={{ padding: '6px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', display: 'flex', transition: 'all 0.15s' }}
+                                onMouseEnter={e => { e.currentTarget.style.background = '#f3f4f6'; e.currentTarget.style.color = '#111827'; }}
+                                onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#6b7280'; }}
                             ><X size={18} /></button>
                         </div>
 
@@ -227,7 +227,7 @@ const Products = () => {
                             <FieldGroup label="Product Images *">
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                                     {formData.images.map((url, i) => (
-                                        <div key={i} style={{ position: 'relative', width: '72px', height: '72px', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)' }}>
+                                        <div key={i} style={{ position: 'relative', width: '72px', height: '72px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e8eaed' }}>
                                             <img src={proxyImageUrl(url)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             <button onClick={() => setFormData(prev => ({ ...prev, images: prev.images.filter((_, j) => j !== i) }))}
                                                 style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', opacity: 0, transition: 'opacity 0.15s' }}
@@ -236,11 +236,11 @@ const Products = () => {
                                             ><X size={14} color="#f87171" /></button>
                                         </div>
                                     ))}
-                                    <label style={{ width: '72px', height: '72px', border: '2px dashed rgba(255,255,255,0.08)', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.15s', gap: '2px' }}
-                                        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)'; e.currentTarget.style.background = 'rgba(99,102,241,0.04)'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.background = 'transparent'; }}
+                                    <label style={{ width: '72px', height: '72px', border: '2px dashed #e5e7eb', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.15s', gap: '2px' }}
+                                        onMouseEnter={e => { e.currentTarget.style.borderColor = '#6366f1'; e.currentTarget.style.background = 'rgba(99,102,241,0.04)'; }}
+                                        onMouseLeave={e => { e.currentTarget.style.borderColor = '#e5e7eb'; e.currentTarget.style.background = 'transparent'; }}
                                     >
-                                        {uploading ? <Loader2 size={16} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} /> : <><Upload size={14} color="#52525b" /><span style={{ fontSize: '9px', color: '#52525b', fontWeight: 600 }}>Upload</span></>}
+                                        {uploading ? <Loader2 size={16} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} /> : <><Upload size={14} color="#52525b" /><span style={{ fontSize: '9px', color: '#9ca3af', fontWeight: 600 }}>Upload</span></>}
                                         <input type="file" style={{ display: 'none' }} onChange={handleImageUpload} accept="image/*" multiple />
                                     </label>
                                 </div>
@@ -274,17 +274,17 @@ const Products = () => {
                             {/* Description */}
                             <FieldGroup label="Description *">
                                 <textarea rows="3" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Product description..."
-                                    style={{ width: '100%', background: '#18181b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px 14px', color: '#e5e5e5', fontSize: '13px', outline: 'none', resize: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                                    style={{ width: '100%', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '10px 14px', color: '#111827', fontSize: '13px', outline: 'none', resize: 'none', boxSizing: 'border-box', fontFamily: 'inherit' }}
                                     onFocus={e => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                                    onBlur={e => e.target.style.borderColor = '#e5e7eb'}
                                 />
                             </FieldGroup>
 
                             {/* Hidden Toggle */}
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: '#18181b', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', background: '#f9fafb', borderRadius: '10px', border: '1px solid #e8eaed' }}>
                                 <div>
-                                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#fafafa', margin: 0 }}>Hidden from store</p>
-                                    <p style={{ fontSize: '11px', color: '#52525b', margin: '2px 0 0 0' }}>Product won't appear on the storefront</p>
+                                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#111827', margin: 0 }}>Hidden from store</p>
+                                    <p style={{ fontSize: '11px', color: '#9ca3af', margin: '2px 0 0 0' }}>Product won't appear on the storefront</p>
                                 </div>
                                 <button onClick={() => setFormData(prev => ({ ...prev, isHidden: !prev.isHidden }))}
                                     style={{ width: '44px', height: '24px', borderRadius: '12px', border: 'none', cursor: 'pointer', position: 'relative', transition: 'background 0.2s', background: formData.isHidden ? '#6366f1' : '#3f3f46', flexShrink: 0 }}
@@ -295,10 +295,10 @@ const Products = () => {
                         </div>
 
                         {/* Modal Footer */}
-                        <div style={{ padding: '16px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'flex-end', gap: '10px', position: 'sticky', bottom: 0, background: '#111113', borderRadius: '0 0 16px 16px' }}>
-                            <button onClick={closeModal} style={{ padding: '9px 18px', fontSize: '13px', fontWeight: 500, color: '#71717a', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '8px', transition: 'color 0.15s' }}
-                                onMouseEnter={e => e.currentTarget.style.color = '#fafafa'}
-                                onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
+                        <div style={{ padding: '16px 24px', borderTop: '1px solid #e8eaed', display: 'flex', justifyContent: 'flex-end', gap: '10px', position: 'sticky', bottom: 0, background: '#ffffff', borderRadius: '0 0 16px 16px' }}>
+                            <button onClick={closeModal} style={{ padding: '9px 18px', fontSize: '13px', fontWeight: 500, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '8px', transition: 'all 0.15s' }}
+                                onMouseEnter={e => { e.currentTarget.style.color = '#111827'; e.currentTarget.style.background = '#f3f4f6'; }}
+                                onMouseLeave={e => { e.currentTarget.style.color = '#6b7280'; e.currentTarget.style.background = 'none'; }}
                             >Cancel</button>
                             <button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending || uploading}
                                 style={{ padding: '9px 22px', fontSize: '13px', fontWeight: 600, color: 'white', background: '#6366f1', border: 'none', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.15s', opacity: (createMutation.isPending || updateMutation.isPending) ? 0.6 : 1 }}
@@ -317,22 +317,22 @@ const Products = () => {
 
 const FieldGroup = ({ label, children }) => (
     <div>
-        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#71717a', marginBottom: '6px', letterSpacing: '0.3px' }}>{label}</label>
+        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#6b7280', marginBottom: '6px', letterSpacing: '0.3px' }}>{label}</label>
         {children}
     </div>
 );
 
 const ModalInput = ({ ...props }) => (
     <input {...props}
-        style={{ width: '100%', background: '#18181b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px 14px', color: '#e5e5e5', fontSize: '13px', outline: 'none', boxSizing: 'border-box', ...(props.style || {}) }}
+        style={{ width: '100%', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '10px 14px', color: '#111827', fontSize: '13px', outline: 'none', boxSizing: 'border-box', ...(props.style || {}) }}
         onFocus={e => { e.target.style.borderColor = '#6366f1'; props.onFocus?.(e); }}
-        onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; props.onBlur?.(e); }}
+        onBlur={e => { e.target.style.borderColor = '#e5e7eb'; props.onBlur?.(e); }}
     />
 );
 
 const ModalSelect = ({ options, ...props }) => (
     <select {...props}
-        style={{ width: '100%', background: '#18181b', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '10px 14px', color: '#e5e5e5', fontSize: '13px', outline: 'none', boxSizing: 'border-box', cursor: 'pointer', appearance: 'auto' }}
+        style={{ width: '100%', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '10px 14px', color: '#111827', fontSize: '13px', outline: 'none', boxSizing: 'border-box', cursor: 'pointer', appearance: 'auto' }}
     >
         {options.map(o => <option key={o} value={o}>{o}</option>)}
     </select>

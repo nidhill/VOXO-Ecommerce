@@ -145,15 +145,15 @@ const Dashboard = () => {
                                 const remaining = Math.max(0, 100 - pct);
                                 const barColor = pct > 80 ? '#f87171' : pct > 50 ? '#fbbf24' : '#4ade80';
                                 return (
-                                    <div style={{ marginBottom: '20px', padding: '16px', background: '#18181b', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                                    <div style={{ marginBottom: '20px', padding: '16px', background: '#f9fafb', borderRadius: '10px', border: '1px solid #e5e7eb' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                                            <span style={{ fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>Storage Usage</span>
+                                            <span style={{ fontSize: '12px', fontWeight: 600, color: '#6b7280' }}>Storage Usage</span>
                                             <span style={{ fontSize: '12px', fontWeight: 600, color: barColor }}>{remaining.toFixed(1)}% remaining</span>
                                         </div>
-                                        <div style={{ height: '8px', background: '#27272a', borderRadius: '4px', overflow: 'hidden', marginBottom: '8px' }}>
+                                        <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden', marginBottom: '8px' }}>
                                             <div style={{ height: '100%', width: `${Math.max(pct, 0.5)}%`, background: `linear-gradient(90deg, ${barColor}, ${barColor}dd)`, borderRadius: '4px', transition: 'width 0.5s ease' }} />
                                         </div>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#52525b' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#9ca3af' }}>
                                             <span>{formatBytes(used)} used</span>
                                             <span>{formatBytes(MONGO_LIMIT)} total</span>
                                         </div>
@@ -190,11 +190,11 @@ const Dashboard = () => {
                             <p style={{ fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 10px 0' }}>Collections</p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                 {mongoCollections.map((col, i) => (
-                                    <div key={col.name} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#18181b', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                                    <div key={col.name} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', background: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
                                         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: COLORS[i % COLORS.length], flexShrink: 0 }} />
-                                        <span style={{ fontSize: '13px', fontWeight: 500, color: '#e5e5e5', flex: 1, textTransform: 'capitalize' }}>{col.name}</span>
-                                        <span style={{ fontSize: '12px', color: '#71717a', marginRight: '8px' }}>{col.documents} docs</span>
-                                        <span style={{ fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>{formatBytes(col.size)}</span>
+                                        <span style={{ fontSize: '13px', fontWeight: 500, color: '#111827', flex: 1, textTransform: 'capitalize' }}>{col.name}</span>
+                                        <span style={{ fontSize: '12px', color: '#6b7280', marginRight: '8px' }}>{col.documents} docs</span>
+                                        <span style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>{formatBytes(col.size)}</span>
                                     </div>
                                 ))}
                             </div>
@@ -236,15 +236,15 @@ const Dashboard = () => {
                                 const remaining = Math.max(0, 100 - pct);
                                 const barColor = pct > 80 ? '#f87171' : pct > 50 ? '#fbbf24' : '#fb923c';
                                 return (
-                                    <div style={{ marginBottom: '20px', padding: '16px', background: '#18181b', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                                    <div style={{ marginBottom: '20px', padding: '16px', background: '#f9fafb', borderRadius: '10px', border: '1px solid #e5e7eb' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                                            <span style={{ fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>Storage Usage</span>
+                                            <span style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>Storage Usage</span>
                                             <span style={{ fontSize: '12px', fontWeight: 600, color: pct < 50 ? '#4ade80' : barColor }}>{remaining.toFixed(4)}% remaining</span>
                                         </div>
-                                        <div style={{ height: '8px', background: '#27272a', borderRadius: '4px', overflow: 'hidden', marginBottom: '8px' }}>
+                                        <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden', marginBottom: '8px' }}>
                                             <div style={{ height: '100%', width: `${Math.max(pct, 0.3)}%`, background: `linear-gradient(90deg, #fb923c, #f97316)`, borderRadius: '4px', transition: 'width 0.5s ease' }} />
                                         </div>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#52525b' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#9ca3af' }}>
                                             <span>{formatBytes(used)} used</span>
                                             <span>{formatBytes(R2_LIMIT)} total</span>
                                         </div>
@@ -283,15 +283,15 @@ const Dashboard = () => {
                                 {r2ChartData.map((folder, i) => {
                                     const pct = storage.cloudflare.totalSize > 0 ? Math.round((folder.value / storage.cloudflare.totalSize) * 100) : 0;
                                     return (
-                                        <div key={folder.name} style={{ padding: '10px 12px', background: '#18181b', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                                        <div key={folder.name} style={{ padding: '10px 12px', background: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                                                 <Folder size={14} color={COLORS[i % COLORS.length]} />
-                                                <span style={{ fontSize: '13px', fontWeight: 500, color: '#e5e5e5', flex: 1 }}>/{folder.name}</span>
-                                                <span style={{ fontSize: '12px', color: '#71717a' }}>{folder.count} files</span>
-                                                <span style={{ fontSize: '12px', fontWeight: 600, color: '#a1a1aa' }}>{formatBytes(folder.value)}</span>
+                                                <span style={{ fontSize: '13px', fontWeight: 500, color: '#111827', flex: 1 }}>/{folder.name}</span>
+                                                <span style={{ fontSize: '12px', color: '#6b7280' }}>{folder.count} files</span>
+                                                <span style={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}>{formatBytes(folder.value)}</span>
                                             </div>
                                             {/* Progress bar */}
-                                            <div style={{ height: '3px', background: '#1e1e20', borderRadius: '2px', overflow: 'hidden' }}>
+                                            <div style={{ height: '3px', background: '#e5e7eb', borderRadius: '2px', overflow: 'hidden' }}>
                                                 <div style={{ height: '100%', width: `${pct}%`, background: COLORS[i % COLORS.length], borderRadius: '2px', transition: 'width 0.3s' }} />
                                             </div>
                                         </div>
@@ -323,10 +323,10 @@ const Dashboard = () => {
                         <div style={styles.chartBox}>
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={categoryData} barSize={32}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.04)" />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#52525b', fontSize: 11 }} dy={8} />
-                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#52525b', fontSize: 11 }} />
-                                    <Tooltip contentStyle={{ backgroundColor: '#18181b', borderColor: 'rgba(255,255,255,0.08)', borderRadius: '10px', color: '#fff', fontSize: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 11 }} dy={8} />
+                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                                    <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb', borderRadius: '10px', color: '#111827', fontSize: '12px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} cursor={{ fill: '#f3f4f6' }} />
                                     <Bar dataKey="value" fill="#6366f1" radius={[6, 6, 0, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
@@ -345,7 +345,7 @@ const Dashboard = () => {
                                         <Pie data={genderData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={4} dataKey="value">
                                             {genderData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                                         </Pie>
-                                        <Tooltip contentStyle={{ backgroundColor: '#18181b', borderColor: 'rgba(255,255,255,0.08)', borderRadius: '10px', color: '#fff', fontSize: '12px' }} />
+                                        <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e5e7eb', borderRadius: '10px', color: '#111827', fontSize: '12px' }} />
                                     </PieChart>
                                 </ResponsiveContainer>
                             </div>
@@ -353,8 +353,8 @@ const Dashboard = () => {
                                 {genderData.map((item, i) => (
                                     <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '4px 0' }}>
                                         <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: COLORS[i % COLORS.length], flexShrink: 0 }} />
-                                        <span style={{ fontSize: '13px', color: '#a1a1aa', flex: 1 }}>{item.name}</span>
-                                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#fafafa' }}>{item.value}</span>
+                                        <span style={{ fontSize: '13px', color: '#374151', flex: 1 }}>{item.name}</span>
+                                        <span style={{ fontSize: '13px', fontWeight: 600, color: '#111827' }}>{item.value}</span>
                                     </div>
                                 ))}
                             </div>
@@ -370,7 +370,7 @@ const Dashboard = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                         {recentProducts.length > 0 ? recentProducts.map(p => (
                             <div key={p._id} style={styles.listItem}
-                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                                onMouseEnter={e => e.currentTarget.style.background = '#f9fafb'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                             >
                                 <div style={styles.listImg}>
@@ -394,7 +394,7 @@ const Dashboard = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
                         {recentOrders.length > 0 ? recentOrders.map(o => (
                             <div key={o._id} style={styles.listItem}
-                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                                onMouseEnter={e => e.currentTarget.style.background = '#f9fafb'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                             >
                                 <div style={styles.listImg}><Package size={14} color="#52525b" /></div>
@@ -425,37 +425,37 @@ const Dashboard = () => {
 };
 
 const styles = {
-    page: { height: '100%', overflowY: 'auto', padding: '32px', background: '#0a0a0a', fontFamily: 'Inter, system-ui, sans-serif' },
+    page: { height: '100%', overflowY: 'auto', padding: '28px 32px', background: '#f5f6fa', fontFamily: 'Inter, system-ui, sans-serif', color: '#111827' },
     header: { marginBottom: '28px' },
-    h1: { fontSize: '22px', fontWeight: 700, color: '#fafafa', margin: 0, letterSpacing: '-0.3px' },
-    sub: { fontSize: '13px', color: '#52525b', marginTop: '4px' },
-    grid4: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' },
-    grid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' },
-    card: { background: '#111113', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', padding: '22px', boxSizing: 'border-box' },
-    cardTitle: { fontSize: '11px', color: '#52525b', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 700, margin: '0 0 2px 0' },
-    cardValue: { fontSize: '28px', fontWeight: 700, color: '#fafafa', margin: '8px 0 4px 0', lineHeight: 1 },
-    cardSub: { fontSize: '12px', color: '#3f3f46', margin: 0 },
-    chartH: { fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: '0 0 2px 0' },
-    chartSub: { fontSize: '12px', color: '#52525b', margin: '0 0 20px 0' },
+    h1: { fontSize: '22px', fontWeight: 800, color: '#111827', margin: 0 },
+    sub: { fontSize: '13px', color: '#6b7280', marginTop: '4px' },
+    grid4: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '20px' },
+    grid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' },
+    card: { background: '#ffffff', borderRadius: '14px', border: '1px solid #e8eaed', padding: '22px', boxSizing: 'border-box' },
+    cardTitle: { fontSize: '11px', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 700, margin: '0 0 2px 0' },
+    cardValue: { fontSize: '28px', fontWeight: 800, color: '#111827', margin: '8px 0 4px 0', lineHeight: 1 },
+    cardSub: { fontSize: '12px', color: '#9ca3af', margin: 0 },
+    chartH: { fontSize: '14px', fontWeight: 700, color: '#111827', margin: '0 0 2px 0' },
+    chartSub: { fontSize: '12px', color: '#6b7280', margin: '0 0 20px 0' },
     chartBox: { height: '240px' },
-    sectionH: { fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: '0 0 14px 0' },
+    sectionH: { fontSize: '14px', fontWeight: 700, color: '#111827', margin: '0 0 14px 0' },
     listItem: { display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px', borderRadius: '10px', cursor: 'default', transition: 'background 0.15s' },
-    listImg: { width: '40px', height: '40px', borderRadius: '8px', overflow: 'hidden', background: '#18181b', border: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' },
-    listName: { fontSize: '13px', fontWeight: 500, color: '#e5e5e5', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
-    listMeta: { fontSize: '11px', color: '#52525b', margin: '2px 0 0 0' },
-    listPrice: { fontSize: '13px', fontWeight: 600, color: '#fafafa', margin: 0, textAlign: 'right' },
-    empty: { fontSize: '13px', color: '#3f3f46', textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' },
-    alert: { background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '24px' },
-    alertIcon: { padding: '8px', background: 'rgba(239,68,68,0.1)', borderRadius: '10px', flexShrink: 0 },
-    alertTitle: { fontSize: '13px', fontWeight: 600, color: '#f87171', margin: 0 },
-    alertText: { fontSize: '12px', color: 'rgba(248,113,113,0.6)', marginTop: '4px', lineHeight: 1.5 },
+    listImg: { width: '40px', height: '40px', borderRadius: '8px', overflow: 'hidden', background: '#f3f4f6', border: '1px solid #e5e7eb', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    listName: { fontSize: '13px', fontWeight: 600, color: '#111827', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+    listMeta: { fontSize: '11px', color: '#9ca3af', margin: '2px 0 0 0' },
+    listPrice: { fontSize: '13px', fontWeight: 600, color: '#111827', margin: 0, textAlign: 'right' },
+    empty: { fontSize: '13px', color: '#9ca3af', textAlign: 'center', padding: '32px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' },
+    alert: { background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '20px' },
+    alertIcon: { padding: '8px', background: '#fee2e2', borderRadius: '10px', flexShrink: 0 },
+    alertTitle: { fontSize: '13px', fontWeight: 600, color: '#dc2626', margin: 0 },
+    alertText: { fontSize: '12px', color: '#ef4444', marginTop: '4px', lineHeight: 1.5 },
     iconBox: { width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px', flexShrink: 0 },
     statusBadge: { display: 'flex', alignItems: 'center', gap: '6px', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600 },
-    statusConnected: { background: 'rgba(34,197,94,0.08)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.15)' },
-    statusDisconnected: { background: 'rgba(239,68,68,0.08)', color: '#f87171', border: '1px solid rgba(239,68,68,0.15)' },
-    miniStat: { display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: '#18181b', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.04)' },
-    miniLabel: { fontSize: '10px', color: '#52525b', margin: '0 0 1px 0', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 600 },
-    miniValue: { fontSize: '14px', fontWeight: 600, color: '#fafafa', margin: 0 },
+    statusConnected: { background: '#dcfce7', color: '#16a34a', border: '1px solid #bbf7d0' },
+    statusDisconnected: { background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca' },
+    miniStat: { display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', background: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e7eb' },
+    miniLabel: { fontSize: '10px', color: '#9ca3af', margin: '0 0 1px 0', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 600 },
+    miniValue: { fontSize: '14px', fontWeight: 700, color: '#111827', margin: 0 },
 };
 
 export default Dashboard;
