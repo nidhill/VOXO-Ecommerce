@@ -19,7 +19,7 @@ const GENDER_TABS = [
 ];
 
 const CATEGORY_GROUPS = [
-    { group: 'Accessories', items: ['Watch', 'Perfume', 'Belt', 'Sunglasses'] },
+    { group: 'Accessories', items: ['Watches', 'Perfumes', 'Belts', 'Sunglasses'] },
 ];
 
 const Shop = () => {

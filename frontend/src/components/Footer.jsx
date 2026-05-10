@@ -77,9 +77,9 @@ const Footer = () => {
                             <li><Link to="/collections/all">All Products</Link></li>
                             <li><Link to="/collections/men">Men</Link></li>
                             <li><Link to="/collections/women">Women</Link></li>
-                            <li><Link to="/collections/all?category=Watch">Watches</Link></li>
-                            <li><Link to="/collections/all?category=Perfume">Perfumes</Link></li>
-                            <li><Link to="/collections/all?category=Belt">Belts</Link></li>
+                            <li><Link to="/collections/all?category=Watches">Watches</Link></li>
+                            <li><Link to="/collections/all?category=Perfumes">Perfumes</Link></li>
+                            <li><Link to="/collections/all?category=Belts">Belts</Link></li>
                         </ul>
                     </div>
 

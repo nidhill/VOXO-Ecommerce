@@ -1,11 +1,12 @@
 import api from './axios';
 
 export const getProducts = async (filters = {}) => {
-    const { category, gender, search } = filters;
+    const { category, gender, search, admin } = filters;
     const params = {};
     if (category) params.category = category;
     if (gender) params.gender = gender;
     if (search && search.trim()) params.search = search.trim();
+    if (admin) params.admin = 'true';
 
     const response = await api.get('/products', { params, skipErrorToast: true });
     return response.data;

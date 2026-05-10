@@ -22,7 +22,7 @@ const MONGO_LIMIT = 512 * 1024 * 1024; // 512 MB (Atlas M0 free tier)
 const R2_LIMIT = 10 * 1024 * 1024 * 1024; // 10 GB (R2 free tier)
 
 const AdminDashboard = () => {
-    const { data: products = [] } = useQuery({ queryKey: ['products'], queryFn: getProducts, retry: 1 });
+    const { data: products = [] } = useQuery({ queryKey: ['products', 'admin'], queryFn: () => getProducts({ admin: true }), retry: 1 });
     const { data: orders = [] } = useQuery({ queryKey: ['orders'], queryFn: getOrders, retry: 1 });
     const { data: coupons = [] } = useQuery({ queryKey: ['coupons'], queryFn: getCoupons, retry: 1 });
     const { data: storage, isLoading: storageLoading } = useQuery({ queryKey: ['storage'], queryFn: getStorageStats, retry: 1, refetchInterval: 60000 });

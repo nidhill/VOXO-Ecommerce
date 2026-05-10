@@ -19,8 +19,8 @@ const AdminCategories = () => {
     });
 
     const { data: products = [] } = useQuery({
-        queryKey: ['products'],
-        queryFn: getProducts,
+        queryKey: ['products', 'admin'],
+        queryFn: () => getProducts({ admin: true }),
     });
 
     const showToast = (msg, type = 'success') => {
@@ -87,7 +87,7 @@ const AdminCategories = () => {
     );
 
     const getProductCount = (categoryName) => {
-        return products.filter(p => p.category === categoryName).length;
+        return products.filter(p => p.category?.toLowerCase() === categoryName.toLowerCase()).length;
     };
 
     return (

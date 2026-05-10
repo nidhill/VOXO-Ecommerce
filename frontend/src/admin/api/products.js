@@ -1,7 +1,7 @@
 import api from './axios';
 
-export const getProducts = async () => {
-    const response = await api.get('/products');
+export const getProducts = async (params = {}) => {
+    const response = await api.get('/products', { params: { ...params, admin: 'true' } });
     return Array.isArray(response.data) ? response.data : [];
 };
 

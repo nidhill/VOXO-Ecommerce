@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 // ── Categories ─────────────────────────────────────────────────────────────────
 
 // GET all categories
-router.get('/', adminAuth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const categories = await Category.find({}).sort({ name: 1 });
         res.json(categories);

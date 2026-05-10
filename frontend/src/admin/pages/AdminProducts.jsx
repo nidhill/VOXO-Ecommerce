@@ -4,7 +4,7 @@ import { getProducts, createProduct, updateProduct, deleteProduct, uploadImage }
 import { getCategories } from '../api/categories';
 import { Search, Plus, Upload, X, Loader2, Trash2, Eye, EyeOff, Edit3, Image as ImageIcon, Package } from 'lucide-react';
 
-const FALLBACK_CATEGORIES = ['Shoe', 'Slipper', 'Sandal', 'Watch', 'Perfume', 'Belt', 'Shirt', 'Jacket', 'Tshirt', 'Pants', 'Joggers', 'Sunglasses', 'Socks', 'Other'];
+const FALLBACK_CATEGORIES = ['Shoes', 'Slippers', 'Sandals', 'Watches', 'Perfumes', 'Belts', 'Shirts', 'Jackets', 'T-Shirts', 'Pants', 'Joggers', 'Sunglasses', 'Socks', 'Other'];
 const GENDERS = ['Men', 'Women', 'Unisex', 'Kids'];
 
 function proxyImageUrl(url) {
@@ -21,12 +21,12 @@ const AdminProducts = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [filterCategory, setFilterCategory] = useState('');
     const [formData, setFormData] = useState({
-        name: '', gender: 'Men', category: 'Shoe', price: '', discountPrice: '', description: '', images: [], isHidden: false
+        name: '', gender: 'Men', category: 'Shoes', price: '', discountPrice: '', description: '', images: [], isHidden: false
     });
     const [uploading, setUploading] = useState(false);
     const queryClient = useQueryClient();
 
-    const { data: products = [], isLoading } = useQuery({ queryKey: ['products'], queryFn: getProducts });
+    const { data: products = [], isLoading } = useQuery({ queryKey: ['products', 'admin'], queryFn: () => getProducts({ admin: true }) });
     const { data: catData = [] } = useQuery({ queryKey: ['categories'], queryFn: getCategories });
     const CATEGORIES = catData.length > 0 ? catData.map(c => c.name) : FALLBACK_CATEGORIES;
 
@@ -35,7 +35,7 @@ const AdminProducts = () => {
     const deleteMutation = useMutation({ mutationFn: deleteProduct, onSuccess: () => queryClient.invalidateQueries(['products']) });
     const toggleVisibility = useMutation({ mutationFn: ({ id, isHidden }) => updateProduct(id, { isHidden }), onSuccess: () => queryClient.invalidateQueries(['products']) });
 
-    const openCreate = () => { setEditingProduct(null); setFormData({ name: '', gender: 'Men', category: CATEGORIES[0] || 'Shoe', price: '', discountPrice: '', description: '', images: [], isHidden: false }); setIsModalOpen(true); };
+    const openCreate = () => { setEditingProduct(null); setFormData({ name: '', gender: 'Men', category: CATEGORIES[0] || 'Shoes', price: '', discountPrice: '', description: '', images: [], isHidden: false }); setIsModalOpen(true); };
     const openEdit = (p) => { setEditingProduct(p); setFormData({ name: p.name, gender: p.gender, category: p.category, price: p.price.toString(), discountPrice: p.discountPrice?.toString() || '', description: p.description, images: p.images || [], isHidden: p.isHidden }); setIsModalOpen(true); };
     const closeModal = () => { setIsModalOpen(false); setEditingProduct(null); };
 

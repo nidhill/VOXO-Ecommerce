@@ -9,8 +9,11 @@ const { adminAuth } = require('../middleware/adminAuth');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const { category, gender, search } = req.query;
-        let query = { isHidden: false };
+        const { category, gender, search, admin } = req.query;
+        let query = {};
+        if (admin !== 'true') {
+            query.isHidden = false;
+        }
 
         if (category) {
             query.category = { $regex: new RegExp(`^${category}$`, 'i') };
