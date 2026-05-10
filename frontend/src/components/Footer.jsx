@@ -124,8 +124,8 @@ const Footer = () => {
                     <p className="footer-copyright">© {new Date().getFullYear()} Wavway. All rights reserved.</p>
                     <div className="footer-legal-links">
                         <Link to="/privacy-policy">Privacy Policy</Link>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookies</a>
+                        <Link to="/terms">Terms &amp; Conditions</Link>
+                        <Link to="/cookie-policy">Cookie Policy</Link>
                     </div>
                 </div>
 

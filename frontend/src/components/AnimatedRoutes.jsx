@@ -13,6 +13,8 @@ import Orders from '../pages/Orders';
 import OrderTracking from '../pages/OrderTracking';
 import Profile from '../pages/Profile';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
+import TermsAndConditions from '../pages/TermsAndConditions';
+import CookiePolicy from '../pages/CookiePolicy';
 import NotFound from '../pages/NotFound';
 
 // Admin imports
@@ -81,6 +83,8 @@ const AnimatedRoutes = () => {
                     <Route path="/order-tracking/:id" element={<OrderTracking />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/terms" element={<TermsAndConditions />} />
+                    <Route path="/cookie-policy" element={<CookiePolicy />} />
                     <Route path="*" element={<NotFound />} />
 
                     {/* Admin Routes */}
