@@ -2,14 +2,10 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 const resolveApiBase = () => {
-    if (import.meta.env.VITE_API_URL) {
-        return `${import.meta.env.VITE_API_URL}/api`;
-    }
-
-    if (import.meta.env.DEV) {
-        return 'http://localhost:5001/api';
-    }
-
+    // In dev mode, talk to the local backend directly
+    if (import.meta.env.DEV) return 'http://localhost:5001/api';
+    // In production, always use the Vercel proxy (/api → Render)
+    // so cookies stay same-origin and are not blocked by the browser
     return '/api';
 };
 

@@ -30,11 +30,11 @@ const getGoogleClient = () => {
     }
 };
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production' || process.env.RENDER || process.env.VERCEL || (process.env.FRONTEND_URL && !process.env.FRONTEND_URL.includes('localhost'));
 
 const COOKIE_OPTIONS = {
     httpOnly: true,
-    secure: isProd,
+    secure: isProd ? true : false,
     sameSite: isProd ? 'none' : 'lax', // 'none' required for cross-origin on prod (Render→Vercel)
     path: '/',
 };
