@@ -90,6 +90,7 @@ const Footer = () => {
                             <li><Link to="/auth">Login / Register</Link></li>
                             <li><Link to="/orders">Track Order</Link></li>
                             <li><Link to="/orders">My Orders</Link></li>
+                            <li><Link to="/faq">FAQ</Link></li>
                             <li><a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
                         </ul>
                     </div>

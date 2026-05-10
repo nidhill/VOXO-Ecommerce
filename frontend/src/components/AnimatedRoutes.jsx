@@ -15,6 +15,7 @@ import Profile from '../pages/Profile';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsAndConditions from '../pages/TermsAndConditions';
 import CookiePolicy from '../pages/CookiePolicy';
+import FAQ from '../pages/FAQ';
 import NotFound from '../pages/NotFound';
 
 // Admin imports
@@ -85,6 +86,7 @@ const AnimatedRoutes = () => {
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms" element={<TermsAndConditions />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
+                    <Route path="/faq" element={<FAQ />} />
                     <Route path="*" element={<NotFound />} />
 
                     {/* Admin Routes */}
