@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 // ── Categories ─────────────────────────────────────────────────────────────────
 
 // GET all categories
-router.get('/categories', adminAuth, async (req, res) => {
+router.get('/', adminAuth, async (req, res) => {
     try {
         const categories = await Category.find({}).sort({ name: 1 });
         res.json(categories);
@@ -20,7 +20,7 @@ router.get('/categories', adminAuth, async (req, res) => {
 });
 
 // POST create category
-router.post('/categories', adminAuth, async (req, res) => {
+router.post('/', adminAuth, async (req, res) => {
     try {
         const { name } = req.body;
         if (!name || !name.trim()) return res.status(400).json({ message: 'Category name is required' });
@@ -34,7 +34,7 @@ router.post('/categories', adminAuth, async (req, res) => {
 });
 
 // DELETE category
-router.delete('/categories/:id', adminAuth, async (req, res) => {
+router.delete('/:id', adminAuth, async (req, res) => {
     try {
         await Category.findByIdAndDelete(req.params.id);
         res.json({ message: 'Deleted' });
