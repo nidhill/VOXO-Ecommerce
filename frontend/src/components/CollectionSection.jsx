@@ -1,26 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { getHomepageBanners } from '../api/settings';
 import '../styles/collection-section.css';
 
-const collections = [
-    {
-        id: 1,
-        title: 'Men',
-        subtitle: 'Bold essentials for the modern man.',
-        image: '/images/misc/Gemini_Generated_Image_ywl6c9ywl6c9ywl6.png',
-        link: '/collections/all?gender=Men',
-    },
-    {
-        id: 2,
-        title: 'Women',
-        subtitle: 'Effortless style, curated for her.',
-        image: '/images/misc/for woman.webp',
-        link: '/collections/all?gender=Women',
-    },
-];
-
 const CollectionSection = () => {
+    const { data: banners } = useQuery({
+        queryKey: ['homepage-banners'],
+        queryFn: getHomepageBanners,
+        staleTime: 5 * 60 * 1000,
+    });
+
+    const collections = [
+        {
+            id: 1,
+            title: 'Men',
+            subtitle: 'Bold essentials for the modern man.',
+            image: banners?.men || '',
+            link: '/collections/men',
+        },
+        {
+            id: 2,
+            title: 'Women',
+            subtitle: 'Effortless style, curated for her.',
+            image: banners?.women || '',
+            link: '/collections/women',
+        },
+    ];
+
     return (
         <section className="collection-section">
             <div className="container">
@@ -38,8 +46,10 @@ const CollectionSection = () => {
                     {collections.map(collection => (
                         <div key={collection.id} className="collection-item">
                             <Link to={collection.link} className="collection-card-premium">
-                                <div className="collection-img-wrap">
-                                    <img src={collection.image} alt={collection.title} className="collection-img" />
+                                <div className="collection-img-wrap" style={{ backgroundColor: collection.image ? 'transparent' : '#f5f5f3' }}>
+                                    {collection.image && (
+                                        <img src={collection.image} alt={collection.title} className="collection-img" />
+                                    )}
                                 </div>
                                 <div className="collection-info-premium">
                                     <h3 className="collection-card-title">{collection.title}</h3>

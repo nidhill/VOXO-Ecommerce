@@ -31,10 +31,13 @@ const Hero = () => {
     });
 
     const version = heroConfig?.updatedAt ? new Date(heroConfig.updatedAt).getTime() : null;
-    const configuredImages = Array.isArray(heroConfig?.images) && heroConfig.images.length > 0
-        ? heroConfig.images.map((url) => addVersion(url, version))
-        : fallbackImages;
-    const images = configuredImages.length > 0 ? configuredImages : fallbackImages;
+    let images = [];
+    
+    if (heroConfig && Array.isArray(heroConfig.images)) {
+        images = heroConfig.images.map((url) => addVersion(url, version));
+    } else {
+        images = fallbackImages;
+    }
 
     // Auto-rotate images
     useEffect(() => {

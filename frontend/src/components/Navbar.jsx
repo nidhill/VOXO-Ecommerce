@@ -7,8 +7,7 @@ import { Search, X, Menu, ShoppingBag, LogOut, User, Package, ChevronDown } from
 import { useAuth } from '../context/AuthContext';
 import { API_BASE } from '../api/axios';
 import { getCategories } from '../api/categories';
-import heroShoeUpdated from '../assets/hero-shoe-updated.png';
-import heroShoe3 from '../assets/hero-shoe-3.png';
+import { getHomepageBanners } from '../api/settings';
 
 import '../styles/navbar.css';
 
@@ -35,6 +34,12 @@ const Navbar = () => {
     const { data: dbCategories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: getCategories,
+        staleTime: 5 * 60 * 1000,
+    });
+
+    const { data: banners } = useQuery({
+        queryKey: ['homepage-banners'],
+        queryFn: getHomepageBanners,
         staleTime: 5 * 60 * 1000,
     });
 
@@ -247,14 +252,16 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                     <div className="mega-menu-column" />
-                                    <Link to="/collections/men" className="mega-menu-featured">
-                                        <img src={heroShoeUpdated} alt="Men's Collection" />
-                                        <span className="featured-badge">New</span>
-                                        <div className="featured-text">
-                                            <p>Men's Drop</p>
-                                            <small>Shop the latest styles</small>
-                                        </div>
-                                    </Link>
+                                    {banners?.men && (
+                                        <Link to="/collections/men" className="mega-menu-featured">
+                                            <img src={banners.men} alt="Men's Collection" />
+                                            <span className="featured-badge">Featured</span>
+                                            <div className="featured-text">
+                                                <p>Men's Drop</p>
+                                                <small>Shop the latest styles</small>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -291,14 +298,16 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                     <div className="mega-menu-column" />
-                                    <Link to="/collections/women" className="mega-menu-featured">
-                                        <img src={heroShoe3} alt="Women's Collection" />
-                                        <span className="featured-badge">New</span>
-                                        <div className="featured-text">
-                                            <p>Women's Drop</p>
-                                            <small>Shop the latest styles</small>
-                                        </div>
-                                    </Link>
+                                    {banners?.women && (
+                                        <Link to="/collections/women" className="mega-menu-featured">
+                                            <img src={banners.women} alt="Women's Collection" />
+                                            <span className="featured-badge">Featured</span>
+                                            <div className="featured-text">
+                                                <p>Women's Drop</p>
+                                                <small>Shop the latest styles</small>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         </div>

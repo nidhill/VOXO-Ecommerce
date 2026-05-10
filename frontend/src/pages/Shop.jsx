@@ -162,7 +162,6 @@ const Shop = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: '0px' }}
                                 transition={{ duration: 0.25 }}
-                                style={{ willChange: 'opacity, transform' }}
                             >
                                 <div className="product-image-wrapper">
                                     {product.tag && <span className="product-tag">{product.tag}</span>}
