@@ -7,6 +7,7 @@ const { adminAuth } = require('../middleware/adminAuth');
 const DEFAULT_BANNERS = {
     men: '',
     women: '',
+    lookbook: '',
 };
 
 const DEFAULT_HERO_IMAGES = [
@@ -52,6 +53,7 @@ router.get('/homepage-banners', async (req, res) => {
         res.json({
             men: settings.homepageBanners?.men || DEFAULT_BANNERS.men,
             women: settings.homepageBanners?.women || DEFAULT_BANNERS.women,
+            lookbook: settings.homepageBanners?.lookbook || DEFAULT_BANNERS.lookbook,
             updatedAt: settings.updatedAt,
         });
     } catch (err) {
@@ -65,7 +67,7 @@ router.put('/homepage-banners', adminAuth, async (req, res) => {
             return res.status(503).json({ message: 'Database not connected. Please try again shortly.' });
         }
 
-        const { men, women } = req.body;
+        const { men, women, lookbook } = req.body;
         const settings = await getOrCreateSettings();
 
         if (typeof settings.save !== 'function') {
@@ -75,6 +77,7 @@ router.put('/homepage-banners', adminAuth, async (req, res) => {
         settings.homepageBanners = {
             men: typeof men === 'string' && men.trim() ? men.trim() : (settings.homepageBanners?.men || DEFAULT_BANNERS.men),
             women: typeof women === 'string' && women.trim() ? women.trim() : (settings.homepageBanners?.women || DEFAULT_BANNERS.women),
+            lookbook: typeof lookbook === 'string' && lookbook.trim() ? lookbook.trim() : (settings.homepageBanners?.lookbook || DEFAULT_BANNERS.lookbook),
         };
         settings.updatedAt = new Date();
 
@@ -84,6 +87,7 @@ router.put('/homepage-banners', adminAuth, async (req, res) => {
         res.json({
             men: settings.homepageBanners.men,
             women: settings.homepageBanners.women,
+            lookbook: settings.homepageBanners.lookbook,
             updatedAt: settings.updatedAt,
         });
     } catch (err) {

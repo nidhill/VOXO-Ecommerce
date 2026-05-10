@@ -3,6 +3,7 @@ import api from './axios';
 const DEFAULT_BANNERS = {
     men: '',
     women: '',
+    lookbook: '',
     updatedAt: null,
 };
 

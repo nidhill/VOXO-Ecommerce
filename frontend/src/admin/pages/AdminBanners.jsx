@@ -78,8 +78,8 @@ const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }
 
 const AdminBanners = () => {
     const queryClient = useQueryClient();
-    const [bannerForm, setBannerForm] = useState({ men: '', women: '' });
-    const [bannerUploading, setBannerUploading] = useState({ men: false, women: false });
+    const [bannerForm, setBannerForm] = useState({ men: '', women: '', lookbook: '' });
+    const [bannerUploading, setBannerUploading] = useState({ men: false, women: false, lookbook: false });
     const [heroImages, setHeroImages] = useState(['', '', '', '']);
     const [heroUploading, setHeroUploading] = useState([false, false, false, false]);
     const [announcementText, setAnnouncementText] = useState('');
@@ -96,7 +96,7 @@ const AdminBanners = () => {
     const { data: announcementConfig } = useQuery({ queryKey: ['announcement-bar'], queryFn: getAnnouncementBar });
 
     useEffect(() => {
-        if (banners) setBannerForm({ men: banners.men || '', women: banners.women || '' });
+        if (banners) setBannerForm({ men: banners.men || '', women: banners.women || '', lookbook: banners.lookbook || '' });
     }, [banners]);
 
     useEffect(() => {
@@ -293,9 +293,10 @@ const AdminBanners = () => {
                     </button>
                 </div>
 
-                <div className="ban-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="ban-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
                     <ImageSlot label="Men's Collection Banner" url={bannerForm.men} uploading={bannerUploading.men} onUpload={(f) => handleBannerUpload('men', f)} onClear={() => handleBannerClear('men')} />
                     <ImageSlot label="Women's Collection Banner" url={bannerForm.women} uploading={bannerUploading.women} onUpload={(f) => handleBannerUpload('women', f)} onClear={() => handleBannerClear('women')} />
+                    <ImageSlot label="Signature Collection (Lookbook)" url={bannerForm.lookbook} uploading={bannerUploading.lookbook} onUpload={(f) => handleBannerUpload('lookbook', f)} onClear={() => handleBannerClear('lookbook')} aspect="4/3" />
                 </div>
             </div>
 

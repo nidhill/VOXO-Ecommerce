@@ -9,6 +9,7 @@ const SiteSettingsSchema = new mongoose.Schema({
     homepageBanners: {
         men: { type: String, default: '/images/banners/men-featured.png' },
         women: { type: String, default: '/images/banners/women-featured.png' },
+        lookbook: { type: String, default: '' },
     },
     heroImages: [{
         type: String,

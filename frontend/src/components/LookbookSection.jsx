@@ -3,6 +3,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useQuery } from '@tanstack/react-query';
+import { getHomepageBanners } from '../api/settings';
 import '../styles/lookbook.css';
 
 const LookbookSection = () => {
@@ -10,32 +12,43 @@ const LookbookSection = () => {
     const heroRef     = useRef(null);
     const textRef     = useRef(null);
 
+    const { data: banners } = useQuery({
+        queryKey: ['homepage-banners'],
+        queryFn: getHomepageBanners,
+        staleTime: 5 * 60 * 1000,
+    });
+
+    const lookbookImage = banners?.lookbook;
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // ── Text: each child element staggers in from below ──
-            gsap.from(Array.from(textRef.current.children), {
-                y: 28,
-                opacity: 0,
-                duration: 0.9,
-                stagger: 0.14,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: 'top 80%',
-                    once: true,
-                    invalidateOnRefresh: true,
-                },
-            });
+            if (textRef.current) {
+                gsap.from(Array.from(textRef.current.children), {
+                    y: 28,
+                    opacity: 0,
+                    duration: 0.9,
+                    stagger: 0.14,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: 'top 80%',
+                        once: true,
+                        invalidateOnRefresh: true,
+                    },
+                });
+            }
         }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
+    // Only render the section if lookbook image exists, or always render it without the image?
+    // Let's always render the section so the text is visible, but just skip the image if none is set.
     return (
         <section ref={sectionRef} style={{ background: '#f4f4f2', overflow: 'hidden' }}>
 
             {/* ═══════════════════════════════════════════
-                CINEMATIC HERO — watch + title overlay
+                CINEMATIC HERO — product + title overlay
             ═══════════════════════════════════════════ */}
             <div
                 ref={heroRef}
@@ -56,13 +69,15 @@ const LookbookSection = () => {
                     backgroundRepeat: 'repeat', backgroundSize: '256px',
                 }} />
 
-                {/* Gold atmospheric glow behind watch */}
-                <div className="lb-glow" style={{
-                    position: 'absolute', right: '-5%', top: '50%', transform: 'translateY(-50%)',
-                    width: '65%', height: '120%',
-                    background: 'radial-gradient(ellipse, rgba(180,150,90,0.18) 0%, transparent 65%)',
-                    filter: 'blur(40px)', zIndex: 2, pointerEvents: 'none',
-                }} />
+                {/* Gold atmospheric glow behind product */}
+                {lookbookImage && (
+                    <div className="lb-glow" style={{
+                        position: 'absolute', right: '-5%', top: '50%', transform: 'translateY(-50%)',
+                        width: '65%', height: '120%',
+                        background: 'radial-gradient(ellipse, rgba(180,150,90,0.18) 0%, transparent 65%)',
+                        filter: 'blur(40px)', zIndex: 2, pointerEvents: 'none',
+                    }} />
+                )}
 
                 {/* Left: Text content */}
                 <div
@@ -139,33 +154,35 @@ const LookbookSection = () => {
                     </Link>
                 </div>
 
-                {/* Right: Watch — large, overlapping */}
-                <div
-                    className="lb-watch"
-                    style={{
-                        position: 'absolute',
-                        right: 'clamp(-60px, -4vw, -20px)',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        width: 'clamp(340px, 54%, 700px)',
-                        zIndex: 8,
-                        pointerEvents: 'none',
-                    }}
-                >
-                    <img
-                        src="/images/misc/watch-bg-removed.png"
-                        alt="Patek Philippe Nautilus"
+                {/* Right: Product Image — large, overlapping */}
+                {lookbookImage && (
+                    <div
+                        className="lb-watch"
                         style={{
-                            width: '100%',
-                            height: 'auto',
-                            objectFit: 'contain',
-                            filter: 'drop-shadow(0 24px 52px rgba(0,0,0,0.16)) drop-shadow(0 0 34px rgba(180,150,90,0.12))',
-                            willChange: 'transform',
-                            display: 'block',
-                            transformOrigin: 'center center',
+                            position: 'absolute',
+                            right: 'clamp(-60px, -4vw, -20px)',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            width: 'clamp(340px, 54%, 700px)',
+                            zIndex: 8,
+                            pointerEvents: 'none',
                         }}
-                    />
-                </div>
+                    >
+                        <img
+                            src={lookbookImage}
+                            alt="Signature Lookbook Product"
+                            style={{
+                                width: '100%',
+                                height: 'auto',
+                                objectFit: 'contain',
+                                filter: 'drop-shadow(0 24px 52px rgba(0,0,0,0.16))',
+                                willChange: 'transform',
+                                display: 'block',
+                                transformOrigin: 'center center',
+                            }}
+                        />
+                    </div>
+                )}
 
                 {/* Bottom fade into product strip */}
                 <div style={{
