@@ -27,7 +27,7 @@ import AdminProducts from '../admin/pages/AdminProducts';
 import AdminOrders from '../admin/pages/AdminOrders';
 import AdminCoupons from '../admin/pages/AdminCoupons';
 import AdminBanners from '../admin/pages/AdminBanners';
-import AdminAnnouncement from '../admin/pages/AdminAnnouncement';
+
 import AdminCustomers from '../admin/pages/AdminCustomers';
 import AdminSubscribers from '../admin/pages/AdminSubscribers';
 import AdminCategories from '../admin/pages/AdminCategories';
@@ -120,7 +120,7 @@ const AdminRoutes = () => {
                 <Route path="banners" element={<AdminBanners />} />
                 <Route path="orders" element={<AdminOrders />} />
                 <Route path="coupons" element={<AdminCoupons />} />
-                <Route path="announcement" element={<AdminAnnouncement />} />
+
                 <Route path="customers" element={<AdminCustomers />} />
                 <Route path="subscribers" element={<AdminSubscribers />} />
                 <Route path="categories" element={<AdminCategories />} />

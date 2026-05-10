@@ -33,6 +33,26 @@ router.post('/', adminAuth, async (req, res) => {
     }
 });
 
+// PUT edit category
+router.put('/:id', adminAuth, async (req, res) => {
+    try {
+        const { name } = req.body;
+        if (!name || !name.trim()) return res.status(400).json({ message: 'Category name is required' });
+        
+        const existing = await Category.findOne({ name: name.trim(), _id: { $ne: req.params.id } });
+        if (existing) return res.status(409).json({ message: 'Category already exists' });
+        
+        const category = await Category.findByIdAndUpdate(
+            req.params.id, 
+            { name: name.trim() },
+            { new: true }
+        );
+        res.json(category);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // DELETE category
 router.delete('/:id', adminAuth, async (req, res) => {
     try {

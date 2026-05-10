@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Loader2, Eye, EyeOff, Lock, Mail, ShoppingBag, Users, TrendingUp, Package, AlertCircle } from 'lucide-react';
-
-const STAT_PILLS = [
-    { icon: <ShoppingBag size={13} />, label: 'Products' },
-    { icon: <Package size={13} />, label: 'Orders' },
-    { icon: <Users size={13} />, label: 'Customers' },
-    { icon: <TrendingUp size={13} />, label: 'Analytics' },
-];
+import { Loader2, Eye, EyeOff, Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -21,9 +14,8 @@ const AdminLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!email.trim()) { setError('Email is required'); return; }
-        if (!password)     { setError('Password is required'); return; }
+        if (!password) { setError('Password is required'); return; }
 
         setIsLoading(true);
         setError('');
@@ -43,162 +35,192 @@ const AdminLogin = () => {
         }
     };
 
-    const inp = {
-        width: '100%', padding: '11px 16px 11px 42px',
-        background: '#f9fafb', border: '1px solid #e5e7eb',
-        borderRadius: '10px', fontSize: '14px', color: '#111827',
-        outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-        transition: 'border-color 0.15s, box-shadow 0.15s',
-    };
-
     return (
-        <div style={{
-            minHeight: '100vh', display: 'flex',
-            fontFamily: "'Inter', system-ui, sans-serif",
-            background: '#f5f6fa',
-        }}>
+        <div style={s.page}>
             <style>{`
-                @keyframes spin { to { transform: rotate(360deg); } }
-                @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-                .login-inp:focus { border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important; background: #fff !important; }
-                .login-btn:hover:not(:disabled) { background: #4f46e5 !important; }
-                .login-left { display: flex; }
-                .forgot-link { color: #6366f1; font-size: 12.5px; font-weight: 500; text-decoration: none; transition: color 0.15s; }
-                .forgot-link:hover { color: #4f46e5; text-decoration: underline; }
-                @media (max-width: 768px) { .login-left { display: none !important; } }
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+                @keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-40px) scale(1.1); } }
+                @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-40px,30px) scale(1.15); } }
+                @keyframes float3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(20px,40px) scale(1.05); } }
+                @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+                @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+                @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 20px rgba(99,102,241,0.15); } 50% { box-shadow: 0 0 40px rgba(99,102,241,0.3); } }
+                .adm-login-input { 
+                    width:100%; padding:14px 16px 14px 44px; background:rgba(255,255,255,0.04);
+                    border:1px solid rgba(255,255,255,0.08); border-radius:12px; font-size:14px;
+                    color:#f4f4f5; outline:none; box-sizing:border-box; font-family:inherit;
+                    transition: all 0.2s ease;
+                }
+                .adm-login-input::placeholder { color: #52525b; }
+                .adm-login-input:focus { 
+                    border-color: rgba(99,102,241,0.5); 
+                    background: rgba(99,102,241,0.04);
+                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+                }
+                .adm-login-btn {
+                    width:100%; padding:14px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    color:#fff; border:none; border-radius:12px; font-size:14px; font-weight:700;
+                    cursor:pointer; transition: all 0.25s ease; display:flex; align-items:center;
+                    justify-content:center; gap:8px; font-family:inherit; letter-spacing:0.02em;
+                    position: relative; overflow: hidden;
+                }
+                .adm-login-btn:hover:not(:disabled) { 
+                    transform: translateY(-1px);
+                    box-shadow: 0 8px 30px rgba(99,102,241,0.4);
+                }
+                .adm-login-btn:active:not(:disabled) { transform: translateY(0); }
+                .adm-login-btn:disabled { opacity:0.6; cursor:not-allowed; }
+                .adm-forgot-link { 
+                    color:#818cf8; font-size:12.5px; font-weight:500; text-decoration:none; 
+                    transition: color 0.15s; 
+                }
+                .adm-forgot-link:hover { color:#a5b4fc; }
             `}</style>
 
-            {/* Left decorative panel */}
-            <div className="login-left" style={{
-                flex: 1, background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
-                padding: '60px', flexDirection: 'column', justifyContent: 'space-between',
-                position: 'relative', overflow: 'hidden',
-            }}>
-                <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '320px', height: '320px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            {/* Animated gradient orbs */}
+            <div style={{ ...s.orb, width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)', top: '-10%', right: '-5%', animation: 'float1 8s ease-in-out infinite' }} />
+            <div style={{ ...s.orb, width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)', bottom: '-5%', left: '-5%', animation: 'float2 10s ease-in-out infinite' }} />
+            <div style={{ ...s.orb, width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)', top: '40%', left: '20%', animation: 'float3 12s ease-in-out infinite' }} />
 
-                <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '60px' }}>
-                        <div style={{ width: '36px', height: '36px', background: '#6366f1', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', color: '#fff' }}>W</div>
-                        <span style={{ color: '#fff', fontWeight: '800', fontSize: '18px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Wavway</span>
+            {/* Noise texture overlay */}
+            <div style={s.noise} />
+
+            {/* Login Card */}
+            <div style={s.card}>
+                {/* Brand */}
+                <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+                    <div style={s.logoWrap}>
+                        <div style={s.logo}>W</div>
                     </div>
-
-                    <h2 style={{ color: '#fff', fontSize: 'clamp(28px, 3vw, 40px)', fontWeight: '800', lineHeight: 1.15, marginBottom: '16px' }}>
-                        Your store,<br />
-                        <span style={{ color: '#818cf8' }}>fully in control.</span>
-                    </h2>
-                    <p style={{ color: '#94a3b8', fontSize: '15px', lineHeight: 1.65, maxWidth: '340px' }}>
-                        Manage products, track orders, run campaigns and grow your e-commerce business from one place.
-                    </p>
+                    <h1 style={s.title}>Welcome back</h1>
+                    <p style={s.subtitle}>Sign in to your Wavway admin panel</p>
                 </div>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                    {STAT_PILLS.map((s) => (
-                        <div key={s.label} style={{
-                            display: 'flex', alignItems: 'center', gap: '7px',
-                            background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '20px', padding: '7px 14px',
-                            color: '#cbd5e1', fontSize: '13px', fontWeight: '500',
-                        }}>
-                            {s.icon} {s.label}
-                        </div>
-                    ))}
-                </div>
-            </div>
+                {/* Error */}
+                {error && (
+                    <div style={s.error}>
+                        <AlertCircle size={15} style={{ flexShrink: 0 }} />
+                        <span>{error}</span>
+                    </div>
+                )}
 
-            {/* Right login form */}
-            <div style={{
-                width: '100%', maxWidth: '480px', display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                padding: '40px 32px', background: '#ffffff',
-                animation: 'fadeUp 0.4s ease',
-            }}>
-                <div style={{ width: '100%', maxWidth: '360px' }}>
-                    <div style={{ marginBottom: '36px' }}>
-                        <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#111827', marginBottom: '6px' }}>Admin Sign In</h1>
-                        <p style={{ fontSize: '14px', color: '#6b7280' }}>Sign in to manage your Wavway store</p>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    {/* Email */}
+                    <div>
+                        <label style={s.label}>Email</label>
+                        <div style={{ position: 'relative' }}>
+                            <Mail size={16} style={s.inputIcon} />
+                            <input
+                                type="email" value={email} onChange={e => setEmail(e.target.value)}
+                                placeholder="admin@wavway.com" required
+                                className="adm-login-input"
+                            />
+                        </div>
                     </div>
 
-                    {error && (
-                        <div style={{
-                            padding: '12px 16px', background: '#fef2f2',
-                            border: '1px solid #fecaca', borderRadius: '10px',
-                            color: '#dc2626', fontSize: '13.5px', marginBottom: '20px',
-                            display: 'flex', alignItems: 'center', gap: '8px',
-                        }}>
-                            <AlertCircle size={16} /> {error}
+                    {/* Password */}
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                            <label style={{ ...s.label, margin: 0 }}>Password</label>
+                            <Link to="/admin/forgot-password" className="adm-forgot-link">Forgot?</Link>
                         </div>
-                    )}
-
-                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                        {/* Email */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px', letterSpacing: '0.02em' }}>
-                                Email address
-                            </label>
-                            <div style={{ position: 'relative' }}>
-                                <Mail size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
-                                <input
-                                    type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="admin@wavway.com" required
-                                    className="login-inp" style={inp}
-                                />
-                            </div>
+                        <div style={{ position: 'relative' }}>
+                            <Lock size={16} style={s.inputIcon} />
+                            <input
+                                type={showPass ? 'text' : 'password'}
+                                value={password} onChange={e => setPassword(e.target.value)}
+                                placeholder="••••••••" required
+                                className="adm-login-input"
+                                style={{ paddingRight: '44px' }}
+                            />
+                            <button type="button" onClick={() => setShowPass(v => !v)}
+                                style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#52525b', display: 'flex', padding: '4px', transition: 'color 0.15s' }}
+                                onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
+                                onMouseLeave={e => e.currentTarget.style.color = '#52525b'}
+                            >
+                                {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                            </button>
                         </div>
+                    </div>
 
-                        {/* Password */}
-                        <div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '7px' }}>
-                                <label style={{ fontSize: '12px', fontWeight: '600', color: '#374151', letterSpacing: '0.02em' }}>
-                                    Password
-                                </label>
-                                <Link to="/admin/forgot-password" className="forgot-link">
-                                    Forgot password?
-                                </Link>
-                            </div>
-                            <div style={{ position: 'relative' }}>
-                                <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
-                                <input
-                                    type={showPass ? 'text' : 'password'}
-                                    value={password} onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="••••••••" required
-                                    className="login-inp" style={{ ...inp, paddingRight: '44px' }}
-                                />
-                                <button type="button" onClick={() => setShowPass(v => !v)} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex', padding: '4px' }}>
-                                    {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
-                                </button>
-                            </div>
-                        </div>
+                    <button type="submit" disabled={isLoading} className="adm-login-btn">
+                        {isLoading ? (
+                            <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Signing in...</>
+                        ) : (
+                            <>Sign in <ArrowRight size={16} /></>
+                        )}
+                    </button>
+                </form>
 
-                        <button
-                            type="submit" disabled={isLoading}
-                            className="login-btn"
-                            style={{
-                                width: '100%', padding: '13px',
-                                background: '#6366f1', color: '#fff',
-                                border: 'none', borderRadius: '10px',
-                                fontSize: '14px', fontWeight: '700',
-                                cursor: isLoading ? 'not-allowed' : 'pointer',
-                                opacity: isLoading ? 0.7 : 1,
-                                transition: 'background 0.2s',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                                marginTop: '4px', letterSpacing: '0.02em',
-                            }}
-                        >
-                            {isLoading
-                                ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Signing in...</>
-                                : 'Sign In to Dashboard'
-                            }
-                        </button>
-                    </form>
-
-                    <p style={{ marginTop: '32px', fontSize: '12px', color: '#d1d5db', textAlign: 'center' }}>
-                        Wavway Admin Panel · Secure Access
-                    </p>
+                <div style={s.footer}>
+                    <div style={s.divider} />
+                    <p style={s.footerText}>Wavway Admin · Secure Access</p>
                 </div>
             </div>
         </div>
     );
+};
+
+const s = {
+    page: {
+        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: '#0a0a0f', fontFamily: "'Inter', system-ui, sans-serif",
+        position: 'relative', overflow: 'hidden', padding: '20px',
+    },
+    orb: {
+        position: 'absolute', borderRadius: '50%', pointerEvents: 'none', filter: 'blur(60px)',
+    },
+    noise: {
+        position: 'absolute', inset: 0, opacity: 0.03, pointerEvents: 'none',
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+    },
+    card: {
+        width: '100%', maxWidth: '420px', padding: '40px',
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.06)',
+        borderRadius: '20px', position: 'relative', zIndex: 1,
+        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        animation: 'fadeIn 0.5s ease',
+    },
+    logoWrap: {
+        display: 'inline-flex', marginBottom: '20px',
+        animation: 'pulse-glow 3s ease-in-out infinite',
+        borderRadius: '16px',
+    },
+    logo: {
+        width: '48px', height: '48px',
+        background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+        borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontWeight: 900, fontSize: '20px', color: '#fff', letterSpacing: '0.05em',
+    },
+    title: {
+        fontSize: '24px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 6px 0',
+        letterSpacing: '-0.02em',
+    },
+    subtitle: {
+        fontSize: '14px', color: '#52525b', margin: 0,
+    },
+    label: {
+        display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa',
+        marginBottom: '8px', letterSpacing: '0.01em',
+    },
+    inputIcon: {
+        position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
+        color: '#52525b', pointerEvents: 'none',
+    },
+    error: {
+        padding: '12px 14px', background: 'rgba(239,68,68,0.08)',
+        border: '1px solid rgba(239,68,68,0.15)', borderRadius: '10px',
+        color: '#f87171', fontSize: '13px', marginBottom: '8px',
+        display: 'flex', alignItems: 'center', gap: '8px',
+    },
+    footer: { marginTop: '32px' },
+    divider: {
+        height: '1px', background: 'rgba(255,255,255,0.05)', marginBottom: '16px',
+    },
+    footerText: {
+        fontSize: '12px', color: '#3f3f46', textAlign: 'center', margin: 0,
+    },
 };
 
 export default AdminLogin;

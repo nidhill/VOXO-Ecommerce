@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { Lock, Eye, EyeOff, Loader2, CheckCircle2, Mail, KeyRound, ShieldCheck, AlertCircle } from 'lucide-react';
 
-/**
- * AdminChangePassword — inside the admin dashboard
- * Flow: Enter current password + request OTP → verify OTP + enter new password
- */
 const AdminChangePassword = () => {
     const { sendChangeOtp, changePassword, adminUser } = useAdminAuth();
 
@@ -54,169 +50,193 @@ const AdminChangePassword = () => {
         setError(''); setInfo('');
     };
 
-    const inp = {
-        width: '100%', padding: '11px 16px 11px 42px',
-        background: '#f9fafb', border: '1px solid #e8eaed',
-        borderRadius: '10px', fontSize: '13.5px', color: '#111827',
-        outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-        transition: 'border-color 0.15s, box-shadow 0.15s',
-    };
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: '#f5f6fa', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', overflow: 'hidden' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @keyframes fadeIn { from { opacity:0;transform:translateY(8px);} to {opacity:1;transform:translateY(0);} }
-                .cp-inp:focus { border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important; background: #fff !important; }
-                .cp-btn { width:100%;padding:12px;background:#6366f1;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:8px; }
-                .cp-btn:hover:not(:disabled) { background:#4f46e5; }
-                .cp-btn:disabled { opacity:0.65;cursor:not-allowed; }
-                .otp-input { width:100%;text-align:center;letter-spacing:14px;font-size:24px;font-weight:700;padding:14px;background:#f9fafb;border:1.5px solid #e8eaed;border-radius:10px;color:#111827;outline:none;font-family:monospace;transition:border-color 0.15s,box-shadow 0.15s; }
-                .otp-input:focus { border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,0.12);background:#fff; }
+                
+                .cp-inp {
+                    width: 100%; padding: 12px 16px 12px 42px;
+                    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 12px; font-size: 14px; color: #f4f4f5;
+                    outline: none; box-sizing: border-box; font-family: inherit;
+                    transition: all 0.2s;
+                }
+                .cp-inp:focus { 
+                    border-color: rgba(99,102,241,0.5) !important; 
+                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important; 
+                    background: rgba(99,102,241,0.05) !important; 
+                }
+                .cp-inp::placeholder { color: #52525b; }
+                
+                .cp-btn { 
+                    width: 100%; padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6); 
+                    color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; 
+                    cursor: pointer; transition: all 0.2s; display: flex; alignItems: center; justify-content: center; gap: 8px; 
+                    box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+                }
+                .cp-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+                .cp-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+                
+                .otp-input { 
+                    width: 100%; text-align: center; letter-spacing: 16px; font-size: 28px; font-weight: 800; 
+                    padding: 16px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.2); 
+                    border-radius: 12px; color: #f4f4f5; outline: none; font-family: monospace; 
+                    transition: all 0.2s; 
+                }
+                .otp-input:focus { border-color: #6366f1; border-style: solid; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: rgba(99,102,241,0.02); }
             `}</style>
 
             {/* Header */}
-            <header style={{ padding: '24px 32px', borderBottom: '1px solid #e8eaed', background: '#fff', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                    <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#111827', margin: 0 }}>Change Password</h1>
-                    <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '2px' }}>
-                        Secure your admin account with a new password
-                    </p>
+                    <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>Change Password</h1>
+                    <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>Secure your admin account with a new password</p>
                 </div>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(99,102,241,0.1)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <ShieldCheck size={18} color="#6366f1" />
+                <div style={{ width: '48px', height: '48px', background: 'rgba(99,102,241,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ShieldCheck size={24} color="#818cf8" />
                 </div>
             </header>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '32px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
                 <div style={{ width: '100%', maxWidth: '480px', animation: 'fadeIn 0.3s ease' }}>
 
                     {/* Done state */}
                     {step === 'done' ? (
-                        <div style={{ background: '#fff', border: '1px solid #e8eaed', borderRadius: '16px', padding: '40px', textAlign: 'center' }}>
-                            <div style={{ width: '64px', height: '64px', background: 'rgba(99,102,241,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-                                <CheckCircle2 size={32} color="#6366f1" />
+                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', padding: '48px 40px', textAlign: 'center', backdropFilter: 'blur(12px)' }}>
+                            <div style={{ width: '72px', height: '72px', background: 'rgba(52,211,153,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', boxShadow: '0 0 0 8px rgba(52,211,153,0.05)' }}>
+                                <CheckCircle2 size={36} color="#34d399" />
                             </div>
-                            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>Password Changed!</h2>
-                            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '28px', lineHeight: 1.6 }}>
-                                Your admin password has been updated successfully.
+                            <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#f4f4f5', marginBottom: '12px', letterSpacing: '-0.02em' }}>Password Updated!</h2>
+                            <p style={{ fontSize: '15px', color: '#a1a1aa', marginBottom: '32px', lineHeight: 1.6 }}>
+                                Your admin password has been changed successfully. Please use your new password for future logins.
                             </p>
                             <button className="cp-btn" onClick={reset}>Change Again</button>
                         </div>
                     ) : (
-                        <div style={{ background: '#fff', border: '1px solid #e8eaed', borderRadius: '16px', overflow: 'hidden' }}>
+                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', overflow: 'hidden', backdropFilter: 'blur(12px)' }}>
                             {/* Step bar */}
                             <div style={{ display: 'flex' }}>
                                 {['Current Password', 'OTP & New Password'].map((label, i) => (
-                                    <div key={i} style={{ flex: 1, padding: '14px 20px', borderBottom: `2px solid ${step >= i + 1 ? '#6366f1' : '#e8eaed'}`, background: step === i + 1 ? 'rgba(99,102,241,0.04)' : 'transparent', transition: 'all 0.2s' }}>
-                                        <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, color: step >= i + 1 ? '#6366f1' : '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                    <div key={i} style={{ flex: 1, padding: '16px 24px', borderBottom: `2px solid ${step >= i + 1 ? '#6366f1' : 'rgba(255,255,255,0.06)'}`, background: step === i + 1 ? 'rgba(99,102,241,0.05)' : 'transparent', transition: 'all 0.2s' }}>
+                                        <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, color: step >= i + 1 ? '#818cf8' : '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                             Step {i + 1}
                                         </p>
-                                        <p style={{ margin: '2px 0 0', fontSize: '12.5px', color: step >= i + 1 ? '#374151' : '#9ca3af', fontWeight: 500 }}>{label}</p>
+                                        <p style={{ margin: '4px 0 0', fontSize: '13px', color: step >= i + 1 ? '#f4f4f5' : '#a1a1aa', fontWeight: 600 }}>{label}</p>
                                     </div>
                                 ))}
                             </div>
 
-                            <div style={{ padding: '28px 28px 32px' }}>
+                            <div style={{ padding: '32px' }}>
                                 {/* Account info */}
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', background: '#f9fafb', borderRadius: '10px', border: '1px solid #e8eaed', marginBottom: '24px' }}>
-                                    <div style={{ width: '36px', height: '36px', background: '#6366f1', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '14px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '32px' }}>
+                                    <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: '16px', boxShadow: '0 4px 10px rgba(99,102,241,0.3)' }}>
                                         {(adminUser?.name || 'A')[0].toUpperCase()}
                                     </div>
                                     <div>
-                                        <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#111827' }}>{adminUser?.name || 'Admin'}</p>
-                                        <p style={{ margin: 0, fontSize: '12px', color: '#9ca3af' }}>{adminUser?.email || ''}</p>
+                                        <p style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: '#f4f4f5' }}>{adminUser?.name || 'Admin'}</p>
+                                        <p style={{ margin: '2px 0 0 0', fontSize: '13px', color: '#a1a1aa' }}>{adminUser?.email || ''}</p>
                                     </div>
-                                    <Mail size={14} color="#9ca3af" style={{ marginLeft: 'auto' }} />
+                                    <Mail size={16} color="#71717a" style={{ marginLeft: 'auto' }} />
                                 </div>
 
                                 {/* Error */}
                                 {error && (
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 14px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '9px', color: '#dc2626', fontSize: '13px', marginBottom: '18px' }}>
-                                        <AlertCircle size={15} /> {error}
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 16px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '12px', color: '#f87171', fontSize: '14px', fontWeight: 500, marginBottom: '24px' }}>
+                                        <AlertCircle size={18} /> {error}
                                     </div>
                                 )}
 
                                 {/* Info */}
                                 {info && step === 2 && (
-                                    <div style={{ padding: '11px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '9px', color: '#16a34a', fontSize: '13px', marginBottom: '18px', display: 'flex', alignItems: 'center', gap: '7px' }}>
-                                        <CheckCircle2 size={14} /> {info}
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 16px', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)', borderRadius: '12px', color: '#34d399', fontSize: '14px', fontWeight: 500, marginBottom: '24px' }}>
+                                        <CheckCircle2 size={18} /> {info}
                                     </div>
                                 )}
 
                                 {/* STEP 1 */}
                                 {step === 1 && (
-                                    <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                                    <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                         <div>
-                                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>Current Password</label>
+                                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Current Password</label>
                                             <div style={{ position: 'relative' }}>
-                                                <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
+                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
                                                 <input type={showCurrent ? 'text' : 'password'} value={currentPass} onChange={e => setCurrentPass(e.target.value)}
-                                                    placeholder="Enter current password" required className="cp-inp" style={{ ...inp, paddingRight: '44px' }} />
-                                                <button type="button" onClick={() => setShowCurrent(v => !v)} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex' }}>
-                                                    {showCurrent ? <EyeOff size={15} /> : <Eye size={15} />}
+                                                    placeholder="Enter current password" required className="cp-inp" style={{ paddingRight: '48px' }} />
+                                                <button type="button" onClick={() => setShowCurrent(v => !v)} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'color 0.2s' }}
+                                                    onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
+                                                    onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
+                                                >
+                                                    {showCurrent ? <EyeOff size={18} /> : <Eye size={18} />}
                                                 </button>
                                             </div>
                                         </div>
-                                        <div style={{ padding: '12px 16px', background: 'rgba(99,102,241,0.06)', borderRadius: '10px', border: '1px solid rgba(99,102,241,0.15)', fontSize: '12.5px', color: '#4f46e5', lineHeight: 1.6 }}>
-                                            <strong>🔒 Security step:</strong> After verifying your current password, we'll send a one-time code to your admin email address.
+                                        <div style={{ padding: '16px', background: 'rgba(99,102,241,0.05)', borderRadius: '12px', border: '1px solid rgba(99,102,241,0.1)', fontSize: '13px', color: '#818cf8', lineHeight: 1.6 }}>
+                                            <strong style={{ color: '#a5b4fc' }}>🔒 Security Check:</strong> Verify your current password to receive a one-time code on your admin email.
                                         </div>
                                         <button type="submit" disabled={loading} className="cp-btn">
-                                            {loading ? <><Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> Sending OTP...</> : 'Send OTP to Email →'}
+                                            {loading ? <><Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Sending OTP...</> : 'Send OTP to Email →'}
                                         </button>
                                     </form>
                                 )}
 
                                 {/* STEP 2 */}
                                 {step === 2 && (
-                                    <form onSubmit={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                                    <form onSubmit={handleChange} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                         <div>
-                                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '10px' }}>
+                                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '12px' }}>
                                                 OTP from Email
                                             </label>
                                             <input
                                                 type="text" value={otp}
                                                 onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                                placeholder="_ _ _ _ _ _" maxLength={6}
+                                                placeholder="------" maxLength={6}
                                                 className="otp-input"
                                             />
-                                            <p style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px', textAlign: 'center' }}>
-                                                Enter the 6-digit code sent to your email
+                                            <p style={{ fontSize: '13px', color: '#71717a', marginTop: '12px', textAlign: 'center' }}>
+                                                Check your email for the 6-digit verification code.
                                             </p>
                                         </div>
 
-                                        <div style={{ height: '1px', background: '#f3f4f6' }} />
+                                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }} />
 
                                         <div>
-                                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>New Password</label>
+                                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>New Password</label>
                                             <div style={{ position: 'relative' }}>
-                                                <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
+                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
                                                 <input type={showNew ? 'text' : 'password'} value={newPass} onChange={e => setNewPass(e.target.value)}
-                                                    placeholder="Min. 8 characters" required className="cp-inp" style={{ ...inp, paddingRight: '44px' }} />
-                                                <button type="button" onClick={() => setShowNew(v => !v)} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex' }}>
-                                                    {showNew ? <EyeOff size={15} /> : <Eye size={15} />}
+                                                    placeholder="Min. 8 characters" required className="cp-inp" style={{ paddingRight: '48px' }} />
+                                                <button type="button" onClick={() => setShowNew(v => !v)} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'color 0.2s' }}
+                                                    onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
+                                                    onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
+                                                >
+                                                    {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
                                                 </button>
                                             </div>
                                         </div>
 
                                         <div>
-                                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>Confirm New Password</label>
+                                            <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Confirm New Password</label>
                                             <div style={{ position: 'relative' }}>
-                                                <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
+                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
                                                 <input type={showNew ? 'text' : 'password'} value={confPass} onChange={e => setConfPass(e.target.value)}
-                                                    placeholder="Repeat new password" required className="cp-inp" style={inp} />
+                                                    placeholder="Repeat new password" required className="cp-inp" />
                                             </div>
                                             {newPass && confPass && newPass !== confPass && (
-                                                <p style={{ fontSize: '12px', color: '#ef4444', marginTop: '5px' }}>Passwords don't match</p>
+                                                <p style={{ fontSize: '13px', color: '#f87171', marginTop: '8px', fontWeight: 500 }}>Passwords don't match</p>
                                             )}
                                         </div>
 
                                         <button type="submit" disabled={loading} className="cp-btn">
-                                            {loading ? <><Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> Changing Password...</> : <><KeyRound size={15} /> Change Password</>}
+                                            {loading ? <><Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Updating...</> : <><KeyRound size={18} /> Change Password</>}
                                         </button>
 
                                         <button type="button" onClick={handleSendOtp} disabled={loading}
-                                            style={{ background: 'none', border: 'none', color: '#6366f1', fontSize: '13px', cursor: 'pointer', fontWeight: 500, textAlign: 'center' }}>
+                                            style={{ background: 'none', border: 'none', color: '#818cf8', fontSize: '14px', cursor: 'pointer', fontWeight: 600, textAlign: 'center', transition: 'color 0.2s' }}
+                                            onMouseEnter={e => e.currentTarget.style.color = '#a5b4fc'}
+                                            onMouseLeave={e => e.currentTarget.style.color = '#818cf8'}
+                                        >
                                             Resend OTP
                                         </button>
                                     </form>

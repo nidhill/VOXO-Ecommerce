@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
     LayoutDashboard, ShoppingBag, ShoppingCart, Tag, Image,
-    LogOut, Menu, X, Users, Mail, Megaphone, ChevronRight, Database, KeyRound
+    LogOut, Menu, X, Users, Mail, Megaphone, Database, KeyRound, CheckCircle2
 } from 'lucide-react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
@@ -10,32 +10,31 @@ const NAV_GROUPS = [
     {
         label: 'Store',
         items: [
-            { to: '/admin', end: true, icon: <LayoutDashboard size={17} />, label: 'Dashboard' },
-            { to: '/admin/products', icon: <ShoppingBag size={17} />, label: 'Products' },
-            { to: '/admin/orders', icon: <ShoppingCart size={17} />, label: 'Orders' },
-            { to: '/admin/customers', icon: <Users size={17} />, label: 'Customers' },
-            { to: '/admin/categories', icon: <Tag size={17} />, label: 'Categories' },
+            { to: '/admin', end: true, icon: <LayoutDashboard size={18} />, label: 'Dashboard' },
+            { to: '/admin/products', icon: <ShoppingBag size={18} />, label: 'Products' },
+            { to: '/admin/orders', icon: <ShoppingCart size={18} />, label: 'Orders' },
+            { to: '/admin/customers', icon: <Users size={18} />, label: 'Customers' },
+            { to: '/admin/categories', icon: <Tag size={18} />, label: 'Categories' },
         ],
     },
     {
         label: 'Marketing',
         items: [
-            { to: '/admin/coupons', icon: <Tag size={17} />, label: 'Coupons' },
-            { to: '/admin/announcement', icon: <Megaphone size={17} />, label: 'Announcement' },
-            { to: '/admin/subscribers', icon: <Mail size={17} />, label: 'Subscribers' },
+            { to: '/admin/coupons', icon: <Tag size={18} />, label: 'Coupons' },
+            { to: '/admin/subscribers', icon: <Mail size={18} />, label: 'Subscribers' },
         ],
     },
     {
         label: 'Content',
         items: [
-            { to: '/admin/banners', icon: <Image size={17} />, label: 'Banners & Media' },
+            { to: '/admin/banners', icon: <Image size={18} />, label: 'Banners & Media' },
         ],
     },
     {
         label: 'System',
         items: [
-            { to: '/admin/database', icon: <Database size={17} />, label: 'Database' },
-            { to: '/admin/change-password', icon: <KeyRound size={17} />, label: 'Change Password' },
+            { to: '/admin/database', icon: <Database size={18} />, label: 'Database' },
+            { to: '/admin/change-password', icon: <KeyRound size={18} />, label: 'Change Password' },
         ],
     },
 ];
@@ -52,111 +51,162 @@ const AdminLayout = () => {
         <div className="a-shell">
             <style>{`
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+                
+                /* Globals */
                 .a-shell {
                     display: flex; height: 100vh;
-                    background: #f5f6fa;
+                    background: #0a0a0f; /* Deep dark background */
                     font-family: 'Inter', system-ui, sans-serif;
                     overflow: hidden;
-                    color: #111827;
+                    color: #f4f4f5;
                 }
+                
+                /* Scrollbar */
+                ::-webkit-scrollbar { width: 6px; height: 6px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+                ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
                 /* ── Sidebar ── */
                 .a-sidebar {
-                    width: 240px; min-width: 240px;
-                    background: #ffffff;
-                    border-right: 1px solid #e8eaed;
+                    width: 260px; min-width: 260px;
+                    background: rgba(255,255,255,0.02);
+                    border-right: 1px solid rgba(255,255,255,0.06);
                     display: flex; flex-direction: column;
                     height: 100%; z-index: 10;
-                    transition: transform 0.25s ease;
+                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
                 }
                 .a-sidebar-header {
-                    height: 64px;
+                    height: 72px;
                     display: flex; align-items: center;
-                    padding: 0 20px;
-                    border-bottom: 1px solid #e8eaed;
-                    flex-shrink: 0; gap: 10px;
+                    padding: 0 24px;
+                    border-bottom: 1px solid rgba(255,255,255,0.06);
+                    flex-shrink: 0; gap: 12px;
                 }
                 .a-logo-box {
-                    width: 32px; height: 32px;
-                    background: #111827;
-                    border-radius: 8px;
+                    width: 34px; height: 34px;
+                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    border-radius: 10px;
                     display: flex; align-items: center; justify-content: center;
-                    font-weight: 800; font-size: 14px; color: #fff;
-                    flex-shrink: 0; letter-spacing: 0.05em;
+                    font-weight: 800; font-size: 16px; color: #fff;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
                 }
-                .a-brand { font-weight: 800; font-size: 16px; letter-spacing: 0.08em; color: #111827; text-transform: uppercase; }
+                .a-brand { 
+                    font-weight: 700; font-size: 16px; letter-spacing: 0.05em; 
+                    color: #f4f4f5; 
+                }
                 .a-sidebar-close {
                     display: none; margin-left: auto;
-                    background: none; border: none; cursor: pointer;
-                    color: #9ca3af; padding: 6px; border-radius: 6px;
+                    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+                    cursor: pointer; color: #a1a1aa; padding: 6px; border-radius: 8px;
                     align-items: center; justify-content: center;
                 }
-                .a-sidebar-close:hover { color: #111827; }
+                
                 /* ── Nav ── */
-                .a-nav { flex: 1; padding: 16px 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+                .a-nav { flex: 1; padding: 24px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 28px; }
                 .a-nav-group-label {
-                    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-                    text-transform: uppercase; color: #9ca3af;
-                    padding: 0 8px; margin-bottom: 4px;
+                    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+                    text-transform: uppercase; color: #52525b;
+                    padding: 0 12px; margin-bottom: 8px;
                 }
-                .a-nav-group-items { display: flex; flex-direction: column; gap: 1px; }
+                .a-nav-group-items { display: flex; flex-direction: column; gap: 4px; }
                 .a-nav-link {
-                    display: flex; align-items: center; gap: 10px;
-                    padding: 9px 10px; border-radius: 8px;
-                    text-decoration: none; color: #6b7280;
-                    font-size: 13.5px; font-weight: 500;
-                    transition: all 0.12s ease; position: relative;
-                    border: none; background: none; cursor: pointer; width: 100%;
+                    display: flex; align-items: center; gap: 12px;
+                    padding: 10px 12px; border-radius: 10px;
+                    text-decoration: none; color: #a1a1aa;
+                    font-size: 14px; font-weight: 500;
+                    transition: all 0.2s ease; position: relative;
                 }
-                .a-nav-link:hover { background: #f3f4f6; color: #111827; }
-                .a-nav-link.active { background: #eef2ff; color: #4f46e5; font-weight: 600; }
-                .a-nav-link.active svg { color: #4f46e5; }
-                .a-nav-link svg { flex-shrink: 0; color: #9ca3af; transition: color 0.12s; }
-                .a-nav-link:hover svg { color: #374151; }
+                .a-nav-link:hover { 
+                    background: rgba(255,255,255,0.04); 
+                    color: #f4f4f5; 
+                }
+                .a-nav-link.active { 
+                    background: rgba(99,102,241,0.1); 
+                    color: #818cf8; 
+                    font-weight: 600; 
+                }
+                .a-nav-link.active::before {
+                    content: '';
+                    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+                    height: 16px; width: 3px; border-radius: 0 4px 4px 0;
+                    background: #818cf8;
+                }
+                .a-nav-link svg { flex-shrink: 0; color: #71717a; transition: color 0.2s; }
+                .a-nav-link:hover svg { color: #a1a1aa; }
+                .a-nav-link.active svg { color: #818cf8; }
+                
                 /* ── Footer ── */
                 .a-sidebar-footer {
-                    padding: 12px; border-top: 1px solid #e8eaed; flex-shrink: 0;
+                    padding: 20px 16px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0;
                 }
                 .a-logout-btn {
-                    display: flex; align-items: center; gap: 10px;
-                    width: 100%; padding: 9px 10px;
-                    color: #9ca3af; background: none; border: none;
-                    border-radius: 8px; cursor: pointer;
-                    font-family: inherit; font-size: 13.5px; font-weight: 500;
-                    transition: all 0.12s;
+                    display: flex; align-items: center; gap: 12px;
+                    width: 100%; padding: 10px 12px;
+                    color: #a1a1aa; background: none; border: none;
+                    border-radius: 10px; cursor: pointer;
+                    font-family: inherit; font-size: 14px; font-weight: 500;
+                    transition: all 0.2s;
                 }
-                .a-logout-btn:hover { background: #fef2f2; color: #ef4444; }
-                .a-logout-btn:hover svg { color: #ef4444; }
+                .a-logout-btn:hover { 
+                    background: rgba(239,68,68,0.1); 
+                    color: #f87171; 
+                }
+                .a-logout-btn:hover svg { color: #f87171; }
+                
                 /* ── Main ── */
-                .a-main { flex: 1; height: 100%; overflow: hidden; background: #f5f6fa; }
+                .a-main { flex: 1; height: 100%; overflow: hidden; background: #0a0a0f; position: relative; }
+                .a-main::before {
+                    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 300px;
+                    background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
+                    pointer-events: none; z-index: 0;
+                }
+                .a-main-content {
+                    height: 100%; overflow-y: auto; position: relative; z-index: 1;
+                }
+                
                 /* ── Mobile header ── */
                 .a-mobile-header {
-                    display: none; height: 56px;
-                    background: #ffffff; border-bottom: 1px solid #e8eaed;
-                    align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0;
+                    display: none; height: 60px;
+                    background: rgba(10,10,15,0.8); border-bottom: 1px solid rgba(255,255,255,0.06);
+                    align-items: center; padding: 0 16px; gap: 14px; flex-shrink: 0;
+                    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+                    position: sticky; top: 0; z-index: 90;
                 }
                 .a-mobile-menu-btn {
-                    background: none; border: none; cursor: pointer;
-                    color: #6b7280; padding: 8px; border-radius: 8px;
-                    display: flex; transition: color 0.15s;
+                    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+                    cursor: pointer; color: #f4f4f5; padding: 8px; border-radius: 10px;
+                    display: flex; transition: background 0.2s;
                 }
-                .a-mobile-menu-btn:hover { color: #111827; }
+                .a-mobile-menu-btn:hover { background: rgba(255,255,255,0.1); }
                 .a-overlay {
                     display: none; position: fixed; inset: 0;
-                    background: rgba(0,0,0,0.4); z-index: 99;
+                    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 99;
+                    opacity: 0; transition: opacity 0.3s;
                 }
-                @media (max-width: 768px) {
+                
+                @media (max-width: 1024px) {
                     .a-shell { flex-direction: column; }
                     .a-sidebar {
                         position: fixed; left: 0; top: 0;
                         height: 100vh; z-index: 100;
                         transform: translateX(-100%);
-                        box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+                        background: #0f0f13; /* Solid for mobile */
                     }
                     .a-sidebar.open { transform: translateX(0); }
                     .a-sidebar-close { display: flex; }
-                    .a-overlay.visible { display: block; }
+                    .a-overlay.visible { display: block; opacity: 1; }
                     .a-mobile-header { display: flex; }
-                    .a-main { height: calc(100vh - 56px); }
+                    .a-main { height: calc(100vh - 60px); }
+                }
+                
+                /* Global Animations */
+                @keyframes fadeUp {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
 
@@ -165,8 +215,8 @@ const AdminLayout = () => {
                 <button className="a-mobile-menu-btn" onClick={() => setSidebarOpen(true)}>
                     <Menu size={20} />
                 </button>
-                <div className="a-logo-box">W</div>
-                <span className="a-brand">Wavway</span>
+                <div className="a-logo-box" style={{ width: 30, height: 30, fontSize: 14 }}>W</div>
+                <span className="a-brand">Wavway Admin</span>
             </div>
 
             <div className={`a-overlay ${sidebarOpen ? 'visible' : ''}`} onClick={closeSidebar} />
@@ -174,7 +224,7 @@ const AdminLayout = () => {
             <aside className={`a-sidebar ${sidebarOpen ? 'open' : ''}`}>
                 <div className="a-sidebar-header">
                     <div className="a-logo-box">W</div>
-                    <span className="a-brand">Wavway</span>
+                    <span className="a-brand">Wavway Admin</span>
                     <button className="a-sidebar-close" onClick={closeSidebar}><X size={18} /></button>
                 </div>
 
@@ -202,14 +252,16 @@ const AdminLayout = () => {
 
                 <div className="a-sidebar-footer">
                     <button className="a-logout-btn" onClick={handleLogout}>
-                        <LogOut size={17} />
+                        <LogOut size={18} />
                         Sign Out
                     </button>
                 </div>
             </aside>
 
             <main className="a-main">
-                <Outlet />
+                <div className="a-main-content">
+                    <Outlet />
+                </div>
             </main>
         </div>
     );

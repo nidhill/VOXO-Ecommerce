@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, KeyRound, Lock, Eye, EyeOff, Loader2, CheckCircle2, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Mail, KeyRound, Lock, Eye, EyeOff, Loader2, CheckCircle2, ArrowLeft, ShieldCheck, AlertCircle } from 'lucide-react';
 
-/**
- * Admin Forgot Password — 3-step OTP flow (outside dashboard)
- * Step 1: Enter email → send OTP
- * Step 2: Enter OTP
- * Step 3: Set new password
- */
 const AdminForgotPassword = () => {
     const { sendForgotOtp, resetForgotPassword } = useAdminAuth();
     const navigate = useNavigate();
@@ -23,30 +17,6 @@ const AdminForgotPassword = () => {
     const [info, setInfo]         = useState('');
     const [loading, setLoading]   = useState(false);
 
-    const container = {
-        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: '#f5f6fa', fontFamily: "'Inter', system-ui, sans-serif", padding: '24px',
-    };
-    const card = {
-        width: '100%', maxWidth: '420px', background: '#fff',
-        borderRadius: '20px', padding: '40px', boxShadow: '0 4px 32px rgba(0,0,0,0.07)',
-        border: '1px solid #e8eaed',
-    };
-    const inp = {
-        width: '100%', padding: '11px 16px 11px 42px',
-        background: '#f9fafb', border: '1px solid #e5e7eb',
-        borderRadius: '10px', fontSize: '14px', color: '#111827',
-        outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
-        transition: 'border-color 0.15s, box-shadow 0.15s',
-    };
-    const btn = {
-        width: '100%', padding: '13px', background: '#6366f1', color: '#fff',
-        border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: '700',
-        cursor: 'pointer', transition: 'background 0.2s',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-    };
-
-    // ── Step 1: Send OTP ───────────────────────────────────────────────
     const handleSendOtp = async (e) => {
         e.preventDefault();
         setError('');
@@ -61,7 +31,6 @@ const AdminForgotPassword = () => {
         } finally { setLoading(false); }
     };
 
-    // ── Step 2: Verify OTP ─────────────────────────────────────────────
     const handleVerifyOtp = (e) => {
         e.preventDefault();
         setError('');
@@ -69,7 +38,6 @@ const AdminForgotPassword = () => {
         setStep(3);
     };
 
-    // ── Step 3: Set new password ───────────────────────────────────────
     const handleReset = async (e) => {
         e.preventDefault();
         setError('');
@@ -85,49 +53,77 @@ const AdminForgotPassword = () => {
     };
 
     return (
-        <div style={container}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0a0f', fontFamily: 'Inter, system-ui, sans-serif', padding: '24px', position: 'relative', overflow: 'hidden' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @keyframes fadeUp { from { opacity:0;transform:translateY(12px);} to {opacity:1;transform:translateY(0);} }
-                .afp-inp:focus { border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important; background: #fff !important; }
-                .afp-btn:hover:not(:disabled) { background: #4f46e5 !important; }
-                .afp-btn:disabled { opacity: 0.65; cursor: not-allowed; }
-                .afp-back { display:inline-flex;align-items:center;gap:6px;color:#6b7280;font-size:13px;font-weight:500;text-decoration:none;margin-bottom:28px;transition:color 0.15s; }
-                .afp-back:hover { color:#6366f1; }
-                .otp-input { width:100%;text-align:center;letter-spacing:12px;font-size:22px;font-weight:700;padding:14px 16px;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:10px;color:#111827;outline:none;font-family:monospace;transition:border-color 0.15s,box-shadow 0.15s; }
-                .otp-input:focus { border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,0.12);background:#fff; }
+                @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+                
+                .afp-inp {
+                    width: 100%; padding: 14px 16px 14px 44px;
+                    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 12px; font-size: 14px; color: #f4f4f5;
+                    outline: none; box-sizing: border-box; font-family: inherit;
+                    transition: all 0.2s;
+                }
+                .afp-inp:focus { border-color: rgba(99,102,241,0.5) !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important; background: rgba(99,102,241,0.05) !important; }
+                .afp-inp::placeholder { color: #52525b; }
+                
+                .afp-btn {
+                    width: 100%; padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+                    cursor: pointer; transition: all 0.2s; display: flex; alignItems: center; justifyContent: center; gap: 8px;
+                    box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+                }
+                .afp-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
+                .afp-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+                
+                .afp-back { display:inline-flex;align-items:center;gap:6px;color:#a1a1aa;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:32px;transition:color 0.2s; }
+                .afp-back:hover { color:#f4f4f5; }
+                
+                .otp-input { 
+                    width: 100%; text-align: center; letter-spacing: 16px; font-size: 28px; font-weight: 800; 
+                    padding: 16px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.2); 
+                    border-radius: 12px; color: #f4f4f5; outline: none; font-family: monospace; 
+                    transition: all 0.2s; 
+                }
+                .otp-input:focus { border-color: #6366f1; border-style: solid; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: rgba(99,102,241,0.02); }
             `}</style>
 
-            <div style={{ ...card, animation: 'fadeUp 0.35s ease' }}>
+            {/* Background Effects */}
+            <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(10,10,15,0) 70%)', filter: 'blur(60px)', zIndex: 0, animation: 'float 20s ease-in-out infinite' }} />
+            <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(10,10,15,0) 70%)', filter: 'blur(80px)', zIndex: 0, animation: 'float 25s ease-in-out infinite reverse' }} />
+
+            <div style={{ width: '100%', maxWidth: '440px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', padding: '48px 40px', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(20px)', zIndex: 10, animation: 'fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
                 <Link to="/admin/login" className="afp-back">
-                    <ArrowLeft size={15} /> Back to Sign In
+                    <ArrowLeft size={16} /> Back to Sign In
                 </Link>
 
                 {/* DONE state */}
                 {step === 'done' ? (
                     <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                        <div style={{ width: '64px', height: '64px', background: 'rgba(99,102,241,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-                            <CheckCircle2 size={32} color="#6366f1" />
+                        <div style={{ width: '72px', height: '72px', background: 'rgba(52,211,153,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', boxShadow: '0 0 0 8px rgba(52,211,153,0.05)' }}>
+                            <CheckCircle2 size={36} color="#34d399" />
                         </div>
-                        <h1 style={{ fontSize: '22px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>Password Reset!</h1>
-                        <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '28px', lineHeight: 1.6 }}>
+                        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f4f4f5', marginBottom: '12px', letterSpacing: '-0.02em' }}>Password Reset!</h1>
+                        <p style={{ fontSize: '15px', color: '#a1a1aa', marginBottom: '32px', lineHeight: 1.6 }}>
                             Your admin password has been updated. You can now sign in with your new password.
                         </p>
-                        <button style={btn} className="afp-btn" onClick={() => navigate('/admin/login')}>
+                        <button className="afp-btn" onClick={() => navigate('/admin/login')}>
                             Go to Sign In
                         </button>
                     </div>
                 ) : (
                     <>
                         {/* Header */}
-                        <div style={{ marginBottom: '28px' }}>
-                            <div style={{ width: '44px', height: '44px', background: 'rgba(99,102,241,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                                <ShieldCheck size={22} color="#6366f1" />
+                        <div style={{ marginBottom: '32px' }}>
+                            <div style={{ width: '48px', height: '48px', background: 'rgba(99,102,241,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+                                <ShieldCheck size={24} color="#818cf8" />
                             </div>
-                            <h1 style={{ fontSize: '22px', fontWeight: '800', color: '#111827', marginBottom: '6px' }}>
+                            <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', marginBottom: '8px', letterSpacing: '-0.02em' }}>
                                 {step === 1 ? 'Forgot Password' : step === 2 ? 'Enter OTP' : 'New Password'}
                             </h1>
-                            <p style={{ fontSize: '13.5px', color: '#6b7280', lineHeight: 1.55 }}>
+                            <p style={{ fontSize: '15px', color: '#a1a1aa', lineHeight: 1.6, margin: 0 }}>
                                 {step === 1 && "Enter your admin email and we'll send a one-time code."}
                                 {step === 2 && `We sent a 6-digit OTP to ${email}. Enter it below.`}
                                 {step === 3 && 'Choose a strong new password for your admin account.'}
@@ -135,57 +131,60 @@ const AdminForgotPassword = () => {
                         </div>
 
                         {/* Step indicator */}
-                        <div style={{ display: 'flex', gap: '6px', marginBottom: '24px' }}>
+                        <div style={{ display: 'flex', gap: '8px', marginBottom: '32px' }}>
                             {[1, 2, 3].map(n => (
-                                <div key={n} style={{ flex: 1, height: '3px', borderRadius: '2px', background: step >= n ? '#6366f1' : '#e5e7eb', transition: 'background 0.3s' }} />
+                                <div key={n} style={{ flex: 1, height: '4px', borderRadius: '2px', background: step >= n ? '#6366f1' : 'rgba(255,255,255,0.06)', transition: 'background 0.3s' }} />
                             ))}
                         </div>
 
                         {/* Error */}
                         {error && (
-                            <div style={{ padding: '11px 14px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '9px', color: '#dc2626', fontSize: '13px', marginBottom: '18px', display: 'flex', alignItems: 'center', gap: '7px' }}>
-                                ⚠️ {error}
+                            <div style={{ padding: '14px 16px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '12px', color: '#f87171', fontSize: '14px', fontWeight: 500, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <AlertCircle size={18} /> {error}
                             </div>
                         )}
 
                         {/* Info */}
                         {info && step === 2 && (
-                            <div style={{ padding: '11px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '9px', color: '#16a34a', fontSize: '13px', marginBottom: '18px' }}>
-                                ✅ {info}
+                            <div style={{ padding: '14px 16px', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)', borderRadius: '12px', color: '#34d399', fontSize: '14px', fontWeight: 500, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <CheckCircle2 size={18} /> {info}
                             </div>
                         )}
 
                         {/* STEP 1 – Email */}
                         {step === 1 && (
-                            <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>Admin Email</label>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Admin Email</label>
                                     <div style={{ position: 'relative' }}>
-                                        <Mail size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
-                                        <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="wavwayofficial@gmail.com" required className="afp-inp" style={inp} />
+                                        <Mail size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
+                                        <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="admin@wavway.in" required className="afp-inp" />
                                     </div>
                                 </div>
-                                <button type="submit" disabled={loading} style={btn} className="afp-btn">
-                                    {loading ? <><Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> Sending OTP...</> : 'Send OTP →'}
+                                <button type="submit" disabled={loading} className="afp-btn">
+                                    {loading ? <><Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Sending OTP...</> : 'Send OTP →'}
                                 </button>
                             </form>
                         )}
 
                         {/* STEP 2 – OTP */}
                         {step === 2 && (
-                            <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '10px' }}>6-Digit OTP</label>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '12px' }}>6-Digit OTP</label>
                                     <input
                                         type="text" value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                        placeholder="_ _ _ _ _ _" maxLength={6} className="otp-input"
+                                        placeholder="------" maxLength={6} className="otp-input"
                                     />
                                 </div>
-                                <button type="submit" style={btn} className="afp-btn">
-                                    <KeyRound size={15} /> Verify OTP →
+                                <button type="submit" className="afp-btn">
+                                    <KeyRound size={18} /> Verify OTP →
                                 </button>
                                 <button type="button" onClick={handleSendOtp} disabled={loading}
-                                    style={{ background: 'none', border: 'none', color: '#6366f1', fontSize: '13px', cursor: 'pointer', fontWeight: 500 }}>
+                                    style={{ background: 'none', border: 'none', color: '#818cf8', fontSize: '14px', cursor: 'pointer', fontWeight: 600, transition: 'color 0.2s' }}
+                                    onMouseEnter={e => e.currentTarget.style.color = '#a5b4fc'}
+                                    onMouseLeave={e => e.currentTarget.style.color = '#818cf8'}
+                                >
                                     {loading ? 'Resending...' : 'Resend OTP'}
                                 </button>
                             </form>
@@ -193,31 +192,34 @@ const AdminForgotPassword = () => {
 
                         {/* STEP 3 – New password */}
                         {step === 3 && (
-                            <form onSubmit={handleReset} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <form onSubmit={handleReset} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>New Password</label>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>New Password</label>
                                     <div style={{ position: 'relative' }}>
-                                        <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
+                                        <Lock size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
                                         <input type={showPass ? 'text' : 'password'} value={newPass} onChange={e => setNewPass(e.target.value)}
-                                            placeholder="Min. 8 characters" required className="afp-inp" style={{ ...inp, paddingRight: '44px' }} />
-                                        <button type="button" onClick={() => setShowPass(v => !v)} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex' }}>
-                                            {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                                            placeholder="Min. 8 characters" required className="afp-inp" style={{ paddingRight: '48px' }} />
+                                        <button type="button" onClick={() => setShowPass(v => !v)} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'color 0.2s' }}
+                                            onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
+                                            onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
+                                        >
+                                            {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
                                     </div>
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '600', color: '#374151', marginBottom: '7px' }}>Confirm Password</label>
+                                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Confirm Password</label>
                                     <div style={{ position: 'relative' }}>
-                                        <Lock size={15} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af', pointerEvents: 'none' }} />
+                                        <Lock size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
                                         <input type={showPass ? 'text' : 'password'} value={confPass} onChange={e => setConfPass(e.target.value)}
-                                            placeholder="Repeat new password" required className="afp-inp" style={{ ...inp, paddingRight: '44px' }} />
+                                            placeholder="Repeat new password" required className="afp-inp" style={{ paddingRight: '48px' }} />
                                     </div>
                                 </div>
                                 {newPass && confPass && newPass !== confPass && (
-                                    <p style={{ fontSize: '12px', color: '#ef4444', margin: 0 }}>Passwords don't match</p>
+                                    <p style={{ fontSize: '13px', color: '#f87171', margin: 0, fontWeight: 500 }}>Passwords don't match</p>
                                 )}
-                                <button type="submit" disabled={loading} style={btn} className="afp-btn">
-                                    {loading ? <><Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} /> Resetting...</> : 'Reset Password →'}
+                                <button type="submit" disabled={loading} className="afp-btn">
+                                    {loading ? <><Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} /> Resetting...</> : 'Reset Password →'}
                                 </button>
                             </form>
                         )}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCoupons, createCoupon, updateCoupon, deleteCoupon } from '../api/coupons';
-import { Plus, Trash2, Loader2, Tag, X, Edit3, Copy, Check } from 'lucide-react';
+import { Plus, Trash2, Loader2, Tag, X, Edit3, Copy, Check, Ticket } from 'lucide-react';
 
-const Coupons = () => {
+const AdminCoupons = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingCoupon, setEditingCoupon] = useState(null);
     const [copiedCode, setCopiedCode] = useState(null);
@@ -31,93 +31,130 @@ const Coupons = () => {
     const isExpired = (date) => new Date(date) < new Date();
     const activeCoupons = coupons.filter(c => c.isActive && !isExpired(c.expiryDate)).length;
 
-    const inputStyle = { width: '100%', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '10px 14px', color: '#111827', fontSize: '13px', outline: 'none', boxSizing: 'border-box' };
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: '#f5f6fa' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
+            <style>{`
+                .coup-input { 
+                    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); 
+                    border-radius: 10px; padding: 12px 16px; color: #f4f4f5; 
+                    font-size: 14px; outline: none; transition: all 0.2s; width: 100%; box-sizing: border-box;
+                }
+                .coup-input:focus { 
+                    border-color: rgba(99,102,241,0.5); 
+                    background: rgba(99,102,241,0.05);
+                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+                }
+                .coup-input::placeholder { color: #52525b; }
+                
+                .coup-card {
+                    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+                    border-radius: 16px; padding: 24px; transition: all 0.2s ease;
+                    display: flex; flex-direction: column; position: relative; overflow: hidden;
+                }
+                .coup-card:hover {
+                    background: rgba(255,255,255,0.04); border-color: rgba(99,102,241,0.3);
+                    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+                }
+                .coup-card::before {
+                    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+                    background: linear-gradient(180deg, #6366f1, #8b5cf6);
+                    opacity: 0; transition: opacity 0.2s ease;
+                }
+                .coup-card:hover::before { opacity: 1; }
+                
+                .modal-overlay {
+                    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+                    backdrop-filter: blur(4px); z-index: 100;
+                    display: flex; align-items: center; justify-content: center;
+                    animation: fadeIn 0.2s ease; padding: 20px;
+                }
+                .modal-content {
+                    background: #12121a; border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 20px; width: 100%; max-width: 440px;
+                    animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+                }
+            `}</style>
+            
             {/* Header */}
-            <header style={{ padding: '24px 32px', borderBottom: '1px solid #e8eaed', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                    <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#111827', margin: 0, letterSpacing: '-0.3px' }}>Coupons</h1>
-                    <p style={{ fontSize: '13px', color: '#9ca3af', marginTop: '2px' }}>{coupons.length} total · {activeCoupons} active</p>
+                    <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', color: '#f4f4f5' }}>Coupons</h1>
+                    <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>{coupons.length} total · <span style={{ color: '#34d399' }}>{activeCoupons} active</span></p>
                 </div>
-                <button onClick={openCreate} style={{ background: '#6366f1', color: 'white', border: 'none', borderRadius: '8px', padding: '9px 18px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap', transition: 'background 0.15s' }}
-                    onMouseEnter={e => e.currentTarget.style.background = '#4f46e5'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#6366f1'}
+                <button onClick={openCreate} style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', border: 'none', borderRadius: '10px', padding: '12px 20px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', transition: 'all 0.2s', boxShadow: '0 4px 12px rgba(99,102,241,0.2)' }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
                 >
-                    <Plus size={15} /> Create Coupon
+                    <Plus size={16} /> <span>Create Coupon</span>
                 </button>
             </header>
 
             {/* Content */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '24px 32px' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '240px' }}>
-                        <Loader2 size={28} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />
-                        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                        <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />
                     </div>
                 ) : coupons.length === 0 ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '240px', gap: '10px' }}>
-                        <Tag size={32} color="#27272a" />
-                        <p style={{ color: '#9ca3af', fontSize: '14px', fontWeight: 500, margin: 0 }}>No coupons yet</p>
-                        <p style={{ color: '#9ca3af', fontSize: '13px', margin: 0 }}>Create your first discount coupon</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '300px', gap: '12px', background: 'rgba(255,255,255,0.01)', border: '1px dashed rgba(255,255,255,0.1)', borderRadius: '16px' }}>
+                        <div style={{ width: '64px', height: '64px', background: 'rgba(255,255,255,0.03)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#71717a' }}>
+                            <Ticket size={32} />
+                        </div>
+                        <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 4px 0', color: '#f4f4f5' }}>No coupons yet</h3>
+                        <p style={{ color: '#71717a', fontSize: '14px', margin: 0 }}>Create discount codes to boost sales.</p>
                     </div>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
                         {coupons.map(coupon => {
                             const expired = isExpired(coupon.expiryDate);
                             return (
-                                <div key={coupon._id} style={{ background: '#ffffff', borderRadius: '14px', border: '1px solid #e8eaed', overflow: 'hidden', transition: 'border-color 0.15s' }}
-                                    onMouseEnter={e => e.currentTarget.style.borderColor = '#6366f1'}
-                                    onMouseLeave={e => e.currentTarget.style.borderColor = '#e8eaed'}
-                                >
-                                    <div style={{ padding: '20px' }}>
-                                        {/* Code + Actions */}
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                                            <button onClick={() => copyCode(coupon.code)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f9fafb', border: '1px solid #e8eaed', borderRadius: '8px', padding: '7px 12px', cursor: 'pointer', transition: 'border-color 0.15s' }}
-                                                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.3)'}
-                                                onMouseLeave={e => e.currentTarget.style.borderColor = '#e8eaed'}
-                                            >
-                                                <span style={{ fontSize: '13px', fontFamily: 'monospace', fontWeight: 700, color: '#111827', letterSpacing: '1.5px' }}>{coupon.code}</span>
-                                                {copiedCode === coupon.code ? <Check size={13} color="#16a34a" /> : <Copy size={13} color="#9ca3af" />}
-                                            </button>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                                <button onClick={() => openEdit(coupon)} style={{ padding: '7px', borderRadius: '7px', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', transition: 'all 0.15s', display: 'flex' }}
-                                                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.1)'; e.currentTarget.style.color = '#818cf8'; }}
-                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#9ca3af'; }}
-                                                ><Edit3 size={14} /></button>
-                                                <button onClick={() => { if (confirm('Delete?')) deleteMutation.mutate(coupon._id); }} style={{ padding: '7px', borderRadius: '7px', background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', transition: 'all 0.15s', display: 'flex' }}
-                                                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; e.currentTarget.style.color = '#ef4444'; }}
-                                                    onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#9ca3af'; }}
-                                                ><Trash2 size={14} /></button>
-                                            </div>
+                                <div key={coupon._id} className="coup-card">
+                                    {/* Code + Actions */}
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                                        <button onClick={() => copyCode(coupon.code)} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '10px', padding: '8px 14px', cursor: 'pointer', transition: 'all 0.15s' }}
+                                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#818cf8'; e.currentTarget.style.background = 'rgba(99,102,241,0.05)'; }}
+                                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+                                        >
+                                            <span style={{ fontSize: '15px', fontFamily: 'monospace', fontWeight: 700, color: '#f4f4f5', letterSpacing: '2px' }}>{coupon.code}</span>
+                                            {copiedCode === coupon.code ? <Check size={14} color="#34d399" /> : <Copy size={14} color="#a1a1aa" />}
+                                        </button>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <button onClick={() => openEdit(coupon)} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#a1a1aa', transition: 'all 0.15s', display: 'flex' }}
+                                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.15)'; e.currentTarget.style.color = '#818cf8'; }}
+                                                onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#a1a1aa'; }}
+                                            ><Edit3 size={16} /></button>
+                                            <button onClick={() => { if (confirm('Delete?')) deleteMutation.mutate(coupon._id); }} style={{ padding: '8px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#a1a1aa', transition: 'all 0.15s', display: 'flex' }}
+                                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.15)'; e.currentTarget.style.color = '#f87171'; }}
+                                                onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#a1a1aa'; }}
+                                            ><Trash2 size={16} /></button>
                                         </div>
+                                    </div>
 
-                                        {/* Discount */}
-                                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '14px' }}>
-                                            <span style={{ fontSize: '32px', fontWeight: 700, color: '#111827', lineHeight: 1 }}>{coupon.discountPercentage}</span>
-                                            <span style={{ fontSize: '16px', fontWeight: 600, color: '#9ca3af' }}>% OFF</span>
-                                        </div>
+                                    {/* Discount */}
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '20px' }}>
+                                        <span style={{ fontSize: '36px', fontWeight: 800, color: '#f4f4f5', lineHeight: 1, letterSpacing: '-0.02em' }}>{coupon.discountPercentage}</span>
+                                        <span style={{ fontSize: '16px', fontWeight: 600, color: '#a1a1aa' }}>% OFF</span>
+                                    </div>
 
-                                        {/* Footer */}
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <div>
-                                                <p style={{ fontSize: '10px', fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 3px 0' }}>Expires</p>
-                                                <p style={{ fontSize: '13px', fontWeight: 500, color: expired ? '#dc2626' : '#6b7280', margin: 0 }}>
-                                                    {new Date(coupon.expiryDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                </p>
-                                            </div>
-                                            <button onClick={() => !expired && toggleActive.mutate({ id: coupon._id, isActive: !coupon.isActive })} disabled={expired}
-                                                style={{
-                                                    fontSize: '11px', fontWeight: 600, padding: '5px 12px', borderRadius: '6px', cursor: expired ? 'not-allowed' : 'pointer', transition: 'all 0.15s',
-                                                    background: expired ? '#fef2f2' : coupon.isActive ? '#f0fdf4' : '#f9fafb',
-                                                    color: expired ? '#dc2626' : coupon.isActive ? '#16a34a' : '#6b7280',
-                                                    border: `1px solid ${expired ? '#fecaca' : coupon.isActive ? '#bbf7d0' : '#e5e7eb'}`,
-                                                }}
-                                            >
-                                                {expired ? 'Expired' : coupon.isActive ? 'Active' : 'Inactive'}
-                                            </button>
+                                    {/* Footer */}
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '16px' }}>
+                                        <div>
+                                            <p style={{ fontSize: '11px', fontWeight: 600, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 4px 0' }}>Expires</p>
+                                            <p style={{ fontSize: '13px', fontWeight: 600, color: expired ? '#f87171' : '#a1a1aa', margin: 0 }}>
+                                                {new Date(coupon.expiryDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                            </p>
                                         </div>
+                                        <button onClick={() => !expired && toggleActive.mutate({ id: coupon._id, isActive: !coupon.isActive })} disabled={expired}
+                                            style={{
+                                                fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '8px', cursor: expired ? 'not-allowed' : 'pointer', transition: 'all 0.15s',
+                                                background: expired ? 'rgba(239,68,68,0.1)' : coupon.isActive ? 'rgba(52,211,153,0.1)' : 'rgba(255,255,255,0.05)',
+                                                color: expired ? '#f87171' : coupon.isActive ? '#34d399' : '#a1a1aa',
+                                                border: `1px solid ${expired ? 'rgba(239,68,68,0.2)' : coupon.isActive ? 'rgba(52,211,153,0.2)' : 'rgba(255,255,255,0.1)'}`,
+                                            }}
+                                        >
+                                            {expired ? 'Expired' : coupon.isActive ? 'Active' : 'Inactive'}
+                                        </button>
                                     </div>
                                 </div>
                             );
@@ -128,52 +165,47 @@ const Coupons = () => {
 
             {/* Modal */}
             {isModalOpen && (
-                <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }} onClick={e => { if (e.target === e.currentTarget) closeModal(); }}>
-                    <div style={{ background: '#ffffff', border: '1px solid #e8eaed', borderRadius: '16px', width: '100%', maxWidth: '440px', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid #e8eaed' }}>
-                            <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#111827', margin: 0 }}>{editingCoupon ? 'Edit Coupon' : 'Create Coupon'}</h2>
-                            <button onClick={closeModal} style={{ padding: '6px', borderRadius: '8px', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', display: 'flex' }}
-                                onMouseEnter={e => { e.currentTarget.style.background = '#f3f4f6'; e.currentTarget.style.color = '#111827'; }}
-                                onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#6b7280'; }}
+                <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) closeModal(); }}>
+                    <div className="modal-content">
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                            <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f4f4f5', margin: 0 }}>{editingCoupon ? 'Edit Coupon' : 'Create Coupon'}</h2>
+                            <button onClick={closeModal} style={{ padding: '8px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: 'none', cursor: 'pointer', color: '#a1a1aa', display: 'flex', transition: 'all 0.15s' }}
+                                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#f4f4f5'; }}
+                                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#a1a1aa'; }}
                             ><X size={18} /></button>
                         </div>
-                        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#6b7280', marginBottom: '6px' }}>Coupon Code *</label>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Coupon Code *</label>
                                 <input type="text" value={formData.code} onChange={e => setFormData({ ...formData, code: e.target.value.toUpperCase() })} placeholder="SAVE20" disabled={!!editingCoupon}
-                                    style={{ ...inputStyle, fontFamily: 'monospace', letterSpacing: '2px', textTransform: 'uppercase', opacity: editingCoupon ? 0.5 : 1 }}
-                                    onFocus={e => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={e => e.target.style.borderColor = '#e8eaed'}
+                                    className="coup-input" style={{ fontFamily: 'monospace', letterSpacing: '3px', textTransform: 'uppercase', opacity: editingCoupon ? 0.5 : 1, fontSize: '16px' }}
                                 />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#6b7280', marginBottom: '6px' }}>Discount % *</label>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Discount % *</label>
                                 <input type="number" min="0" max="100" value={formData.discountPercentage} onChange={e => setFormData({ ...formData, discountPercentage: e.target.value })} placeholder="20"
-                                    style={inputStyle}
-                                    onFocus={e => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={e => e.target.style.borderColor = '#e8eaed'}
+                                    className="coup-input"
                                 />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#6b7280', marginBottom: '6px' }}>Expiry Date *</label>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Expiry Date *</label>
                                 <input type="date" value={formData.expiryDate} onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
-                                    style={inputStyle}
-                                    onFocus={e => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={e => e.target.style.borderColor = '#e8eaed'}
+                                    className="coup-input" style={{ colorScheme: 'dark' }}
                                 />
                             </div>
                         </div>
-                        <div style={{ padding: '16px 24px', borderTop: '1px solid #e8eaed', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-                            <button onClick={closeModal} style={{ padding: '9px 18px', fontSize: '13px', fontWeight: 500, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '8px', transition: 'all 0.15s' }}
-                                onMouseEnter={e => { e.currentTarget.style.color = '#111827'; e.currentTarget.style.background = '#f3f4f6'; }}
-                                onMouseLeave={e => { e.currentTarget.style.color = '#6b7280'; e.currentTarget.style.background = 'none'; }}
+                        <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                            <button onClick={closeModal} style={{ padding: '10px 20px', fontSize: '14px', fontWeight: 600, color: '#a1a1aa', background: 'rgba(255,255,255,0.05)', border: 'none', cursor: 'pointer', borderRadius: '10px', transition: 'all 0.15s' }}
+                                onMouseEnter={e => { e.currentTarget.style.color = '#f4f4f5'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.color = '#a1a1aa'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
                             >Cancel</button>
                             <button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending}
-                                style={{ padding: '9px 22px', fontSize: '13px', fontWeight: 600, color: 'white', background: '#6366f1', border: 'none', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.15s', opacity: (createMutation.isPending || updateMutation.isPending) ? 0.6 : 1 }}
-                                onMouseEnter={e => e.currentTarget.style.background = '#4f46e5'}
-                                onMouseLeave={e => e.currentTarget.style.background = '#6366f1'}
+                                style={{ padding: '10px 24px', fontSize: '14px', fontWeight: 600, color: 'white', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', borderRadius: '10px', cursor: 'pointer', transition: 'all 0.15s', opacity: (createMutation.isPending || updateMutation.isPending) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
+                                onMouseEnter={e => { if(!e.currentTarget.disabled) e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                                onMouseLeave={e => { if(!e.currentTarget.disabled) e.currentTarget.style.transform = 'translateY(0)'; }}
                             >
-                                {(createMutation.isPending || updateMutation.isPending) ? 'Saving...' : editingCoupon ? 'Update' : 'Create'}
+                                {(createMutation.isPending || updateMutation.isPending) && <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />}
+                                {(createMutation.isPending || updateMutation.isPending) ? 'Saving...' : editingCoupon ? 'Update Coupon' : 'Create Coupon'}
                             </button>
                         </div>
                     </div>
@@ -183,4 +215,4 @@ const Coupons = () => {
     );
 };
 
-export default Coupons;
+export default AdminCoupons;

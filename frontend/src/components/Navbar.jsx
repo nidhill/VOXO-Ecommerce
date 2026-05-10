@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../context/CartContext';
 import { Search, X, Menu, ShoppingBag, LogOut, User, Package, ChevronDown } from 'lucide-react';
 
 import { useAuth } from '../context/AuthContext';
 import { API_BASE } from '../api/axios';
+import { getCategories } from '../api/categories';
 import heroShoeUpdated from '../assets/hero-shoe-updated.png';
 import heroShoe3 from '../assets/hero-shoe-3.png';
 
@@ -29,6 +31,12 @@ const Navbar = () => {
     const searchRef = useRef(null);
     const megaCloseTimerRef = useRef(null);
     const profileRef = useRef(null);
+
+    const { data: dbCategories = [] } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getCategories,
+        staleTime: 5 * 60 * 1000,
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -183,6 +191,11 @@ const Navbar = () => {
         closeMobileMenu();
     };
 
+    // Helper to split categories into two columns for the mega menu
+    const midIndex = Math.ceil(dbCategories.length / 2);
+    const categoriesCol1 = dbCategories.slice(0, midIndex);
+    const categoriesCol2 = dbCategories.slice(midIndex);
+
     return (
         <>
             {activeMegaMenu && <button className="mega-menu-backdrop" aria-label="Close menu" onClick={closeMegaMenu} />}
@@ -218,25 +231,19 @@ const Navbar = () => {
                                     <div className="mega-menu-column">
                                         <Link to="/collections/men" className="mega-col-heading">Men's Collection</Link>
                                         <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Footwear</div>
-                                            <Link to="/collections/men?category=Shoe" className="mega-link">Shoes</Link>
-                                            <Link to="/collections/men?category=Sandal" className="mega-link">Sandals</Link>
-                                            <Link to="/collections/men?category=Slipper" className="mega-link">Slippers</Link>
-                                        </div>
-                                        <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Clothing</div>
-                                            <Link to="/collections/men?category=Shirt" className="mega-link">Shirts</Link>
-                                            <Link to="/collections/men?category=Tshirt" className="mega-link">T-Shirts</Link>
+                                            <div className="mega-sub-label">Categories</div>
+                                            {categoriesCol1.map(cat => (
+                                                <Link key={cat._id} to={`/collections/men?category=${encodeURIComponent(cat.name)}`} className="mega-link">{cat.name}</Link>
+                                            ))}
+                                            {dbCategories.length === 0 && <span className="mega-link" style={{opacity: 0.5}}>No categories found</span>}
                                         </div>
                                         <Link to="/collections/men" className="mega-shop-all">Shop All Men</Link>
                                     </div>
                                     <div className="mega-menu-column">
-                                        <Link to="/collections/men" className="mega-col-heading">Accessories</Link>
-                                        <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Style</div>
-                                            <Link to="/collections/men?category=Watch" className="mega-link">Watches</Link>
-                                            <Link to="/collections/men?category=Belt" className="mega-link">Belts</Link>
-                                            <Link to="/collections/men?category=Perfume" className="mega-link">Perfumes</Link>
+                                        <div className="mega-sub-group" style={{ marginTop: '28px' }}>
+                                            {categoriesCol2.map(cat => (
+                                                <Link key={cat._id} to={`/collections/men?category=${encodeURIComponent(cat.name)}`} className="mega-link">{cat.name}</Link>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="mega-menu-column" />
@@ -268,25 +275,19 @@ const Navbar = () => {
                                     <div className="mega-menu-column">
                                         <Link to="/collections/women" className="mega-col-heading">Women's Collection</Link>
                                         <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Footwear</div>
-                                            <Link to="/collections/women?category=Shoe" className="mega-link">Shoes</Link>
-                                            <Link to="/collections/women?category=Sandal" className="mega-link">Sandals</Link>
-                                            <Link to="/collections/women?category=Slipper" className="mega-link">Slippers</Link>
-                                        </div>
-                                        <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Clothing</div>
-                                            <Link to="/collections/women?category=Shirt" className="mega-link">Shirts</Link>
-                                            <Link to="/collections/women?category=Tshirt" className="mega-link">T-Shirts</Link>
+                                            <div className="mega-sub-label">Categories</div>
+                                            {categoriesCol1.map(cat => (
+                                                <Link key={cat._id} to={`/collections/women?category=${encodeURIComponent(cat.name)}`} className="mega-link">{cat.name}</Link>
+                                            ))}
+                                            {dbCategories.length === 0 && <span className="mega-link" style={{opacity: 0.5}}>No categories found</span>}
                                         </div>
                                         <Link to="/collections/women" className="mega-shop-all">Shop All Women</Link>
                                     </div>
                                     <div className="mega-menu-column">
-                                        <Link to="/collections/women" className="mega-col-heading">Accessories</Link>
-                                        <div className="mega-sub-group">
-                                            <div className="mega-sub-label">Style</div>
-                                            <Link to="/collections/women?category=Watch" className="mega-link">Watches</Link>
-                                            <Link to="/collections/women?category=Belt" className="mega-link">Belts</Link>
-                                            <Link to="/collections/women?category=Perfume" className="mega-link">Perfumes</Link>
+                                        <div className="mega-sub-group" style={{ marginTop: '28px' }}>
+                                            {categoriesCol2.map(cat => (
+                                                <Link key={cat._id} to={`/collections/women?category=${encodeURIComponent(cat.name)}`} className="mega-link">{cat.name}</Link>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="mega-menu-column" />
@@ -301,7 +302,6 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
 
@@ -452,20 +452,16 @@ const Navbar = () => {
 
                     <div className="mobile-nav-section">
                         <div className="mobile-nav-section-title">Men</div>
-                        <Link to="/collections/men?category=Shoe" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Shoes</Link>
-                        <Link to="/collections/men?category=Sandal" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Sandals</Link>
-                        <Link to="/collections/men?category=Slipper" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Slippers</Link>
-                        <Link to="/collections/men?category=Shirt" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Shirts</Link>
-                        <Link to="/collections/men?category=Tshirt" className="mobile-nav-sub-link" onClick={closeMobileMenu}>T-Shirts</Link>
+                        {dbCategories.map(cat => (
+                            <Link key={cat._id} to={`/collections/men?category=${encodeURIComponent(cat.name)}`} className="mobile-nav-sub-link" onClick={closeMobileMenu}>{cat.name}</Link>
+                        ))}
                     </div>
 
                     <div className="mobile-nav-section">
                         <div className="mobile-nav-section-title">Women</div>
-                        <Link to="/collections/women?category=Shoe" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Shoes</Link>
-                        <Link to="/collections/women?category=Sandal" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Sandals</Link>
-                        <Link to="/collections/women?category=Slipper" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Slippers</Link>
-                        <Link to="/collections/women?category=Shirt" className="mobile-nav-sub-link" onClick={closeMobileMenu}>Shirts</Link>
-                        <Link to="/collections/women?category=Tshirt" className="mobile-nav-sub-link" onClick={closeMobileMenu}>T-Shirts</Link>
+                        {dbCategories.map(cat => (
+                            <Link key={cat._id} to={`/collections/women?category=${encodeURIComponent(cat.name)}`} className="mobile-nav-sub-link" onClick={closeMobileMenu}>{cat.name}</Link>
+                        ))}
                     </div>
 
                     <Link to="/orders" className="mobile-nav-link" onClick={closeMobileMenu}>Orders</Link>
