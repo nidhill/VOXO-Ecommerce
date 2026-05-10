@@ -1,0 +1,720 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DEVICE-SPECIFIC RESPONSIVE DESIGN
+   Handles iOS, Android, tablets, and various screen sizes
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   iOS SPECIFIC FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Fix for notched iPhones and devices with home indicator */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+
+    .container {
+        padding-left: max(16px, calc(env(safe-area-inset-left) + 16px));
+        padding-right: max(16px, calc(env(safe-area-inset-right) + 16px));
+    }
+
+    /* Fixed elements (navbar, modals) */
+    .navbar, .mobile-menu, .auth-modal-backdrop {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 1024px) {
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+        -webkit-user-select: text;
+        user-select: text;
+    }
+}
+
+/* iOS keyboard fix - adjust when virtual keyboard appears */
+@media (max-height: 500px) and (orientation: landscape) {
+    .navbar {
+        position: relative;
+        padding: 8px 0;
+    }
+    
+    .section {
+        padding: var(--space-4) 0;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   ANDROID SPECIFIC FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Fix for Chrome on Android - prevent text selection artifacts */
+body {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Allow text selection on actual text elements */
+p, span, a, button, label, input, textarea {
+    -webkit-user-select: auto;
+    -webkit-touch-callout: auto;
+}
+
+/* Remove extra space at bottom on Android browsers */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    position: relative;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   PHONE (Mobile) - Max 480px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+    /* Smaller padding for space efficiency */
+    .container {
+        padding: 0 12px;
+        padding-left: max(12px, calc(env(safe-area-inset-left) + 12px));
+        padding-right: max(12px, calc(env(safe-area-inset-right) + 12px));
+    }
+
+    /* Reduce font sizes for smaller screens */
+    body {
+        font-size: 14px;
+    }
+
+    /* Stack layouts vertically */
+    .grid-2-col,
+    .grid-3-col {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Make buttons and interactive elements touch-friendly */
+    button,
+    a:not(.text-link),
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Improve readability of forms on small screens */
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    /* Full-width modals on phone */
+    .modal,
+    .av-page,
+    .auth-modal {
+        margin: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    /* Reduce gap in grids for space */
+    .product-grid,
+    .collection-grid-new {
+        gap: 8px;
+    }
+
+    /* Reduce animations on low-end devices */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 100ms !important;
+            transition-duration: 100ms !important;
+        }
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   SMALL TABLET (Phablet) - 481px to 599px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 481px) and (max-width: 599px) {
+    .container {
+        padding: 0 14px;
+        padding-left: max(14px, calc(env(safe-area-inset-left) + 14px));
+        padding-right: max(14px, calc(env(safe-area-inset-right) + 14px));
+    }
+
+    /* 2-column layouts */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    button,
+    a:not(.text-link) {
+        min-height: 44px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   MEDIUM PHONE - 600px to 767px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .container {
+        padding: 0 16px;
+        padding-left: max(16px, calc(env(safe-area-inset-left) + 16px));
+        padding-right: max(16px, calc(env(safe-area-inset-right) + 16px));
+    }
+
+    /* 2-column grids */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    /* Improve spacing */
+    .section {
+        padding: var(--space-6) 0;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TABLET (Portrait) - 768px to 1023px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 24px;
+        padding-left: max(24px, calc(env(safe-area-inset-left) + 24px));
+        padding-right: max(24px, calc(env(safe-area-inset-right) + 24px));
+    }
+
+    /* Adjust for tablet screens */
+    body {
+        font-size: 16px;
+    }
+
+    /* 3-column grid for tablets */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 16px;
+    }
+
+    /* Better spacing on tablet */
+    .section {
+        padding: var(--space-10) 0;
+    }
+
+    /* Reduce navbar padding on tablet */
+    .navbar {
+        padding: 14px 0;
+    }
+
+    /* Full-width modals on tablet */
+    .modal {
+        max-width: 90vw;
+    }
+
+    /* 2-column layout for checkout on tablet */
+    .bag-layout {
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+    }
+
+    /* Sidebar navigation on tablet */
+    .sidebar {
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TABLET (Landscape) / iPad Mini - 1024px to 1279px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .container {
+        max-width: 960px;
+        padding: 0 28px;
+        padding-left: max(28px, calc(env(safe-area-inset-left) + 28px));
+        padding-right: max(28px, calc(env(safe-area-inset-right) + 28px));
+    }
+
+    /* 4-column grid */
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 18px;
+    }
+
+    /* Better spacing */
+    .section {
+        padding: var(--space-12) 0;
+    }
+
+    /* Checkout layout */
+    .bag-layout {
+        grid-template-columns: 1fr 400px;
+        gap: 48px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   DESKTOP - 1280px to 1535px
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 32px;
+        padding-left: max(32px, calc(env(safe-area-inset-left) + 32px));
+        padding-right: max(32px, calc(env(safe-area-inset-right) + 32px));
+    }
+
+    /* 4-5 column grid */
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 20px;
+    }
+
+    /* Full spacing */
+    .section {
+        padding: var(--space-16) 0;
+    }
+
+    /* Large checkout */
+    .bag-layout {
+        grid-template-columns: 1fr 420px;
+        gap: 64px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   LARGE DESKTOP - 1536px+
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 40px;
+        padding-left: max(40px, calc(env(safe-area-inset-left) + 40px));
+        padding-right: max(40px, calc(env(safe-area-inset-right) + 40px));
+    }
+
+    /* 5-6 column grid */
+    .product-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 24px;
+    }
+
+    /* Maximum spacing */
+    .section {
+        padding: var(--space-20) 0;
+    }
+
+    /* Large checkout */
+    .bag-layout {
+        grid-template-columns: 1fr 480px;
+        gap: 80px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   TOUCH DEVICE SPECIFIC
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Mobile/touch devices - always show hover states as visible states */
+    button,
+    a,
+    .interactive {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* Make overlays always visible on touch */
+    .add-to-cart-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Increase touch target sizes */
+    a,
+    button,
+    input:not([type="radio"]):not([type="checkbox"]) {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Better spacing for touch */
+    .product-card {
+        margin-bottom: 8px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   LANDSCAPE MODE FIXES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        min-height: 100vh;
+    }
+
+    .section {
+        padding: var(--space-4) 0;
+    }
+
+    .navbar {
+        padding: 8px 0;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: var(--space-4) 0;
+    }
+}
+
+:root {
+    color-scheme: light;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────────
+   ACCESSIBILITY & MOTION PREFERENCES
+   ──────────────────────────────────────────────────────────────────────────────── */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 100ms !important;
+        animation-delay: 0 !important;
+        transition-duration: 100ms !important;
+    }
+
+    .hero-image {
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    * {
+        border-width: 1px;
+        outline-width: 2px;
+    }
+}
+
+/* Reduced data mode - optimize for bandwidth */
+@media (prefers-reduced-data: reduce) {
+    img,
+    video,
+    audio {
+        background: var(--color-grey-100);
+    }
+
+    .hero-image,
+    .product-image {
+        animation: none !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   PAGE-SPECIFIC MOBILE FIXES
+   ════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Shop Page ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .shop-page .container {
+        padding-top: 80px !important;
+        padding-bottom: 40px !important;
+    }
+
+    /* Gender tabs scroll horizontally */
+    .shop-page [style*="display: flex"][style*="gap: '6px'"],
+    .shop-page [style*="flexWrap: 'wrap'"] {
+        overflow-x: auto;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    .shop-page [style*="display: flex"][style*="gap: '6px'"] { scrollbar-width: none; }
+    .shop-page [style*="display: flex"][style*="gap: '6px'"]::webkit-scrollbar { display: none; }
+}
+
+/* ── Product Details ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .pd-page { padding-top: 70px; }
+
+    .pd-title {
+        font-size: clamp(22px, 6vw, 32px) !important;
+    }
+
+    .pd-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pd-btn-cart,
+    .pd-btn-whatsapp {
+        width: 100% !important;
+        justify-content: center;
+        padding: 14px 20px !important;
+        font-size: 13px !important;
+    }
+
+    .pd-breadcrumb-inner { gap: 4px; }
+    .pd-crumb { max-width: 100px; font-size: 11px; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .pd-page { padding-top: 76px; }
+
+    .pd-btn-cart,
+    .pd-btn-whatsapp {
+        padding: 13px 18px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* ── Orders Page ────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .ord-row {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: flex-start !important;
+    }
+
+    .ord-row-right {
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .ord-title {
+        font-size: clamp(36px, 10vw, 56px) !important;
+    }
+
+    .ord-status-badge {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .ord-main { padding: 40px 16px 50px !important; }
+}
+
+/* ── Checkout / Bag Page ────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .bag-layout {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+
+    .bag-nav { padding: 14px 16px !important; }
+
+    .bag-item {
+        gap: 12px !important;
+    }
+
+    .bag-item-img {
+        width: 80px !important;
+        min-width: 80px !important;
+    }
+
+    .bag-title {
+        font-size: clamp(28px, 9vw, 44px) !important;
+    }
+
+    .bag-whatsapp-btn {
+        font-size: 13px !important;
+        padding: 14px 20px !important;
+    }
+
+    .bag-coupon-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .bag-coupon-row input,
+    .bag-coupon-row button {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .bag-layout {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+}
+
+/* ── Auth Page ──────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .av-right { display: none !important; }
+    .av-left {
+        width: 100% !important;
+        padding: 80px 20px 40px !important;
+    }
+    .av-form-wrap { max-width: 100% !important; }
+    .av-google-wrap > div { width: 100% !important; }
+}
+
+/* ── Register Nudge ─────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .rn-wrap {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        border-radius: 16px 16px 0 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* ── Collection Section ─────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .collection-grid-new {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .collection-card-new {
+        height: 200px !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .collection-grid-new {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+    }
+}
+
+/* ── Admin Pages ────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    /* Admin header controls stack vertically */
+    .products-header,
+    .orders-header,
+    .coupons-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding: 16px !important;
+    }
+
+    .products-controls,
+    .orders-controls,
+    .coupons-controls {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    .products-search,
+    .orders-search {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .products-search input,
+    .orders-search input {
+        width: 100% !important;
+    }
+
+    .products-add-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .products-body,
+    .orders-body {
+        padding: 16px !important;
+    }
+
+    /* Tables scroll horizontally on mobile */
+    .products-body [style*="overflowX: 'auto'"],
+    .orders-body [style*="overflowX: 'auto'"] {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Dashboard stats grid */
+    .dash-grid4 {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    .dash-grid2 {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .dash-page {
+        padding: 16px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .dash-grid4 {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── Product Grid ───────────────────────────────────────────────────────────── */
+@media (max-width: 360px) {
+    .product-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ── Global mobile text overflow fix ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    * {
+        word-break: break-word;
+    }
+
+    h1, h2, h3 {
+        overflow-wrap: break-word;
+    }
+
+    /* Prevent horizontal scroll */
+    .container {
+        overflow-x: hidden;
+    }
+
+    /* Tables always scrollable */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ── Safe area padding for notched phones ──────────────────────────────────── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bag-nav,
+    .ord-nav,
+    .navbar {
+        padding-top: max(14px, env(safe-area-inset-top));
+    }
+
+    .bag-footer,
+    .ord-footer {
+        padding-bottom: max(40px, calc(env(safe-area-inset-bottom) + 40px));
+    }
+}

@@ -1,0 +1,138 @@
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useQuery } from '@tanstack/react-query';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { getProducts } from '../api/products';
+import SkeletonGrid from './skeletons/SkeletonGrid';
+import '../styles/product-grid.css';
+
+const ProductGrid = () => {
+    const { addToCart } = useCart();
+    const { requireAuth } = useAuth();
+    const headerRef = useRef(null);
+
+    const { data: products = [], isLoading } = useQuery({
+        queryKey: ['new-arrivals'],
+        queryFn: () => getProducts({}),
+        retry: false,
+        refetchOnWindowFocus: false,
+    });
+
+    const handleAddToCart = (e, product) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        requireAuth(() => {
+            const btn = e.currentTarget;
+            gsap.to(btn, {
+                scale: 0.9,
+                duration: 0.1,
+                ease: "power1.out",
+                onComplete: () => {
+                    gsap.to(btn, { scale: 1, duration: 0.4, ease: "elastic.out(1, 0.3)" });
+                }
+            });
+            addToCart(product);
+        });
+    };
+
+    const container = {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.1 } }
+    };
+
+    const item = {
+        hidden: { opacity: 0, y: 8 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
+    };
+
+    // Fade-up only the section header — cards are already animated by framer-motion.
+    // Running GSAP opacity:0 on the cards too causes them to stay invisible if the
+    // section is already in the viewport when products finish loading.
+    useEffect(() => {
+        if (!headerRef.current) return;
+        const ctx = gsap.context(() => {
+            gsap.from(headerRef.current, {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: headerRef.current,
+                    start: 'top 90%',
+                    once: true,
+                    invalidateOnRefresh: true,
+                },
+            });
+        });
+        return () => ctx.revert();
+    }, []);
+
+    if (isLoading) return (
+        <section className="section product-section">
+            <div className="container">
+                <div className="section-header">
+                    <h2 className="section-title">Just Dropped</h2>
+                </div>
+                <SkeletonGrid count={4} />
+            </div>
+        </section>
+    );
+
+    if (products.length === 0) return null;
+
+    return (
+        <section className="section product-section">
+            <div className="container">
+                <div ref={headerRef} className="section-header">
+                    <div>
+                        <h2 className="section-title">Just Dropped</h2>
+                        <p className="section-subtitle">Latest trending styles handpicked for you</p>
+                    </div>
+                    <Link to="/collections" className="view-all-link">View All</Link>
+                </div>
+
+                <motion.div
+                    className="product-grid"
+                    variants={container}
+                    initial="hidden"
+                    animate="show"
+                >
+                    {products.slice(0, 4).map(product => (
+                        <motion.div key={product.id || product._id} className="product-card group" variants={item}>
+                            <div className="product-image-wrapper">
+                                {product.tag && <span className="product-tag">{product.tag}</span>}
+                                <Link to={`/product/${product.id || product._id}`}>
+                                    <img
+                                        src={product.images && product.images.length > 0 ? product.images[0] : 'https://placehold.co/300x400?text=No+Image'}
+                                        alt={product.name}
+                                        className="product-image"
+                                        loading="lazy"
+                                        decoding="async"
+                                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x400?text=No+Image'; }}
+                                    />
+                                </Link>
+                                <button
+                                    className="add-to-cart-btn opacity-0 group-hover:opacity-100 transition-all duration-200"
+                                    onClick={(e) => handleAddToCart(e, product)}
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                            <div className="product-info">
+                                <Link to={`/product/${product.id || product._id}`} className="product-name">{product.name}</Link>
+                                <span className="product-price">{product.formattedPrice || `₹${product.price?.toLocaleString('en-IN')}`}</span>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
+        </section>
+    );
+};
+
+export default ProductGrid;

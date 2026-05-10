@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "fix:product-typos": "node scripts/fix-product-typos.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1020.0",
+    "@aws-sdk/s3-request-presigner": "^3.984.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.3.2",
+    "google-auth-library": "^10.6.2",
+    "helmet": "^8.1.0",
+    "hpp": "^0.2.3",
+    "ipaddr.js": "^2.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.23.1",
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.11",
+    "resend": "^6.10.0",
+    "zod": "^4.3.6"
+  }
+}

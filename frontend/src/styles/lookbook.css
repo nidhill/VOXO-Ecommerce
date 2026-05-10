@@ -1,0 +1,100 @@
+/* ── LookbookSection responsive overrides ───────────────────────────────── */
+
+/* Product grid — desktop default (set here so mobile can override) */
+.lb-product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(8px, 1.2vw, 16px);
+    align-items: end;
+}
+
+/* ── Mobile ≤ 767px ───────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    /* Hero: stack vertically — text on top, watch below */
+    .lb-hero {
+        min-height: unset !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 40px 0 0 !important;
+        background: radial-gradient(ellipse 140% 80% at 50% 30%, #ffffff 0%, #f4f4f2 70%) !important;
+    }
+
+    /* Text block: full width, normal padding */
+    .lb-text {
+        position: relative !important;
+        width: 100% !important;
+        padding: 0 24px 32px 24px !important;
+    }
+
+    /* Watch: full width below text, fully visible */
+    .lb-watch {
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        opacity: 1 !important;
+        z-index: 8;
+        margin-top: -20px;
+    }
+
+    .lb-watch img {
+        width: 90% !important;
+        max-width: 380px;
+        margin: 0 auto;
+        display: block !important;
+    }
+
+    /* Show description on mobile */
+    .lb-hero-desc {
+        display: block !important;
+        font-size: 13px !important;
+        margin-bottom: 28px !important;
+    }
+
+    /* Title size */
+    .lb-hero-title {
+        font-size: clamp(40px, 11vw, 60px) !important;
+    }
+
+    /* Product strip */
+    .lb-strip-wrapper {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .lb-product-grid {
+        grid-template-columns: repeat(5, minmax(130px, 1fr)) !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding-bottom: 8px;
+    }
+
+    .lb-product-grid::-webkit-scrollbar { display: none; }
+    .lb-product-card { scroll-snap-align: start; }
+
+    .lb-strip-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+
+    /* Hide bottom fade gradient on mobile since we stack */
+    .lb-hero > div:last-child {
+        display: none !important;
+    }
+
+    /* Reposition gold glow behind watch (bottom area) */
+    .lb-glow {
+        right: auto !important;
+        left: 50% !important;
+        top: auto !important;
+        bottom: 0 !important;
+        transform: translateX(-50%) !important;
+        width: 100% !important;
+        height: 50% !important;
+    }
+}

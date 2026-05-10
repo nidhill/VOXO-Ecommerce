@@ -1,0 +1,222 @@
+/* ════════════════════════════════════════════════
+   SHOP PAGE — Premium editorial layout
+   ════════════════════════════════════════════════ */
+
+.shop-page {
+    background: var(--color-white);
+    min-height: 100vh;
+}
+
+/* ── Editorial hero header ──────────────────────── */
+.shop-hero {
+    padding-top: clamp(90px, 12vw, 130px);
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--color-grey-200);
+}
+
+.shop-eyebrow {
+    font-size: 9px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--color-grey-500);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.shop-hero-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.shop-editorial-title {
+    font-family: 'Playfair Display', var(--font-serif);
+    font-size: clamp(44px, 7vw, 76px);
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    color: var(--color-black);
+    margin: 0;
+}
+
+.shop-count {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-grey-500);
+    font-weight: 600;
+    padding-bottom: 8px;
+    white-space: nowrap;
+}
+
+/* ── Sticky filter bar ──────────────────────────── */
+.shop-filter-bar-wrap {
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid #ebebeb;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+}
+
+/* ── Gender tabs row + chips combined ───────────── */
+.shop-gender-tabs {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0;
+    padding: 10px 0;
+}
+.shop-gender-tabs::-webkit-scrollbar { display: none; }
+
+.shop-gender-tab {
+    padding: 8px 18px;
+    background: none;
+    border: none;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+}
+.shop-gender-tab:hover { color: #111; background: #f5f5f5; }
+.shop-gender-tab.active {
+    color: #fff;
+    background: #111;
+}
+
+.shop-tab-divider {
+    width: 1px;
+    background: #e5e5e5;
+    height: 22px;
+    margin: 0 14px;
+    flex-shrink: 0;
+}
+
+/* ── Category chips ─────────────────────────────── */
+.shop-chips-scroll {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+}
+.shop-chips-scroll::-webkit-scrollbar { display: none; }
+
+.shop-chip-group {
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #bbb;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0 4px;
+}
+
+.shop-chip-sep {
+    width: 1px;
+    height: 18px;
+    background: #e5e5e5;
+    flex-shrink: 0;
+    margin: 0 8px;
+}
+
+.shop-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid #e5e5e5;
+    background: transparent;
+    color: #777;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+}
+.shop-chip:hover {
+    border-color: #aaa;
+    color: #111;
+    background: #fafafa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.shop-chip.active {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+    transform: translateY(-1px);
+}
+
+/* ── Products wrapper ───────────────────────────── */
+.shop-products-wrap {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+/* ── Empty state ────────────────────────────────── */
+.shop-empty {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.shop-empty-title {
+    font-family: 'Playfair Display', var(--font-serif);
+    font-size: clamp(24px, 4vw, 36px);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: 10px;
+}
+
+.shop-empty-sub {
+    font-size: 13px;
+    color: var(--color-grey-500);
+    margin-bottom: 28px;
+}
+
+.shop-empty-clear {
+    padding: 11px 28px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-family: inherit;
+}
+.shop-empty-clear:hover { opacity: 0.75; }
+
+/* ── Mobile adjustments ─────────────────────────── */
+@media (max-width: 767px) {
+    .shop-hero { padding-top: clamp(72px, 20vw, 100px); padding-bottom: 24px; }
+    .shop-filter-bar-wrap { top: 52px; }
+    .shop-gender-tab { padding: 7px 13px; font-size: 9px; letter-spacing: 1.5px; }
+    .shop-chip { padding: 5px 12px; font-size: 9px; }
+    .shop-chip-group { font-size: 6.5px; }
+    .shop-products-wrap { padding-top: 28px; }
+}
