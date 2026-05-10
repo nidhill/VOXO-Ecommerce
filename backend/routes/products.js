@@ -9,10 +9,6 @@ const { adminAuth } = require('../middleware/adminAuth');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        if (mongoose.connection.readyState !== 1) {
-            return res.json([]);
-        }
-
         const { category, gender, search } = req.query;
         let query = { isHidden: false };
 
@@ -43,10 +39,6 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/search', async (req, res) => {
     try {
-        if (mongoose.connection.readyState !== 1) {
-            return res.json([]);
-        }
-
         const { q } = req.query;
         if (!q) return res.json([]);
 
@@ -69,9 +61,6 @@ router.get('/search', async (req, res) => {
 // @access  Public
 router.get('/:id', async (req, res) => {
     try {
-        if (mongoose.connection.readyState !== 1) {
-            return res.status(503).json({ msg: 'Database unavailable' });
-        }
         const product = await Product.findById(req.params.id);
         if (!product) return res.status(404).json({ msg: 'Product not found' });
         res.json(product);
