@@ -370,11 +370,14 @@ const Navbar = () => {
                             <ShoppingBag size={18} />
                             {cartCount > 0 && (
                                 <span style={{
-                                    position: 'absolute', top: -6, right: -8,
-                                    width: 14, height: 14, borderRadius: '50%',
-                                    background: '#111111', color: '#ffffff',
-                                    fontSize: 8, fontWeight: 800,
+                                    position: 'absolute', top: -4, right: -6,
+                                    minWidth: 18, height: 18, borderRadius: '50%',
+                                    background: '#111', color: '#fff',
+                                    fontSize: 10, fontWeight: 800,
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    lineHeight: 1, padding: '0 4px', boxSizing: 'border-box',
+                                    border: '2px solid #fff',
+                                    pointerEvents: 'none',
                                 }}>
                                     {cartCount}
                                 </span>

@@ -113,6 +113,8 @@
 .cart-btn {
     letter-spacing: 0.15em;
     color: var(--nav-text-muted);
+    position: relative;
+    overflow: visible;
 }
 .cart-btn:hover { color: var(--nav-text); }
 
