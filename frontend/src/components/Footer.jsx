@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
-import { API_BASE } from '../api/axios';
+import api from '../api/axios';
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 const InstagramIcon = () => (
@@ -19,23 +19,24 @@ const Footer = () => {
 
     const handleJoin = async (e) => {
         e.preventDefault();
-        if (!email.trim()) return;
+        const trimmedEmail = email.trim();
+        if (!trimmedEmail) return;
+
+        setSubError('');
         try {
-            const res = await fetch(`${API_BASE}/newsletter/subscribe`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email.trim() }),
-            });
-            if (res.ok || res.status === 409) {
+            const res = await api.post('/newsletter/subscribe', { email: trimmedEmail });
+            if (res.status === 200 || res.status === 201) {
                 setJoined(true);
                 setEmail('');
-                setSubError('');
-            } else {
-                setSubError('Something went wrong. Try again.');
             }
-        } catch {
-            setJoined(true);
-            setEmail('');
+        } catch (err) {
+            // 409 means already subscribed, which we can treat as success for the user
+            if (err.response?.status === 409) {
+                setJoined(true);
+                setEmail('');
+            } else {
+                setSubError(err.response?.data?.message || 'Something went wrong. Try again.');
+            }
         }
     };
 
@@ -105,6 +106,7 @@ const Footer = () => {
                                     required
                                 />
                                 <button type="submit" className="footer-join-btn">Join</button>
+                                {subError && <p className="footer-sub-error">{subError}</p>}
                             </form>
                         )}
                     </div>
