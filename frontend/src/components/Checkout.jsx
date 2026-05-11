@@ -36,9 +36,12 @@ const Checkout = () => {
         name: user?.name || '',
         email: user?.email || '',
         phone: user?.phone || '',
-        address: '',
-        city: '',
+        houseNo: '',
+        area: '',
+        landmark: '',
         zip: '',
+        city: '',
+        state: '',
     });
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -72,12 +75,13 @@ const Checkout = () => {
     const handleWhatsAppCheckout = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const fullAddress = `${formData.houseNo}, ${formData.area}${formData.landmark ? `, Near ${formData.landmark}` : ''}, ${formData.state}`;
         try {
             await createOrder({
                 customerName: formData.name,
                 email: formData.email,
                 phone: formData.phone,
-                address: formData.address,
+                address: fullAddress,
                 city: formData.city,
                 zip: formData.zip,
                 items: cartItems.map(item => ({
@@ -97,7 +101,7 @@ const Checkout = () => {
 
         let msg = `*New Order from WAVWAY* 🛍️\n\n`;
         msg += `*Customer:* ${formData.name}\n*Phone:* ${formData.phone}\n`;
-        msg += `*Address:* ${formData.address}, ${formData.city} - ${formData.zip}\n\n*Items:*\n`;
+        msg += `*Address:* ${fullAddress}, ${formData.city} - ${formData.zip}\n\n*Items:*\n`;
         cartItems.forEach(i => { msg += `• ${i.name} × ${i.quantity} — ₹${(i.price * i.quantity).toFixed(0)}\n`; });
         msg += `\n*Subtotal:* ₹${cartTotal.toFixed(0)}\n`;
         if (discount > 0) msg += `*Discount (${couponCode}):* -₹${discount.toFixed(0)}\n`;
@@ -267,22 +271,68 @@ const Checkout = () => {
                                         <div className="bag-field-group-label">Delivery Address</div>
                                         <div className="bag-field-group">
                                             <div className="bag-field">
-                                                <label className="bag-label">Street Address</label>
-                                                <input className="bag-input" type="text" name="address"
-                                                    placeholder="House / Flat / Road / Area"
-                                                    onChange={handleChange} required />
+                                                <label className="bag-label">Flat, House no., Building, Company, Apartment</label>
+                                                <input className="bag-input" type="text" name="houseNo" onChange={handleChange} required />
+                                            </div>
+                                            <div className="bag-field">
+                                                <label className="bag-label">Area, Street, Sector, Village</label>
+                                                <input className="bag-input" type="text" name="area" onChange={handleChange} required />
+                                            </div>
+                                            <div className="bag-field">
+                                                <label className="bag-label">Landmark</label>
+                                                <input className="bag-input" type="text" name="landmark" placeholder="E.g. near apollo hospital" onChange={handleChange} />
                                             </div>
                                             <div className="bag-field-row">
                                                 <div className="bag-field">
-                                                    <label className="bag-label">City</label>
-                                                    <input className="bag-input" type="text" name="city"
-                                                        placeholder="City" onChange={handleChange} required />
+                                                    <label className="bag-label">Pincode</label>
+                                                    <input className="bag-input" type="text" name="zip" placeholder="6-digit Pincode" onChange={handleChange} required />
                                                 </div>
                                                 <div className="bag-field">
-                                                    <label className="bag-label">PIN Code</label>
-                                                    <input className="bag-input" type="text" name="zip"
-                                                        placeholder="6-digit PIN" onChange={handleChange} required />
+                                                    <label className="bag-label">Town/City</label>
+                                                    <input className="bag-input" type="text" name="city" onChange={handleChange} required />
                                                 </div>
+                                            </div>
+                                            <div className="bag-field">
+                                                <label className="bag-label">State</label>
+                                                <select className="bag-input" name="state" onChange={handleChange} required defaultValue="" style={{ appearance: 'auto', background: 'transparent' }}>
+                                                    <option value="" disabled>Select</option>
+                                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                    <option value="Assam">Assam</option>
+                                                    <option value="Bihar">Bihar</option>
+                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                    <option value="Goa">Goa</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="Haryana">Haryana</option>
+                                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                    <option value="Jharkhand">Jharkhand</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Manipur">Manipur</option>
+                                                    <option value="Meghalaya">Meghalaya</option>
+                                                    <option value="Mizoram">Mizoram</option>
+                                                    <option value="Nagaland">Nagaland</option>
+                                                    <option value="Odisha">Odisha</option>
+                                                    <option value="Punjab">Punjab</option>
+                                                    <option value="Rajasthan">Rajasthan</option>
+                                                    <option value="Sikkim">Sikkim</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Telangana">Telangana</option>
+                                                    <option value="Tripura">Tripura</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                                    <option value="Chandigarh">Chandigarh</option>
+                                                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                                    <option value="Delhi">Delhi</option>
+                                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                    <option value="Ladakh">Ladakh</option>
+                                                    <option value="Lakshadweep">Lakshadweep</option>
+                                                    <option value="Puducherry">Puducherry</option>
+                                                </select>
                                             </div>
                                         </div>
 
