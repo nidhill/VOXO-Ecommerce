@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Upload, Loader2, Save, Image as ImageIcon, Trash2, CheckCircle, Megaphone, ImagePlus } from 'lucide-react';
+import { Upload, Loader2, Save, Image as ImageIcon, Trash2, CheckCircle, Megaphone } from 'lucide-react';
 import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages, getAnnouncementBar, updateAnnouncementBar, getStoreAutomation, updateStoreAutomation } from '../api/settings';
 import { uploadImage } from '../api/products';
 
@@ -57,7 +57,7 @@ const ImageSlot = ({ label, url, uploading, onUpload, onClear, aspect = '16/9' }
                 alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '8px',
                 color: '#52525b', fontSize: '13px',
             }}>
-                <ImagePlus size={28} strokeWidth={1.5} />
+                <ImageIcon size={28} strokeWidth={1.5} />
                 <span>No image</span>
             </div>
         </div>
@@ -366,7 +366,7 @@ const AdminBanners = () => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(52,211,153,0.1)', color: '#34d399', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <ImagePlus size={20} />
+                            <ImageIcon size={20} />
                         </div>
                         <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#f4f4f5', margin: 0 }}>Hero Carousel Images</h2>
                     </div>
