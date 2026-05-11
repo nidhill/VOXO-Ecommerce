@@ -146,7 +146,7 @@ const Orders = () => {
                     <span className="ord-footer-brand">WAVWAY</span>
                     <div className="ord-footer-links">
                         <Link to="/collections/all">Shop</Link>
-                        <a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer">Contact</a>
+                        <a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer">Contact</a>
                         <Link to="/privacy-policy">Privacy Policy</Link>
                     </div>
                     <span className="ord-footer-copy">© {new Date().getFullYear()} Wavway. All Rights Reserved.</span>

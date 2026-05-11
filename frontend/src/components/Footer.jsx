@@ -64,7 +64,7 @@ const Footer = () => {
                             <a href="https://www.instagram.com/wavway.in/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
                                 <InstagramIcon />
                             </a>
-                            <a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="WhatsApp">
+                            <a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="WhatsApp">
                                 <WhatsAppIcon />
                             </a>
                         </div>
@@ -91,7 +91,7 @@ const Footer = () => {
                             <li><Link to="/orders">Track Order</Link></li>
                             <li><Link to="/orders">My Orders</Link></li>
                             <li><Link to="/faq">FAQ</Link></li>
-                            <li><a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+                            <li><a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
                         </ul>
                     </div>
 

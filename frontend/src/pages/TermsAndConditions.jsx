@@ -156,7 +156,7 @@ const SECTIONS = [
             <>
                 <p>For any questions regarding these Terms and Conditions, please reach out to us:</p>
                 <ul>
-                    <li>WhatsApp: <a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer">+91 88480 41999</a></li>
+                    <li>WhatsApp: <a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer">+91 97448 11272</a></li>
                     <li>Instagram: <a href="https://www.instagram.com/wavway.in/" target="_blank" rel="noopener noreferrer">@wavway.in</a></li>
                     <li>Email: support@wavway.in</li>
                 </ul>

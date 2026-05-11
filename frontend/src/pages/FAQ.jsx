@@ -17,7 +17,7 @@ const FAQS = [
             },
             {
                 q: 'Can I modify or cancel my order after placing it?',
-                a: 'Orders can be modified or cancelled within 12 hours of placement. After that, the order may already be packed and dispatched. Please contact us immediately via WhatsApp at +91 88480 41999 if you need to make changes.',
+                a: 'Orders can be modified or cancelled within 12 hours of placement. After that, the order may already be packed and dispatched. Please contact us immediately via WhatsApp at +91 97448 11272 if you need to make changes.',
             },
             {
                 q: 'Will I get an invoice for my order?',
@@ -55,7 +55,7 @@ const FAQS = [
             },
             {
                 q: 'How do I initiate a return?',
-                a: 'Contact us on WhatsApp at +91 88480 41999 with your order ID and reason for return. Our team will guide you through the process.',
+                a: 'Contact us on WhatsApp at +91 97448 11272 with your order ID and reason for return. Our team will guide you through the process.',
             },
             {
                 q: 'How long does a refund take?',
@@ -97,7 +97,7 @@ const FAQS = [
             },
             {
                 q: 'How can I contact customer support?',
-                a: 'The fastest way to reach us is via WhatsApp at +91 88480 41999. You can also DM us on Instagram @wavway.in. We typically respond within a few hours.',
+                a: 'The fastest way to reach us is via WhatsApp at +91 97448 11272. You can also DM us on Instagram @wavway.in. We typically respond within a few hours.',
             },
         ],
     },
@@ -128,7 +128,7 @@ const FAQ = () => {
                     <p className="faq-subtitle">
                         Everything you need to know about shopping with Wavway.
                         Can't find your answer?{' '}
-                        <a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer">
+                        <a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer">
                             Chat with us on WhatsApp
                         </a>.
                     </p>
@@ -150,7 +150,7 @@ const FAQ = () => {
 
             <div className="faq-cta">
                 <p className="faq-cta-text">Still have questions?</p>
-                <a href="https://wa.me/918848041999" target="_blank" rel="noopener noreferrer" className="faq-cta-btn">
+                <a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer" className="faq-cta-btn">
                     Chat with us on WhatsApp
                 </a>
             </div>
