@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
 import { API_BASE } from '../api/axios';
+import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 const InstagramIcon = () => (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" strokeWidth="1.8" fill="none"/>
-        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
-    </svg>
+    <FaInstagram size={24} />
 );
 
 const WhatsAppIcon = () => (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-        <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1zM14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1z" />
-    </svg>
+    <FaWhatsapp size={24} />
 );
 
 const Footer = () => {
