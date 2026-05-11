@@ -213,17 +213,17 @@ const AdminProducts = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <span style={{ padding: '4px 10px', fontSize: '12px', fontWeight: 600, borderRadius: '6px', background: 'rgba(99,102,241,0.1)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.15)' }}>{product.category}</span>
                                         </td>
-                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa' }}>{product.gender}</td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa', whiteSpace: 'nowrap' }}>{product.gender}</td>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                                                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5' }}>₹{product.price}</span>
                                                 {product.discountPrice && <span style={{ fontSize: '12px', color: '#71717a', textDecoration: 'line-through' }}>₹{product.discountPrice}</span>}
                                             </div>
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <button onClick={() => toggleVisibility.mutate({ id: product._id, isHidden: !product.isHidden })}
                                                 style={{
                                                     display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, cursor: 'pointer', border: '1px solid', transition: 'all 0.15s',

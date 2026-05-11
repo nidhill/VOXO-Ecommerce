@@ -142,18 +142,18 @@ const AdminOrders = () => {
                             <tbody>
                                 {filtered.map((order) => (
                                     <tr key={order._id} className="ord-table-row">
-                                        <td style={{ padding: '16px 24px', fontSize: '13px', fontFamily: 'monospace', color: '#a1a1aa' }}>#{order._id.slice(-8)}</td>
-                                        <td style={{ padding: '16px 24px', fontSize: '14px', fontWeight: 600, color: '#f4f4f5' }}>{order.customerName}</td>
-                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa' }}>
+                                        <td style={{ padding: '16px 24px', fontSize: '13px', fontFamily: 'monospace', color: '#a1a1aa', whiteSpace: 'nowrap' }}>#{order._id.slice(-8)}</td>
+                                        <td style={{ padding: '16px 24px', fontSize: '14px', fontWeight: 600, color: '#f4f4f5', whiteSpace: 'nowrap' }}>{order.customerName}</td>
+                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa', whiteSpace: 'nowrap' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                 <ShoppingCart size={14} /> {order.items?.length || 0} items
                                             </div>
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <span style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5' }}>₹{order.totalAmount?.toLocaleString()}</span>
                                             {order.couponCode && <span style={{ fontSize: '10px', fontWeight: 600, color: '#c084fc', background: 'rgba(168,85,247,0.1)', padding: '3px 8px', borderRadius: '6px', marginLeft: '8px' }}>{order.couponCode}</span>}
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <select value={order.status} onChange={e => updateMutation.mutate({ id: order._id, data: { status: e.target.value } })}
                                                 style={{
                                                     fontSize: '12px', fontWeight: 600, padding: '6px 12px', borderRadius: '8px', cursor: 'pointer', outline: 'none', appearance: 'auto',
@@ -165,7 +165,7 @@ const AdminOrders = () => {
                                                 {STATUSES.map(s => <option key={s} value={s} style={{ background: '#12121a', color: '#f4f4f5' }}>{s}</option>)}
                                             </select>
                                         </td>
-                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#71717a' }}>{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                                        <td style={{ padding: '16px 24px', fontSize: '13px', color: '#71717a', whiteSpace: 'nowrap' }}>{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
                                         <td style={{ padding: '16px 24px', textAlign: 'right' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
                                                 <button className="ord-action-btn view" onClick={() => setViewingOrder(order)} title="View Details"><Eye size={16} /></button>

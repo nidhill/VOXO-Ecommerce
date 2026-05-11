@@ -152,8 +152,8 @@ const AdminSubscribers = () => {
                             <tbody>
                                 {filtered.map((sub, idx) => (
                                     <tr key={sub._id} className="sub-row">
-                                        <td style={{ padding: '16px 24px', color: '#71717a', fontSize: '13px', width: '48px' }}>{idx + 1}</td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', color: '#71717a', fontSize: '13px', width: '48px', whiteSpace: 'nowrap' }}>{idx + 1}</td>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                                 <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                     <Mail size={16} color="#818cf8" />
@@ -161,18 +161,18 @@ const AdminSubscribers = () => {
                                                 <a href={`mailto:${sub.email}`} style={{ color: '#f4f4f5', textDecoration: 'none', fontWeight: 600, fontSize: '14px' }}>{sub.email}</a>
                                             </div>
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#a1a1aa', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 600 }}>
                                                 {sub.source || 'footer'}
                                             </span>
                                         </td>
-                                        <td style={{ padding: '16px 24px' }}>
+                                        <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa', fontSize: '14px' }}>
                                                 <Calendar size={14} />
                                                 {new Date(sub.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                                             </div>
                                         </td>
-                                        <td style={{ padding: '16px 24px', textAlign: 'right' }}>
+                                        <td style={{ padding: '16px 24px', textAlign: 'right', whiteSpace: 'nowrap' }}>
                                             <button
                                                 onClick={() => { if (window.confirm('Remove this subscriber?')) deleteMutation.mutate(sub._id); }}
                                                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', padding: '8px', borderRadius: '8px', display: 'inline-flex', transition: 'all 0.15s' }}

@@ -134,15 +134,15 @@ const AdminDatabase = () => {
                                             .sort((a, b) => b.count - a.count)
                                             .map((col) => (
                                                 <tr key={col.name} className="db-row">
-                                                    <td style={{ padding: '16px 24px' }}>
+                                                    <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                                             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6366f1', flexShrink: 0 }} />
                                                             <span style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5', fontFamily: 'monospace', letterSpacing: '0.5px' }}>{col.name}</span>
                                                         </div>
                                                     </td>
-                                                    <td style={{ padding: '16px 24px', fontSize: '14px', color: '#e4e4e7', fontWeight: 600 }}>{col.count.toLocaleString()}</td>
-                                                    <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa' }}>{fmtBytes(col.size)}</td>
-                                                    <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa' }}>{fmtBytes(col.storageSize)}</td>
+                                                    <td style={{ padding: '16px 24px', fontSize: '14px', color: '#e4e4e7', fontWeight: 600, whiteSpace: 'nowrap' }}>{col.count.toLocaleString()}</td>
+                                                    <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa', whiteSpace: 'nowrap' }}>{fmtBytes(col.size)}</td>
+                                                    <td style={{ padding: '16px 24px', fontSize: '13px', color: '#a1a1aa', whiteSpace: 'nowrap' }}>{fmtBytes(col.storageSize)}</td>
                                                 </tr>
                                             ))
                                         }

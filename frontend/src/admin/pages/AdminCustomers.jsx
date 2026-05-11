@@ -119,7 +119,7 @@ const AdminCustomers = () => {
                                     const av = avatar(user.name);
                                     return (
                                         <tr key={user._id} className="cust-table-row">
-                                            <td style={{ padding: '16px 24px' }}>
+                                            <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                                     <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: av.bg, color: av.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 700, flexShrink: 0 }}>
                                                         {av.initials}
@@ -127,13 +127,13 @@ const AdminCustomers = () => {
                                                     <span style={{ fontWeight: 600, color: '#f4f4f5', fontSize: '14px' }}>{user.name}</span>
                                                 </div>
                                             </td>
-                                            <td style={{ padding: '16px 24px' }}>
+                                            <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa' }}>
                                                     <Mail size={14} />
                                                     <a href={`mailto:${user.email}`} style={{ color: '#a1a1aa', textDecoration: 'none', fontSize: '14px' }}>{user.email}</a>
                                                 </div>
                                             </td>
-                                            <td style={{ padding: '16px 24px' }}>
+                                            <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                                 {user.phone ? (
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa', fontSize: '14px' }}>
                                                         <Phone size={14} />
@@ -143,7 +143,7 @@ const AdminCustomers = () => {
                                                     <span style={{ color: '#52525b', fontSize: '14px' }}>—</span>
                                                 )}
                                             </td>
-                                            <td style={{ padding: '16px 24px' }}>
+                                            <td style={{ padding: '16px 24px', whiteSpace: 'nowrap' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#71717a', fontSize: '14px' }}>
                                                     <Calendar size={14} />
                                                     {new Date(user.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
