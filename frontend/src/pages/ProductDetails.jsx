@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import SizeGuide from '../components/product/SizeGuide';
+import TesterAdvantageSection from '../components/TesterAdvantageSection';
 
 import { pageTransition } from '../utils/animations';
 import { ChevronLeft, ChevronRight, ShoppingBag, MessageCircle, Shield, RotateCcw, Truck, ArrowLeft, Ruler } from 'lucide-react';
@@ -265,6 +266,14 @@ const ProductDetails = () => {
                 onClose={() => setShowSizeGuide(false)} 
                 category={product.category}
             />
+
+            {(product.category?.toLowerCase().includes('perfume') || 
+              product.category?.toLowerCase().includes('fragrance') || 
+              product.category?.toLowerCase().includes('perfumes')) && (
+                <div style={{ marginTop: '80px', borderTop: '1px solid #f0f0f0' }}>
+                    <TesterAdvantageSection />
+                </div>
+            )}
         </motion.div>
     );
 };

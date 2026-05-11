@@ -1,0 +1,106 @@
+.ta-section {
+    padding: 100px 0;
+    background: #ffffff;
+    border-top: 1px solid #f0f0f0;
+}
+
+.ta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.ta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.ta-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.ta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 24px;
+    line-height: 1.1;
+}
+
+.ta-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #444;
+    font-style: italic;
+    border-left: 3px solid #111;
+    padding-left: 24px;
+}
+
+.ta-features {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.ta-feature {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.ta-icon-wrap {
+    width: 44px;
+    height: 44px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    flex-shrink: 0;
+}
+
+.ta-feat-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.ta-feat-info p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+@media (max-width: 991px) {
+    .ta-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .ta-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ta-section {
+        padding: 60px 0;
+    }
+    .ta-title {
+        font-size: 28px;
+    }
+    .ta-text {
+        font-size: 15px;
+        padding-left: 16px;
+    }
+}

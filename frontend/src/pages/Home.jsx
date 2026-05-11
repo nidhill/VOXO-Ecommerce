@@ -4,7 +4,7 @@ import Hero from '../components/Hero';
 import ProductGrid from '../components/ProductGrid';
 import LookbookSection from '../components/LookbookSection';
 import FeaturedSection from '../components/FeaturedSection';
-import TestimonialsSection from '../components/TestimonialsSection';
+import TesterAdvantageSection from '../components/TesterAdvantageSection';
 import { pageTransition } from '../utils/animations';
 import useMeta from '../hooks/useMeta';
 
@@ -16,7 +16,7 @@ const Home = () => {
             <ProductGrid />
             <LookbookSection />
             <FeaturedSection />
-            <TestimonialsSection />
+            <TesterAdvantageSection />
         </motion.div>
     );
 };
