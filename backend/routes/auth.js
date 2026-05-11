@@ -39,11 +39,11 @@ const COOKIE_OPTIONS = {
     path: '/',
 };
 
-const signAccess  = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+const signAccess  = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '3d' });
 const signRefresh = (id) => jwt.sign({ id }, process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET, { expiresIn: '7d' });
 
 const sendTokens = (res, userId) => {
-    res.cookie('token',        signAccess(userId),  { ...COOKIE_OPTIONS, maxAge: 15 * 60 * 1000 });
+    res.cookie('token',        signAccess(userId),  { ...COOKIE_OPTIONS, maxAge: 3 * 24 * 60 * 60 * 1000 });
     res.cookie('refreshToken', signRefresh(userId), { ...COOKIE_OPTIONS, path: '/api/auth/refresh', maxAge: 7 * 24 * 60 * 60 * 1000 });
 };
 
@@ -179,7 +179,7 @@ router.post('/refresh', async (req, res) => {
     try {
         const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET || process.env.JWT_SECRET);
         const newAccess = signAccess(decoded.id);
-        res.cookie('token', newAccess, { ...COOKIE_OPTIONS, maxAge: 15 * 60 * 1000 });
+        res.cookie('token', newAccess, { ...COOKIE_OPTIONS, maxAge: 3 * 24 * 60 * 60 * 1000 });
         res.json({ success: true });
     } catch {
         res.clearCookie('token').clearCookie('refreshToken').status(401).json({ message: 'Session expired. Please log in again.' });
