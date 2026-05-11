@@ -87,24 +87,31 @@ const AdminChangePassword = () => {
                 }
                 .otp-input:focus { border-color: #6366f1; border-style: solid; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: rgba(99,102,241,0.02); }
                 @media (max-width: 768px) {
-                    .cp-header { padding: 16px !important; }
+                    .cp-header { padding: 20px 16px !important; }
+                    .cp-header h1 { font-size: 22px !important; }
+                    .cp-header p { font-size: 13px !important; }
                     .cp-body { padding: 16px !important; }
-                    .cp-card { padding: 32px 16px !important; }
-                    .cp-card-inner { padding: 20px !important; }
-                    .cp-steps > div { padding: 12px 14px !important; }
-                    .cp-steps > div p:last-child { font-size: 12px !important; }
-                    .otp-input { letter-spacing: 8px !important; font-size: 22px !important; padding: 12px !important; }
-                    .cp-done { padding: 32px 16px !important; }
+                    .cp-card { border-radius: 16px !important; }
+                    .cp-card-inner { padding: 24px 16px !important; }
+                    .cp-steps > div { padding: 10px 12px !important; }
+                    .cp-steps > div p:first-child { font-size: 10px !important; }
+                    .cp-steps > div p:last-child { font-size: 11px !important; }
+                    .otp-input { letter-spacing: 10px !important; font-size: 24px !important; padding: 12px !important; }
+                    .cp-done { padding: 32px 16px !important; border-radius: 16px !important; }
+                    .cp-done h2 { font-size: 20px !important; }
+                    .cp-btn { padding: 12px !important; font-size: 13px !important; }
+                    .cp-header-icon { width: 40px !important; height: 40px !important; }
+                    .cp-header-icon svg { width: 20px !important; height: 20px !important; }
                 }
             `}</style>
 
             {/* Header */}
             <header className="admin-header cp-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>Change Password</h1>
-                    <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>Secure your admin account with a new password</p>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                    <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Change Password</h1>
+                    <p style={{ fontSize: '14px', color: '#71717a', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Secure your admin account with a new password</p>
                 </div>
-                <div style={{ width: '48px', height: '48px', background: 'rgba(99,102,241,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="cp-header-icon" style={{ width: '48px', height: '48px', background: 'rgba(99,102,241,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginLeft: '16px' }}>
                     <ShieldCheck size={24} color="#818cf8" />
                 </div>
             </header>
@@ -125,7 +132,7 @@ const AdminChangePassword = () => {
                             <button className="cp-btn" onClick={reset}>Change Again</button>
                         </div>
                     ) : (
-                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', overflow: 'hidden', backdropFilter: 'blur(12px)' }}>
+                        <div className="cp-card" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', overflow: 'hidden', backdropFilter: 'blur(12px)' }}>
                             {/* Step bar */}
                             <div className="cp-steps" style={{ display: 'flex' }}>
                                 {['Current Password', 'OTP & New Password'].map((label, i) => (

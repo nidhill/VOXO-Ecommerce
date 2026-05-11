@@ -4,40 +4,16 @@ import '../styles/testimonials.css';
 const REVIEWS = [
     {
         stars: 5,
-        quote: "The watch quality is absolutely insane. Feels premium on the wrist and gets compliments every single day. Already ordered a second one.",
-        name: "Arjun M.",
-        tag: "Verified Buyer — Classic Black Watch",
+        quote: "The shoes are super comfortable and look even better in person. I wore them all day without any pain. Best purchase I've made this year!",
+        name: "Vishnu Nair",
+        tag: "Verified Buyer — Premium Sneakers",
     },
     {
         stars: 5,
-        quote: "The perfume lasts all day — I applied it in the morning and still got compliments at 10 pm. Packaging was beautiful too.",
-        name: "Sneha K.",
+        quote: "The perfume lasts all day — I applied it in the morning and still got compliments at 10 pm. Packaging was beautiful too. Definitely buying more!",
+        name: "Athira Menon",
         tag: "Verified Buyer — Oud Noir Perfume",
         featured: true,
-    },
-    {
-        stars: 5,
-        quote: "The leather belt is so clean and minimal. Fits perfectly and the buckle feels solid. This is my go-to belt now.",
-        name: "Rahul T.",
-        tag: "Verified Buyer — Premium Leather Belt",
-    },
-    {
-        stars: 5,
-        quote: "Fast shipping, beautiful packaging, and the product was exactly as shown. WAVWAY has become my go-to store for accessories.",
-        name: "Meera R.",
-        tag: "Verified Buyer — Sunglasses",
-    },
-    {
-        stars: 5,
-        quote: "Bought the sunglasses and everyone keeps asking where I got them from. Sleek design, premium feel, perfect fit.",
-        name: "Kiran L.",
-        tag: "Verified Buyer — Aviator Sunglasses",
-    },
-    {
-        stars: 5,
-        quote: "Love the minimalist watch design. Clean, versatile, and goes with everything. Highly recommend to anyone looking for quality.",
-        name: "Divya W.",
-        tag: "Verified Buyer — Mesh Strap Watch",
     },
 ];
 

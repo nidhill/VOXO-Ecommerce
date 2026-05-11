@@ -40,8 +40,11 @@
 /* Grid */
 .tes-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 @media (max-width: 900px) {
