@@ -12,13 +12,9 @@ const InstagramIcon = () => (
 );
 
 const WhatsAppIcon = () => (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-            d="M12 2C6.477 2 2 6.477 2 12c0 1.89.522 3.66 1.432 5.18L2 22l4.82-1.432A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" />
-        <path stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"
-            d="M9 10.5c.5 1.5 2 3 3.5 3.5" />
-        <path stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
-            d="M8.5 9a.5.5 0 01.5-.5h.5c.3 0 .6.2.7.5l.8 2a.7.7 0 01-.2.8l-.3.3c.5 1 1.4 1.9 2.4 2.4l.3-.3a.7.7 0 01.8-.2l2 .8c.3.1.5.4.5.7v.5a1 1 0 01-1 1C10.5 17 7 13.5 7 9.5a1 1 0 011-1z" />
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+        <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1zM14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1z" />
     </svg>
 );
 
