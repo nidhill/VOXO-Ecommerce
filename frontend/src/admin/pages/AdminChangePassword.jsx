@@ -89,7 +89,12 @@ const AdminChangePassword = () => {
                 @media (max-width: 768px) {
                     .cp-header { padding: 16px !important; }
                     .cp-body { padding: 16px !important; }
-                    .cp-card { padding: 32px 20px !important; }
+                    .cp-card { padding: 32px 16px !important; }
+                    .cp-card-inner { padding: 20px !important; }
+                    .cp-steps > div { padding: 12px 14px !important; }
+                    .cp-steps > div p:last-child { font-size: 12px !important; }
+                    .otp-input { letter-spacing: 8px !important; font-size: 22px !important; padding: 12px !important; }
+                    .cp-done { padding: 32px 16px !important; }
                 }
             `}</style>
 
@@ -109,7 +114,7 @@ const AdminChangePassword = () => {
 
                     {/* Done state */}
                     {step === 'done' ? (
-                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', padding: '48px 40px', textAlign: 'center', backdropFilter: 'blur(12px)' }}>
+                        <div className="cp-done" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', padding: '48px 40px', textAlign: 'center', backdropFilter: 'blur(12px)' }}>
                             <div style={{ width: '72px', height: '72px', background: 'rgba(52,211,153,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', boxShadow: '0 0 0 8px rgba(52,211,153,0.05)' }}>
                                 <CheckCircle2 size={36} color="#34d399" />
                             </div>
@@ -122,7 +127,7 @@ const AdminChangePassword = () => {
                     ) : (
                         <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', overflow: 'hidden', backdropFilter: 'blur(12px)' }}>
                             {/* Step bar */}
-                            <div style={{ display: 'flex' }}>
+                            <div className="cp-steps" style={{ display: 'flex' }}>
                                 {['Current Password', 'OTP & New Password'].map((label, i) => (
                                     <div key={i} style={{ flex: 1, padding: '16px 24px', borderBottom: `2px solid ${step >= i + 1 ? '#6366f1' : 'rgba(255,255,255,0.06)'}`, background: step === i + 1 ? 'rgba(99,102,241,0.05)' : 'transparent', transition: 'all 0.2s' }}>
                                         <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, color: step >= i + 1 ? '#818cf8' : '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -133,7 +138,7 @@ const AdminChangePassword = () => {
                                 ))}
                             </div>
 
-                            <div style={{ padding: '32px' }}>
+                            <div className="cp-card-inner" style={{ padding: '32px' }}>
                                 {/* Account info */}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '32px' }}>
                                     <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: '16px', boxShadow: '0 4px 10px rgba(99,102,241,0.3)' }}>
