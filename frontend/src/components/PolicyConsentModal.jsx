@@ -45,7 +45,7 @@ const PolicyConsentModal = () => {
         setIsOpen(false);
     };
 
-    if (!user || !isOpen) return null;
+    if (!user || !isOpen || location.pathname !== '/') return null;
 
     return (
         <AnimatePresence>
