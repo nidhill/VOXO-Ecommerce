@@ -40,28 +40,29 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (product) => {
         const productId = getId(product);
+        const productSize = product.size || '';
         let isNew = true;
         setCartItems(prevItems => {
-            const existingItem = prevItems.find(item => getId(item) === productId);
+            const existingItem = prevItems.find(item => getId(item) === productId && (item.size || '') === productSize);
             if (existingItem) {
                 isNew = false;
                 return prevItems.map(item =>
-                    getId(item) === productId
+                    (getId(item) === productId && (item.size || '') === productSize)
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             }
-            return [...prevItems, { ...product, quantity: 1 }];
+            return [...prevItems, { ...product, quantity: 1, size: productSize }];
         });
         toast.success(isNew ? 'Added to bag' : 'Quantity updated', {
-            description: product.name,
+            description: `${product.name}${productSize ? ` — Size: ${productSize}` : ''}`,
         });
         setIsCartOpen(true);
     };
 
-    const removeFromCart = (productId) => {
-        const item = cartItems.find(i => getId(i) === productId);
-        setCartItems(prevItems => prevItems.filter(item => getId(item) !== productId));
+    const removeFromCart = (productId, size = '') => {
+        const item = cartItems.find(i => getId(i) === productId && (i.size || '') === size);
+        setCartItems(prevItems => prevItems.filter(item => !(getId(item) === productId && (item.size || '') === size)));
         if (item) {
             toast('Removed from bag', {
                 description: item.name,
@@ -69,14 +70,14 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const updateQuantity = (productId, newQuantity) => {
+    const updateQuantity = (productId, newQuantity, size = '') => {
         if (newQuantity < 1) {
-            removeFromCart(productId);
+            removeFromCart(productId, size);
             return;
         }
         setCartItems(prevItems =>
             prevItems.map(item =>
-                getId(item) === productId ? { ...item, quantity: newQuantity } : item
+                (getId(item) === productId && (item.size || '') === size) ? { ...item, quantity: newQuantity } : item
             )
         );
     };

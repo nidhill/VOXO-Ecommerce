@@ -34,6 +34,10 @@ const ProductSchema = new mongoose.Schema({
         type: String, // URLs from Cloudflare R2
         required: true
     }],
+    sizes: [{
+        type: String,
+        trim: true
+    }],
     isHidden: {
         type: Boolean,
         default: false

@@ -89,6 +89,7 @@ const Checkout = () => {
                     name: item.name,
                     quantity: item.quantity,
                     price: item.price,
+                    size: item.size || undefined,
                 })),
                 totalAmount: finalTotal,
                 couponCode: discount > 0 ? couponCode : null,
@@ -102,7 +103,9 @@ const Checkout = () => {
         let msg = `*New Order from WAVWAY* 🛍️\n\n`;
         msg += `*Customer:* ${formData.name}\n*Phone:* ${formData.phone}\n`;
         msg += `*Address:* ${fullAddress}, ${formData.city} - ${formData.zip}\n\n*Items:*\n`;
-        cartItems.forEach(i => { msg += `• ${i.name} × ${i.quantity} — ₹${(i.price * i.quantity).toFixed(0)}\n`; });
+        cartItems.forEach(i => { 
+            msg += `• ${i.name} ${i.size ? `(Size: ${i.size})` : ''} × ${i.quantity} — ₹${(i.price * i.quantity).toFixed(0)}\n`; 
+        });
         msg += `\n*Subtotal:* ₹${cartTotal.toFixed(0)}\n`;
         if (discount > 0) msg += `*Discount (${couponCode}):* -₹${discount.toFixed(0)}\n`;
         msg += `*Total:* ₹${finalTotal.toFixed(0)}`;
@@ -199,17 +202,17 @@ const Checkout = () => {
                                                         <div className="bag-item-actions">
                                                             <div className="bag-qty">
                                                                 <button className="bag-qty-btn" type="button"
-                                                                    onClick={() => updateQuantity(itemId, item.quantity - 1)}>
+                                                                    onClick={() => updateQuantity(itemId, item.quantity - 1, item.size)}>
                                                                     <Minus size={12} />
                                                                 </button>
                                                                 <span className="bag-qty-num">{item.quantity}</span>
                                                                 <button className="bag-qty-btn" type="button"
-                                                                    onClick={() => updateQuantity(itemId, item.quantity + 1)}>
+                                                                    onClick={() => updateQuantity(itemId, item.quantity + 1, item.size)}>
                                                                     <Plus size={12} />
                                                                 </button>
                                                             </div>
                                                             <button className="bag-remove" type="button"
-                                                                onClick={() => removeFromCart(itemId)}>
+                                                                onClick={() => removeFromCart(itemId, item.size)}>
                                                                 <X size={13} /> Remove
                                                             </button>
                                                         </div>

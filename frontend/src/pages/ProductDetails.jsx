@@ -19,6 +19,8 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedIdx, setSelectedIdx] = useState(0);
+    const [selectedSize, setSelectedSize] = useState('');
+    const [sizeError, setSizeError] = useState(false);
     const [added, setAdded] = useState(false);
 
     useMeta(
@@ -34,7 +36,10 @@ const ProductDetails = () => {
             try {
                 const res = await fetch(`/api/products/${id}`);
                 if (!res.ok) { setProduct(null); return; }
-                setProduct(await res.json());
+                const data = await res.json();
+                setProduct(data);
+                // Pre-select first size if only one exists
+                if (data.sizes?.length === 1) setSelectedSize(data.sizes[0]);
             } catch {
                 setProduct(null);
             } finally {
@@ -64,13 +69,22 @@ const ProductDetails = () => {
     const handleNext = () => setSelectedIdx(i => (i + 1) % images.length);
 
     const handleAddToCart = (e) => {
-        addToCart(product);
+        if (product.sizes?.length > 0 && !selectedSize) {
+            setSizeError(true);
+            // Scroll to sizes if needed
+            return;
+        }
+        addToCart({ ...product, size: selectedSize });
         setAdded(true);
         setTimeout(() => setAdded(false), 2000);
     };
 
     const handleBuyNow = () => {
-        addToCart(product);
+        if (product.sizes?.length > 0 && !selectedSize) {
+            setSizeError(true);
+            return;
+        }
+        addToCart({ ...product, size: selectedSize });
         navigate('/checkout');
     };
 
@@ -171,6 +185,30 @@ const ProductDetails = () => {
 
                     {product.description && (
                         <p className="pd-desc">{product.description}</p>
+                    )}
+
+                    {/* Size Selector */}
+                    {product.sizes && product.sizes.length > 0 && (
+                        <div className={`pd-size-selector ${sizeError ? 'pd-size-error' : ''}`}>
+                            <div className="pd-size-header">
+                                <span className="pd-size-label">Select Size</span>
+                                {sizeError && <span className="pd-size-error-msg">Please select a size</span>}
+                            </div>
+                            <div className="pd-sizes">
+                                {product.sizes.map(size => (
+                                    <button
+                                        key={size}
+                                        className={`pd-size-btn ${selectedSize === size ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setSelectedSize(size);
+                                            setSizeError(false);
+                                        }}
+                                    >
+                                        {size}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     )}
 
                     {details.length > 0 && (

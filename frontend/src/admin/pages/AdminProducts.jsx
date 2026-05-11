@@ -22,22 +22,24 @@ const AdminProducts = () => {
     const [filterCategory, setFilterCategory] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [formData, setFormData] = useState({
-        name: '', gender: 'Men', category: 'Shoes', price: '', discountPrice: '', description: '', images: [], isHidden: false
+        name: '', gender: 'Men', category: 'Shoes', price: '', discountPrice: '', description: '', images: [], sizes: [], isHidden: false
     });
+    const [sizeInput, setSizeInput] = useState('');
     const [uploading, setUploading] = useState(false);
     const queryClient = useQueryClient();
 
     const { data: products = [], isLoading } = useQuery({ queryKey: ['products', 'admin'], queryFn: () => getProducts({ admin: true }) });
     const { data: catData = [] } = useQuery({ queryKey: ['categories'], queryFn: getCategories });
     const CATEGORIES = catData.length > 0 ? catData.map(c => c.name) : FALLBACK_CATEGORIES;
+    const SIZE_CATEGORIES = ['Shoes', 'Slippers', 'Sandals', 'Shirts', 'Jackets', 'T-Shirts', 'Pants', 'Joggers', 'Socks', 'Apparel', 'Clothing'];
 
     const createMutation = useMutation({ mutationFn: createProduct, onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });
     const updateMutation = useMutation({ mutationFn: ({ id, data }) => updateProduct(id, data), onSuccess: () => { queryClient.invalidateQueries(['products']); closeModal(); } });
     const deleteMutation = useMutation({ mutationFn: deleteProduct, onSuccess: () => queryClient.invalidateQueries(['products']) });
     const toggleVisibility = useMutation({ mutationFn: ({ id, isHidden }) => updateProduct(id, { isHidden }), onSuccess: () => queryClient.invalidateQueries(['products']) });
 
-    const openCreate = () => { setEditingProduct(null); setFormData({ name: '', gender: 'Men', category: CATEGORIES[0] || 'Shoes', price: '', discountPrice: '', description: '', images: [], isHidden: false }); setIsModalOpen(true); };
-    const openEdit = (p) => { setEditingProduct(p); setFormData({ name: p.name, gender: p.gender, category: p.category, price: p.price.toString(), discountPrice: p.discountPrice?.toString() || '', description: p.description, images: p.images || [], isHidden: p.isHidden }); setIsModalOpen(true); };
+    const openCreate = () => { setEditingProduct(null); setFormData({ name: '', gender: 'Men', category: CATEGORIES[0] || 'Shoes', price: '', discountPrice: '', description: '', images: [], sizes: [], isHidden: false }); setSizeInput(''); setIsModalOpen(true); };
+    const openEdit = (p) => { setEditingProduct(p); setFormData({ name: p.name, gender: p.gender, category: p.category, price: p.price.toString(), discountPrice: p.discountPrice?.toString() || '', description: p.description, images: p.images || [], sizes: p.sizes || [], isHidden: p.isHidden }); setSizeInput(''); setIsModalOpen(true); };
     const closeModal = () => { setIsModalOpen(false); setEditingProduct(null); };
 
     const handleImageUpload = async (e) => {
@@ -61,6 +63,16 @@ const AdminProducts = () => {
         catch (err) { alert('Image upload failed'); }
         finally { setUploading(false); }
     };
+
+    const addSize = () => {
+        const s = sizeInput.trim().toUpperCase();
+        if (!s) return;
+        if (formData.sizes.includes(s)) { setSizeInput(''); return; }
+        setFormData(prev => ({ ...prev, sizes: [...prev.sizes, s] }));
+        setSizeInput('');
+    };
+
+    const removeSize = (s) => setFormData(prev => ({ ...prev, sizes: prev.sizes.filter(x => x !== s) }));
 
     const handleSubmit = () => {
         const data = { ...formData, price: Number(formData.price), discountPrice: formData.discountPrice ? Number(formData.discountPrice) : undefined };
@@ -318,6 +330,39 @@ const AdminProducts = () => {
                                     </select>
                                 </FieldGroup>
                             </div>
+
+                            {/* Sizes (Conditional) */}
+                            {SIZE_CATEGORIES.includes(formData.category) && (
+                                <FieldGroup label="Available Sizes">
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                            <input 
+                                                type="text" 
+                                                className="prod-input" 
+                                                style={{ flex: 1 }} 
+                                                value={sizeInput} 
+                                                onChange={e => setSizeInput(e.target.value)} 
+                                                placeholder="e.g. UK 8, XL, 42..."
+                                                onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addSize())}
+                                            />
+                                            <button 
+                                                type="button" 
+                                                onClick={addSize}
+                                                style={{ padding: '0 16px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#f4f4f5', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}
+                                            >Add</button>
+                                        </div>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                            {formData.sizes.map(s => (
+                                                <span key={s} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px', background: 'rgba(99,102,241,0.15)', color: '#818cf8', borderRadius: '8px', fontSize: '13px', fontWeight: 600, border: '1px solid rgba(99,102,241,0.2)' }}>
+                                                    {s}
+                                                    <button type="button" onClick={() => removeSize(s)} style={{ background: 'none', border: 'none', padding: 0, color: '#818cf8', cursor: 'pointer', display: 'flex' }}><X size={14} /></button>
+                                                </span>
+                                            ))}
+                                            {formData.sizes.length === 0 && <span style={{ fontSize: '13px', color: '#52525b', fontStyle: 'italic' }}>No sizes added yet</span>}
+                                        </div>
+                                    </div>
+                                </FieldGroup>
+                            )}
 
                             {/* Price */}
                             <div className="products-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
