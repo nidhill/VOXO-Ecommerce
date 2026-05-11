@@ -20,6 +20,7 @@ const AdminProducts = () => {
     const [editingProduct, setEditingProduct] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [filterCategory, setFilterCategory] = useState('');
+    const [filterStatus, setFilterStatus] = useState('');
     const [formData, setFormData] = useState({
         name: '', gender: 'Men', category: 'Shoes', price: '', discountPrice: '', description: '', images: [], isHidden: false
     });
@@ -71,8 +72,12 @@ const AdminProducts = () => {
     const filtered = products.filter(p => {
         const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchCat = !filterCategory || p.category === filterCategory;
-        return matchSearch && matchCat;
+        const matchStatus = !filterStatus || (filterStatus === 'active' ? !p.isHidden : p.isHidden);
+        return matchSearch && matchCat && matchStatus;
     });
+
+    const hiddenCount = products.filter(p => p.isHidden).length;
+    const activeCount = products.length - hiddenCount;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
@@ -165,6 +170,14 @@ const AdminProducts = () => {
                     >
                         <option value="">All Categories</option>
                         {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                    <select
+                        value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
+                        className="prod-select"
+                    >
+                        <option value="">All Status</option>
+                        <option value="active">✅ Active ({activeCount})</option>
+                        <option value="hidden">🚫 Hidden ({hiddenCount})</option>
                     </select>
                     <button onClick={openCreate} style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', border: 'none', borderRadius: '10px', padding: '12px 20px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap', transition: 'all 0.2s', boxShadow: '0 4px 12px rgba(99,102,241,0.2)' }}
                         onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
