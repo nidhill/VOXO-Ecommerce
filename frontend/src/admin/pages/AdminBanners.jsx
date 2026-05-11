@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Upload, Loader2, Save, Image as ImageIcon, Trash2, CheckCircle, Megaphone, ImagePlus } from 'lucide-react';
-import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages, getAnnouncementBar, updateAnnouncementBar } from '../api/settings';
+import { getHomepageBanners, updateHomepageBanners, getHeroImages, updateHeroImages, getAnnouncementBar, updateAnnouncementBar, getStoreAutomation, updateStoreAutomation } from '../api/settings';
 import { uploadImage } from '../api/products';
 
 // Proxy R2 URLs through backend to avoid CORS in admin preview
@@ -84,6 +84,7 @@ const AdminBanners = () => {
     const [heroUploading, setHeroUploading] = useState([false, false, false, false]);
     const [announcementText, setAnnouncementText] = useState('');
     const [announcementEnabled, setAnnouncementEnabled] = useState(true);
+    const [autoHideDays, setAutoHideDays] = useState(60);
     const [toast, setToast] = useState(null);
 
     const showToast = (msg, type = 'success') => {
@@ -94,6 +95,7 @@ const AdminBanners = () => {
     const { data: banners } = useQuery({ queryKey: ['homepage-banners'], queryFn: getHomepageBanners });
     const { data: heroConfig } = useQuery({ queryKey: ['hero-images'], queryFn: getHeroImages });
     const { data: announcementConfig } = useQuery({ queryKey: ['announcement-bar'], queryFn: getAnnouncementBar });
+    const { data: automationConfig } = useQuery({ queryKey: ['store-automation'], queryFn: getStoreAutomation });
 
     useEffect(() => {
         if (banners) setBannerForm({ men: banners.men || '', women: banners.women || '', lookbook: banners.lookbook || '' });
@@ -112,6 +114,12 @@ const AdminBanners = () => {
             setAnnouncementEnabled(announcementConfig.enabled !== false);
         }
     }, [announcementConfig]);
+
+    useEffect(() => {
+        if (automationConfig !== undefined) {
+            setAutoHideDays(automationConfig.autoHideDays);
+        }
+    }, [automationConfig]);
 
     const saveBannersMutation = useMutation({
         mutationFn: updateHomepageBanners,
@@ -136,6 +144,15 @@ const AdminBanners = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['announcement-bar'] });
             showToast('Announcement bar saved!');
+        },
+        onError: (err) => showToast(err?.response?.data?.message || 'Failed to save', 'error'),
+    });
+
+    const saveAutomationMutation = useMutation({
+        mutationFn: updateStoreAutomation,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['store-automation'] });
+            showToast('Automation settings saved!');
         },
         onError: (err) => showToast(err?.response?.data?.message || 'Failed to save', 'error'),
     });
@@ -269,6 +286,50 @@ const AdminBanners = () => {
                         />
                         <p style={{ fontSize: '12px', color: '#71717a', margin: '8px 0 0 0' }}>
                             This text appears in the top banner across all pages.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Store Automation */}
+            <div className="ban-section">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(234,179,8,0.1)', color: '#eab308', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <CheckCircle size={20} />
+                        </div>
+                        <h2 style={{ fontSize: '16px', fontWeight: 700, color: '#f4f4f5', margin: 0 }}>Store Automation</h2>
+                    </div>
+                    <button
+                        onClick={() => saveAutomationMutation.mutate({ autoHideDays })}
+                        disabled={saveAutomationMutation.isPending}
+                        style={saveBtnStyle(saveAutomationMutation.isPending)}
+                    >
+                        {saveAutomationMutation.isPending ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <Save size={16} />}
+                        Save Settings
+                    </button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '16px', padding: '20px' }}>
+                    <div>
+                        <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>
+                            Auto-Hide Products After (Days)
+                        </label>
+                        <input
+                            type="number"
+                            value={autoHideDays}
+                            onChange={(e) => setAutoHideDays(e.target.value)}
+                            placeholder="60"
+                            style={{
+                                width: '100%', maxWidth: '200px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '10px', padding: '12px 16px', color: '#f4f4f5',
+                                fontSize: '14px', outline: 'none', boxSizing: 'border-box', transition: 'border 0.2s'
+                            }}
+                            onFocus={e => e.target.style.borderColor = 'rgba(99,102,241,0.5)'}
+                            onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                        />
+                        <p style={{ fontSize: '12px', color: '#71717a', margin: '8px 0 0 0' }}>
+                            Set to 0 to disable. Products older than this will automatically be hidden from the storefront.
                         </p>
                     </div>
                 </div>

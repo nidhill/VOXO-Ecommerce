@@ -39,8 +39,18 @@ export const getHeroImages = async () => {
     }
 };
 
-export const updateHeroImages = async (payload) => {
-    const response = await api.put('/settings/hero-images', payload);
+export const updateHeroImages = async (data) => {
+    const response = await api.put('/settings/hero-images', data);
+    return response.data;
+};
+
+export const getStoreAutomation = async () => {
+    const response = await api.get('/settings/store-automation');
+    return response.data;
+};
+
+export const updateStoreAutomation = async (data) => {
+    const response = await api.put('/settings/store-automation', data);
     return response.data;
 };
 

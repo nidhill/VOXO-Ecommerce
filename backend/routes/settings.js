@@ -33,6 +33,7 @@ async function getOrCreateSettings() {
                 key: 'global',
                 homepageBanners: DEFAULT_BANNERS,
                 heroImages: DEFAULT_HERO_IMAGES,
+                storeAutomation: { autoHideDays: 60 },
             });
         }
         return settings;
@@ -171,6 +172,27 @@ router.put('/announcement-bar', adminAuth, async (req, res) => {
         await settings.save();
         res.set('Cache-Control', 'no-store');
         res.json({ text: settings.announcementBar.text, enabled: settings.announcementBar.enabled });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+router.get('/store-automation', async (req, res) => {
+    try {
+        const settings = await getOrCreateSettings();
+        res.json(settings.storeAutomation || { autoHideDays: 60 });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+router.put('/store-automation', adminAuth, async (req, res) => {
+    try {
+        const { autoHideDays } = req.body;
+        const settings = await getOrCreateSettings();
+        settings.storeAutomation = { autoHideDays: Number(autoHideDays) || 0 };
+        await settings.save();
+        res.json(settings.storeAutomation);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

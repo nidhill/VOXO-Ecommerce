@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Product = require('../models/Product');
+const SiteSettings = require('../models/SiteSettings');
 const { adminAuth } = require('../middleware/adminAuth');
 
 // @route   GET api/products
@@ -9,15 +10,20 @@ const { adminAuth } = require('../middleware/adminAuth');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        // Auto-hide products older than 60 days
-        const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
-        await Product.updateMany({
-            createdAt: { $lte: sixtyDaysAgo },
-            isHidden: false,
-            autoHiddenProcessed: { $ne: true }
-        }, {
-            $set: { isHidden: true, autoHiddenProcessed: true }
-        }).catch(err => console.error("Auto-hide failed:", err.message));
+        // Auto-hide products based on SiteSettings
+        const settings = await SiteSettings.findOne({ key: 'global' });
+        const autoHideDays = settings?.storeAutomation?.autoHideDays !== undefined ? settings.storeAutomation.autoHideDays : 60;
+        
+        if (autoHideDays > 0) {
+            const timeAgo = new Date(Date.now() - autoHideDays * 24 * 60 * 60 * 1000);
+            await Product.updateMany({
+                createdAt: { $lte: timeAgo },
+                isHidden: false,
+                autoHiddenProcessed: { $ne: true }
+            }, {
+                $set: { isHidden: true, autoHiddenProcessed: true }
+            }).catch(err => console.error("Auto-hide failed:", err.message));
+        }
 
         const { category, gender, search, admin } = req.query;
         let query = {};

@@ -18,6 +18,9 @@ const SiteSettingsSchema = new mongoose.Schema({
         text: { type: String, default: 'FREE SHIPPING ALL OVER INDIA ON ORDERS OVER ₹3000' },
         enabled: { type: Boolean, default: true },
     },
+    storeAutomation: {
+        autoHideDays: { type: Number, default: 60 }
+    },
     updatedAt: {
         type: Date,
         default: Date.now,
