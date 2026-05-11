@@ -28,7 +28,9 @@ const AdminDashboard = () => {
     const { data: storage, isLoading: storageLoading } = useQuery({ queryKey: ['storage'], queryFn: getStorageStats, retry: 1, refetchInterval: 60000 });
 
     const dbDisconnected = storage && !storageLoading && storage?.mongodb?.connected === false;
-    const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+    const totalRevenue = orders
+        .filter(o => o.status === 'Delivered')
+        .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
     const activeCoupons = coupons.filter(c => c.isActive && new Date(c.expiryDate) > new Date()).length;
 
     const categoryCount = {};

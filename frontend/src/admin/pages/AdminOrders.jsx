@@ -29,7 +29,9 @@ const AdminOrders = () => {
         return matchSearch && matchStatus;
     });
 
-    const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+    const totalRevenue = orders
+        .filter(o => o.status === 'Delivered')
+        .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
