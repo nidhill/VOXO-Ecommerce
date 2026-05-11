@@ -29,6 +29,7 @@ const useSmoothScroll = () => {
         });
 
         lenisRef.current = lenis;
+        window.lenis = lenis;
 
         // Bridge Lenis virtual scroll into GSAP ScrollTrigger so
         // scroll-triggered animations track the smoothed position.
@@ -46,6 +47,7 @@ const useSmoothScroll = () => {
             lenis.off('scroll', ScrollTrigger.update);
             lenis.destroy();
             lenisRef.current = null;
+            window.lenis = null;
         };
     }, [excluded]);
 };

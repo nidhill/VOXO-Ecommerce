@@ -14,12 +14,27 @@ const PolicyConsentModal = () => {
         if (user) {
             const hasConsented = localStorage.getItem(`wavway_consent_${user._id || user.id}`);
             if (!hasConsented) {
-                // Delay a bit for smooth entrance after login
                 const timer = setTimeout(() => setIsOpen(true), 1200);
                 return () => clearTimeout(timer);
             }
         }
     }, [user]);
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            // If using Lenis/Smooth Scroll, we might need to stop it
+            if (window.lenis) window.lenis.stop();
+        } else {
+            document.body.style.overflow = '';
+            if (window.lenis) window.lenis.start();
+        }
+        return () => {
+            document.body.style.overflow = '';
+            if (window.lenis) window.lenis.start();
+        };
+    }, [isOpen]);
 
     const handleAccept = () => {
         if (!accepted) return;
