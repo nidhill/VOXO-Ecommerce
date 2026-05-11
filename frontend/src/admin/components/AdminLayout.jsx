@@ -202,6 +202,36 @@ const AdminLayout = () => {
                     .a-mobile-header { display: flex; }
                     .a-main { height: calc(100vh - 60px); }
                 }
+
+                @media (max-width: 640px) {
+                    /* Fixes for pages with padding on root (Dashboard, Banners, Password) */
+                    .a-main-content > div[style*="padding"] { padding: 16px !important; }
+                    
+                    /* Universal fix for any inner body wrappers with inline padding */
+                    .a-main-content > div > div[style*="padding"] { padding: 16px !important; }
+                    
+                    /* Fixes for typical list pages (Products, Orders, Customers, etc) */
+                    .admin-header {
+                        padding: 16px !important;
+                        flex-direction: column !important;
+                        align-items: flex-start !important;
+                        gap: 16px !important;
+                        height: auto !important;
+                    }
+                    .admin-header > div:last-child {
+                        width: 100% !important;
+                        flex-wrap: wrap !important;
+                    }
+                    .admin-header input[type="text"] { width: 100% !important; }
+                    
+                    /* Expand search wrappers */
+                    .admin-header > div > div {
+                        flex: 1 !important;
+                        min-width: 150px !important;
+                        width: 100% !important;
+                    }
+                    .admin-body { padding: 16px !important; }
+                }
                 
                 /* Global Animations */
                 @keyframes fadeUp {

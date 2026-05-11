@@ -96,7 +96,7 @@ const AdminOrders = () => {
             `}</style>
             
             {/* Header */}
-            <header className="orders-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="orders-header" className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', color: '#f4f4f5' }}>Orders</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>{filtered.length} orders · ₹{totalRevenue.toLocaleString()} revenue</p>
@@ -116,7 +116,7 @@ const AdminOrders = () => {
             </header>
 
             {/* Table */}
-            <div className="orders-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="orders-body" className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '240px' }}>
                         <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />

@@ -258,7 +258,7 @@ const AdminCategories = () => {
             )}
 
             {/* Header */}
-            <header style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', background: 'linear-gradient(to right, #ffffff, #a1a1aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         Categories
@@ -269,7 +269,7 @@ const AdminCategories = () => {
                 </div>
             </header>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {/* Add new */}
                 <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', padding: '24px', marginBottom: '32px' }}>
                     <p style={{ fontSize: '14px', fontWeight: 600, color: '#d4d4d8', marginBottom: '16px' }}>Add New Category</p>

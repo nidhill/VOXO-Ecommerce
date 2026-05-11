@@ -89,7 +89,7 @@ const AdminChangePassword = () => {
             `}</style>
 
             {/* Header */}
-            <header style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>Change Password</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>Secure your admin account with a new password</p>

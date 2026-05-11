@@ -51,7 +51,7 @@ const AdminCustomers = () => {
             `}</style>
             
             {/* Header */}
-            <header style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', color: '#f4f4f5' }}>Customers</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>{users.length} registered customer{users.length !== 1 ? 's' : ''}</p>
@@ -69,7 +69,7 @@ const AdminCustomers = () => {
                 </div>
             </header>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {/* Stats Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
                     {[
