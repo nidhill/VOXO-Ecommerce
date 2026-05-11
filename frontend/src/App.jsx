@@ -13,6 +13,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import CookieConsent from './components/CookieConsent';
 import RegisterNudge from './components/RegisterNudge';
 import AnnouncementBar from './components/AnnouncementBar';
+import PolicyConsentModal from './components/PolicyConsentModal';
 import useSmoothScroll from './hooks/useSmoothScroll';
 
 const Layout = () => {
@@ -41,6 +42,7 @@ const Layout = () => {
       {!isAdminPage && <CookieConsent />}
       {!isAdminPage && <RegisterNudge />}
       <AuthModal />
+      <PolicyConsentModal />
     </>
   );
 };
