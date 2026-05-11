@@ -9,7 +9,7 @@ import useMeta from '../hooks/useMeta';
 import SkeletonProductDetail from '../components/skeletons/SkeletonProductDetail';
 import '../styles/product-details.css';
 
-const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999';
+const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919744811272';
 
 const ProductDetails = () => {
     const { id } = useParams();

@@ -2,7 +2,7 @@ import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import '../styles/floating-whatsapp.css';
 
-const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999';
+const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919744811272';
 const MESSAGE = 'Hi WAVWAY, I need help with shopping.';
 
 const FloatingWhatsApp = () => {
