@@ -9,6 +9,16 @@ const { adminAuth } = require('../middleware/adminAuth');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
+        // Auto-hide products older than 60 days
+        const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+        await Product.updateMany({
+            createdAt: { $lte: sixtyDaysAgo },
+            isHidden: false,
+            autoHiddenProcessed: { $ne: true }
+        }, {
+            $set: { isHidden: true, autoHiddenProcessed: true }
+        }).catch(err => console.error("Auto-hide failed:", err.message));
+
         const { category, gender, search, admin } = req.query;
         let query = {};
         if (admin !== 'true') {
