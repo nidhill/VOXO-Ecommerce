@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLocation, Link } from 'react-router-dom';
 import '../styles/policy-modal.css';
 
 const PolicyConsentModal = () => {
     const { user } = useAuth();
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [accepted, setAccepted] = useState(false);
 
     useEffect(() => {
-        if (user) {
+        // Only show if user is logged in AND on the home page
+        if (user && location.pathname === '/') {
             const hasConsented = localStorage.getItem(`wavway_consent_${user._id || user.id}`);
             if (!hasConsented) {
                 const timer = setTimeout(() => setIsOpen(true), 1200);
                 return () => clearTimeout(timer);
             }
         }
-    }, [user]);
+    }, [user, location.pathname]);
 
     // Lock body scroll when modal is open
     useEffect(() => {
