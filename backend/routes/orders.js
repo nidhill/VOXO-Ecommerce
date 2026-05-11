@@ -8,8 +8,7 @@ router.post('/', async (req, res) => {
     try {
         const newOrder = new Order(req.body);
         const order = await newOrder.save();
-        // Send order confirmation email (non-blocking)
-        if (order.email) sendOrderConfirmation(order).catch(console.error);
+        // DO NOT send email immediately. Wait for admin confirmation.
         res.json(order);
     } catch (err) {
         console.error(err.message);
@@ -64,7 +63,13 @@ router.put('/:id', async (req, res) => {
 
         // Send status update email if status changed
         if (req.body.status && prevOrder?.status !== req.body.status && order.email) {
-            sendOrderStatusUpdate(order).catch(console.error);
+            if (prevOrder.status === 'Incomplete' && req.body.status === 'Processing') {
+                // Admin confirmed the order -> Send initial order confirmation receipt
+                sendOrderConfirmation(order).catch(console.error);
+            } else {
+                // Subsequent status updates
+                sendOrderStatusUpdate(order).catch(console.error);
+            }
         }
         res.json(order);
     } catch (err) {
