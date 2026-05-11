@@ -105,7 +105,7 @@ const LookbookSection = () => {
                         color: '#111111',
                         fontWeight: 700,
                     }}>
-                        Urban
+                        Elevated
                         <br />
                         <span style={{
                             fontStyle: 'italic', fontWeight: 300,
@@ -127,7 +127,7 @@ const LookbookSection = () => {
                         color: '#333333', maxWidth: '340px',
                         marginBottom: '36px',
                     }}>
-                        Curated aesthetics for the modern minimalist. Discover pieces that define specific moments in time.
+                        Discover premium footwear, fashion, accessories, and genuine luxury fragrances in one destination.
                     </p>
 
                     <Link
