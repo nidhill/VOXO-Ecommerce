@@ -79,9 +79,10 @@ const Footer = () => {
                         <ul className="footer-link-list">
                             <li><Link to="/auth">Login / Register</Link></li>
                             <li><Link to="/orders">Track Order</Link></li>
-                            <li><Link to="/orders">My Orders</Link></li>
                             <li><Link to="/faq">FAQ</Link></li>
-                            <li><a href="https://wa.me/919744811272" target="_blank" rel="noopener noreferrer">Contact Us</a></li>
+                            <li><Link to="/return-refund">Return & Refund</Link></li>
+                            <li><Link to="/shipping-policy">Shipping Policy</Link></li>
+                            <li><Link to="/contact">Contact Us</Link></li>
                         </ul>
                     </div>
 
@@ -115,8 +116,10 @@ const Footer = () => {
                     <p className="footer-copyright">© {new Date().getFullYear()} Wavway. All rights reserved.</p>
                     <div className="footer-legal-links">
                         <Link to="/privacy-policy">Privacy Policy</Link>
-                        <Link to="/terms">Terms &amp; Conditions</Link>
-                        <Link to="/cookie-policy">Cookie Policy</Link>
+                        <Link to="/terms">Terms</Link>
+                        <Link to="/return-refund">Refund</Link>
+                        <Link to="/shipping-policy">Shipping</Link>
+                        <Link to="/cookie-policy">Cookie</Link>
                     </div>
                 </div>
 

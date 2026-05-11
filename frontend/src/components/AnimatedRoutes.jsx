@@ -14,6 +14,9 @@ import OrderTracking from '../pages/OrderTracking';
 import Profile from '../pages/Profile';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsAndConditions from '../pages/TermsAndConditions';
+import ReturnRefund from '../pages/ReturnRefund';
+import ShippingPolicy from '../pages/ShippingPolicy';
+import Contact from '../pages/Contact';
 import CookiePolicy from '../pages/CookiePolicy';
 import FAQ from '../pages/FAQ';
 import NotFound from '../pages/NotFound';
@@ -89,6 +92,9 @@ const AnimatedRoutes = () => {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms" element={<TermsAndConditions />} />
+                    <Route path="/return-refund" element={<ReturnRefund />} />
+                    <Route path="/shipping-policy" element={<ShippingPolicy />} />
+                    <Route path="/contact" element={<Contact />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="*" element={<NotFound />} />
