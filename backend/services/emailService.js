@@ -385,6 +385,38 @@ const sendPromoEmail = async ({ name, email, couponCode, discount, expiryDate })
     });
 };
 
+// ─── 6. Newsletter Subscription Confirmation ───────────────────────────────
+const sendNewsletterSubscriptionEmail = async (email) => {
+    const resend = getResendClient();
+    if (!resend) return;
+    return resend.emails.send({
+        from: `${BRAND} <${FROM}>`,
+        to: email,
+        subject: `Welcome to the WAVWAY Inner Circle! 🖤`,
+        html: base(`
+          <h1>You're In! 🖤</h1>
+          <p>Thank you for subscribing to the WAVWAY newsletter. You're now part of an exclusive circle that gets first access to our premium drops, style guides, and member-only offers.</p>
+
+          <div class="highlight-box" style="background:#fafafa; border-color:#e4e4e7; margin:32px 0;">
+            <p style="margin:0; font-weight:700; color:#0a0a0a; font-size:16px;">What to expect:</p>
+            <ul style="margin:12px 0 0; padding-left:20px; font-size:14px; color:#3f3f46; line-height:1.8;">
+              <li>Early access to new footwear & apparel drops</li>
+              <li>Exclusive discount codes and flash sales</li>
+              <li>Style inspiration and "Elevated Essentials" guides</li>
+              <li>Behind-the-scenes look at our Digital Atelier</li>
+            </ul>
+          </div>
+
+          <p style="margin-bottom:24px;">To celebrate your arrival, we're already preparing something special for your next visit.</p>
+          
+          <a href="${BRAND_URL}" class="btn">Explore Collections →</a>
+
+          <div class="divider"></div>
+          <p style="font-size:12px; color:#71717a;">You received this because you subscribed to our newsletter at wavway.in. If you didn't mean to, you can unsubscribe at any time.</p>
+        `)
+    });
+};
+
 module.exports = {
     sendOtpEmail,
     sendWelcomeEmail,
@@ -392,4 +424,5 @@ module.exports = {
     sendOrderStatusUpdate,
     sendPasswordResetEmail,
     sendPromoEmail,
+    sendNewsletterSubscriptionEmail,
 };
