@@ -1,17 +1,19 @@
 import api from './axios';
 
-export const getCategories = async () => {
-    const response = await api.get('/categories');
+export const getCategories = async (gender) => {
+    const params = {};
+    if (gender) params.gender = gender;
+    const response = await api.get('/categories', { params });
     return response.data;
 };
 
-export const createCategory = async (name) => {
-    const response = await api.post('/categories', { name });
+export const createCategory = async ({ name, gender }) => {
+    const response = await api.post('/categories', { name, gender });
     return response.data;
 };
 
-export const editCategory = async (id, name) => {
-    const response = await api.put(`/categories/${id}`, { name });
+export const editCategory = async (id, name, gender) => {
+    const response = await api.put(`/categories/${id}`, { name, gender });
     return response.data;
 };
 

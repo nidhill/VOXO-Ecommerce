@@ -6,11 +6,14 @@ import { Plus, Trash2, Tag, Loader2, AlertCircle, CheckCircle2, Search, Edit2, X
 
 const AdminCategories = () => {
     const [newCat, setNewCat] = useState('');
+    const [newGender, setNewGender] = useState('Both');
     const [searchQuery, setSearchQuery] = useState('');
+    const [filterGender, setFilterGender] = useState('');
     const [toast, setToast] = useState(null);
     const [deleteModal, setDeleteModal] = useState(null);
     const [editModal, setEditModal] = useState(null);
     const [editName, setEditName] = useState('');
+    const [editGender, setEditGender] = useState('Both');
     const queryClient = useQueryClient();
 
     const { data: categories = [], isLoading } = useQuery({
@@ -33,6 +36,7 @@ const AdminCategories = () => {
         onSuccess: () => {
             queryClient.invalidateQueries(['categories']);
             setNewCat('');
+            setNewGender('Both');
             showToast('Category added successfully!');
         },
         onError: (err) => {
@@ -41,7 +45,7 @@ const AdminCategories = () => {
     });
 
     const editMutation = useMutation({
-        mutationFn: ({ id, name }) => editCategory(id, name),
+        mutationFn: ({ id, name, gender }) => editCategory(id, name, gender),
         onSuccess: () => {
             queryClient.invalidateQueries(['categories']);
             setEditModal(null);
@@ -65,26 +69,28 @@ const AdminCategories = () => {
     const handleAdd = () => {
         const trimmed = newCat.trim();
         if (!trimmed) return;
-        if (categories.some(c => c.name.toLowerCase() === trimmed.toLowerCase())) {
-            showToast('Category already exists', 'error');
+        if (categories.some(c => c.name.toLowerCase() === trimmed.toLowerCase() && c.gender === newGender)) {
+            showToast('Category already exists for this gender', 'error');
             return;
         }
-        addMutation.mutate(trimmed);
+        addMutation.mutate({ name: trimmed, gender: newGender });
     };
 
     const handleEditSubmit = () => {
         const trimmed = editName.trim();
         if (!trimmed || !editModal) return;
-        if (categories.some(c => c.name.toLowerCase() === trimmed.toLowerCase() && c._id !== editModal._id)) {
-            showToast('Category already exists', 'error');
+        if (categories.some(c => c.name.toLowerCase() === trimmed.toLowerCase() && c.gender === editGender && c._id !== editModal._id)) {
+            showToast('Category already exists for this gender', 'error');
             return;
         }
-        editMutation.mutate({ id: editModal._id, name: trimmed });
+        editMutation.mutate({ id: editModal._id, name: trimmed, gender: editGender });
     };
 
-    const filteredCategories = categories.filter(c => 
-        c.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredCategories = categories.filter(c => {
+        const matchSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchGender = !filterGender || c.gender === filterGender;
+        return matchSearch && matchGender;
+    });
 
     const getProductCount = (categoryName) => {
         return products.filter(p => p.category?.toLowerCase() === categoryName.toLowerCase()).length;
@@ -236,7 +242,7 @@ const AdminCategories = () => {
                             <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0, color: '#f4f4f5' }}>Edit Category</h3>
                             <button onClick={() => setEditModal(null)} style={{ background: 'none', border: 'none', color: '#a1a1aa', cursor: 'pointer' }}><X size={20} /></button>
                         </div>
-                        <div style={{ marginBottom: '24px' }}>
+                        <div style={{ marginBottom: '20px' }}>
                             <label style={{ display: 'block', fontSize: '13px', color: '#a1a1aa', marginBottom: '8px', fontWeight: 500 }}>Category Name</label>
                             <input 
                                 type="text" className="cat-input" style={{ width: '100%', boxSizing: 'border-box' }}
@@ -244,6 +250,18 @@ const AdminCategories = () => {
                                 onKeyDown={e => e.key === 'Enter' && handleEditSubmit()}
                                 autoFocus
                             />
+                        </div>
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{ display: 'block', fontSize: '13px', color: '#a1a1aa', marginBottom: '8px', fontWeight: 500 }}>Gender</label>
+                            <select
+                                value={editGender}
+                                onChange={e => setEditGender(e.target.value)}
+                                style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#f4f4f5', fontSize: '14px', outline: 'none', cursor: 'pointer', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                            >
+                                <option value="Both" style={{ background: '#12121a' }}>Both</option>
+                                <option value="Men" style={{ background: '#12121a' }}>Men</option>
+                                <option value="Women" style={{ background: '#12121a' }}>Women</option>
+                            </select>
                         </div>
                         <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
                             <button 
@@ -280,16 +298,30 @@ const AdminCategories = () => {
                 {/* Add new */}
                 <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', padding: '24px', marginBottom: '32px' }}>
                     <p style={{ fontSize: '14px', fontWeight: 600, color: '#d4d4d8', marginBottom: '16px' }}>Add New Category</p>
-                    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                        <input
-                            className="cat-input"
-                            type="text"
-                            value={newCat}
-                            onChange={e => setNewCat(e.target.value)}
-                            placeholder="e.g. Accessories"
-                            onKeyDown={e => e.key === 'Enter' && handleAdd()}
-                            style={{ minWidth: '250px' }}
-                        />
+                    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+                        <div style={{ flex: 1, minWidth: '200px' }}>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#71717a', marginBottom: '6px' }}>Category Name</label>
+                            <input
+                                className="cat-input"
+                                type="text"
+                                value={newCat}
+                                onChange={e => setNewCat(e.target.value)}
+                                placeholder="e.g. Accessories"
+                                onKeyDown={e => e.key === 'Enter' && handleAdd()}
+                            />
+                        </div>
+                        <div style={{ minWidth: '140px' }}>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#71717a', marginBottom: '6px' }}>Gender</label>
+                            <select
+                                value={newGender}
+                                onChange={e => setNewGender(e.target.value)}
+                                style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#f4f4f5', fontSize: '14px', outline: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                            >
+                                <option value="Both" style={{ background: '#12121a' }}>Both</option>
+                                <option value="Men" style={{ background: '#12121a' }}>Men</option>
+                                <option value="Women" style={{ background: '#12121a' }}>Women</option>
+                            </select>
+                        </div>
                         <button className="cat-add-btn" onClick={handleAdd} disabled={addMutation.isPending || !newCat.trim()}>
                             {addMutation.isPending ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <Plus size={16} />}
                             Create Category
@@ -301,19 +333,30 @@ const AdminCategories = () => {
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
                         <p style={{ fontSize: '16px', fontWeight: 700, color: '#f4f4f5', margin: 0 }}>
-                            All Categories <span style={{ fontSize: '13px', fontWeight: 500, color: '#71717a', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '20px', marginLeft: '8px' }}>{categories.length}</span>
+                            All Categories <span style={{ fontSize: '13px', fontWeight: 500, color: '#71717a', background: 'rgba(255,255,255,0.05)', padding: '2px 8px', borderRadius: '20px', marginLeft: '8px' }}>{filteredCategories.length}</span>
                         </p>
-                        <div style={{ position: 'relative' }}>
-                            <Search size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#71717a' }} />
-                            <input 
-                                type="text" 
-                                className="cat-input" 
-                                placeholder="Search categories..." 
-                                value={searchQuery}
-                                onChange={e => setSearchQuery(e.target.value)}
-                                style={{ paddingLeft: '40px', paddingRight: '16px', width: '260px', boxSizing: 'border-box' }}
-                            className="cat-input cat-search-input"
-                            />
+                        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+                            <select
+                                value={filterGender}
+                                onChange={e => setFilterGender(e.target.value)}
+                                style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#f4f4f5', fontSize: '13px', outline: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                            >
+                                <option value="" style={{ background: '#12121a' }}>All Genders</option>
+                                <option value="Men" style={{ background: '#12121a' }}>Men</option>
+                                <option value="Women" style={{ background: '#12121a' }}>Women</option>
+                                <option value="Both" style={{ background: '#12121a' }}>Both</option>
+                            </select>
+                            <div style={{ position: 'relative' }}>
+                                <Search size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#71717a' }} />
+                                <input 
+                                    type="text" 
+                                    placeholder="Search categories..." 
+                                    value={searchQuery}
+                                    onChange={e => setSearchQuery(e.target.value)}
+                                    style={{ paddingLeft: '40px', paddingRight: '16px', width: '260px', boxSizing: 'border-box' }}
+                                    className="cat-input cat-search-input"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -354,14 +397,21 @@ const AdminCategories = () => {
                                         </div>
                                         
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '4px' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#a1a1aa', background: 'rgba(255,255,255,0.03)', padding: '4px 10px', borderRadius: '20px' }}>
-                                                <Package size={12} />
-                                                {count} product{count !== 1 ? 's' : ''}
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <span style={{
+                                                    fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '20px',
+                                                    background: cat.gender === 'Men' ? 'rgba(99,102,241,0.15)' : cat.gender === 'Women' ? 'rgba(236,72,153,0.15)' : 'rgba(251,191,36,0.15)',
+                                                    color: cat.gender === 'Men' ? '#818cf8' : cat.gender === 'Women' ? '#f472b6' : '#fbbf24',
+                                                }}>{cat.gender || 'Both'}</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#a1a1aa', background: 'rgba(255,255,255,0.03)', padding: '4px 10px', borderRadius: '20px' }}>
+                                                    <Package size={12} />
+                                                    {count} product{count !== 1 ? 's' : ''}
+                                                </div>
                                             </div>
                                             <div style={{ display: 'flex', gap: '6px' }}>
                                                 <button 
                                                     className="cat-btn edit" 
-                                                    onClick={() => { setEditName(cat.name); setEditModal(cat); }}
+                                                    onClick={() => { setEditName(cat.name); setEditGender(cat.gender || 'Both'); setEditModal(cat); }}
                                                     title="Edit Category"
                                                 >
                                                     <Edit2 size={15} />

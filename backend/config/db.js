@@ -13,6 +13,25 @@ const connectDB = async () => {
         });
 
         console.log('MongoDB Connected...');
+
+        // Migration: drop old unique index on name if it exists (replaced by name+gender compound)
+        try {
+            const db = mongoose.connection.db;
+            const categoryCol = db.collection('categories');
+            const indexes = await categoryCol.indexes();
+            const oldIndex = indexes.find(i => i.name === 'name_1' && i.unique);
+            if (oldIndex) {
+                await categoryCol.dropIndex('name_1');
+                console.log('Dropped old name_1 unique index on categories');
+            }
+            // Set gender='Both' for any categories missing it
+            await categoryCol.updateMany(
+                { gender: { $exists: false } },
+                { $set: { gender: 'Both' } }
+            );
+        } catch (migrationErr) {
+            console.warn('Category index migration skipped:', migrationErr.message);
+        }
     } catch (err) {
         console.error(`MongoDB connection failed: ${err.message}`);
 

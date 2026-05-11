@@ -9,10 +9,15 @@ const mongoose = require('mongoose');
 
 // ── Categories ─────────────────────────────────────────────────────────────────
 
-// GET all categories
+// GET all categories (optional ?gender=Men or ?gender=Women)
 router.get('/', async (req, res) => {
     try {
-        const categories = await Category.find({}).sort({ name: 1 });
+        const filter = {};
+        if (req.query.gender) {
+            // Return categories matching the gender OR 'Both'
+            filter.gender = { $in: [req.query.gender, 'Both'] };
+        }
+        const categories = await Category.find(filter).sort({ name: 1 });
         res.json(categories);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -22,11 +27,12 @@ router.get('/', async (req, res) => {
 // POST create category
 router.post('/', adminAuth, async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, gender } = req.body;
         if (!name || !name.trim()) return res.status(400).json({ message: 'Category name is required' });
-        const existing = await Category.findOne({ name: name.trim() });
-        if (existing) return res.status(409).json({ message: 'Category already exists' });
-        const category = await Category.create({ name: name.trim() });
+        const catGender = ['Men', 'Women', 'Both'].includes(gender) ? gender : 'Both';
+        const existing = await Category.findOne({ name: name.trim(), gender: catGender });
+        if (existing) return res.status(409).json({ message: `Category already exists for ${catGender}` });
+        const category = await Category.create({ name: name.trim(), gender: catGender });
         res.status(201).json(category);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -36,15 +42,23 @@ router.post('/', adminAuth, async (req, res) => {
 // PUT edit category
 router.put('/:id', adminAuth, async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, gender } = req.body;
         if (!name || !name.trim()) return res.status(400).json({ message: 'Category name is required' });
+        const catGender = ['Men', 'Women', 'Both'].includes(gender) ? gender : undefined;
         
-        const existing = await Category.findOne({ name: name.trim(), _id: { $ne: req.params.id } });
-        if (existing) return res.status(409).json({ message: 'Category already exists' });
+        const updateData = { name: name.trim() };
+        if (catGender) updateData.gender = catGender;
+
+        const existing = await Category.findOne({ 
+            name: name.trim(), 
+            gender: catGender || 'Both',
+            _id: { $ne: req.params.id } 
+        });
+        if (existing) return res.status(409).json({ message: 'Category already exists for this gender' });
         
         const category = await Category.findByIdAndUpdate(
             req.params.id, 
-            { name: name.trim() },
+            updateData,
             { new: true }
         );
         res.json(category);
