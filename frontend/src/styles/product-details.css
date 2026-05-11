@@ -337,6 +337,26 @@
     letter-spacing: 1px;
     color: #111;
 }
+.pd-size-guide-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+    margin-left: auto;
+    margin-right: 12px;
+}
+.pd-size-guide-link:hover {
+    color: #111;
+}
 .pd-size-error-msg {
     font-size: 11px;
     font-weight: 600;

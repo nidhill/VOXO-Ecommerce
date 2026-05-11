@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import SizeGuide from '../components/product/SizeGuide';
 
 import { pageTransition } from '../utils/animations';
-import { ChevronLeft, ChevronRight, ShoppingBag, MessageCircle, Shield, RotateCcw, Truck, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingBag, MessageCircle, Shield, RotateCcw, Truck, ArrowLeft, Ruler } from 'lucide-react';
 import useMeta from '../hooks/useMeta';
 import SkeletonProductDetail from '../components/skeletons/SkeletonProductDetail';
 import '../styles/product-details.css';
@@ -21,6 +22,7 @@ const ProductDetails = () => {
     const [selectedIdx, setSelectedIdx] = useState(0);
     const [selectedSize, setSelectedSize] = useState('');
     const [sizeError, setSizeError] = useState(false);
+    const [showSizeGuide, setShowSizeGuide] = useState(false);
     const [added, setAdded] = useState(false);
 
     useMeta(
@@ -192,6 +194,13 @@ const ProductDetails = () => {
                         <div className={`pd-size-selector ${sizeError ? 'pd-size-error' : ''}`}>
                             <div className="pd-size-header">
                                 <span className="pd-size-label">Select Size</span>
+                                <button 
+                                    className="pd-size-guide-link" 
+                                    onClick={() => setShowSizeGuide(true)}
+                                    type="button"
+                                >
+                                    <Ruler size={14} /> Size Guide
+                                </button>
                                 {sizeError && <span className="pd-size-error-msg">Please select a size</span>}
                             </div>
                             <div className="pd-sizes">
@@ -250,6 +259,12 @@ const ProductDetails = () => {
 
                 </motion.div>
             </div>
+
+            <SizeGuide 
+                isOpen={showSizeGuide} 
+                onClose={() => setShowSizeGuide(false)} 
+                category={product.category}
+            />
         </motion.div>
     );
 };
