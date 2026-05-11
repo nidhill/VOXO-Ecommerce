@@ -5,12 +5,28 @@ const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const loadEnv = require('./config/loadEnv');
+const cron = require('node-cron');
+const axios = require('axios');
 
 // Load environment variables
 loadEnv();
 
 // Connect to Database
 connectDB();
+
+// ── Keep-Alive: Prevent Render Sleep ──────────────────────────────────────────
+const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 5001}`;
+
+// Cron job runs every 10 minutes (*/10 * * * *)
+cron.schedule('*/10 * * * *', async () => {
+    try {
+        console.log(`[Keep-Alive] Pinging health endpoint: ${BACKEND_URL}/api/health`);
+        await axios.get(`${BACKEND_URL}/api/health`);
+        console.log('[Keep-Alive] Success');
+    } catch (error) {
+        console.error('[Keep-Alive] Error:', error.message);
+    }
+});
 
 const app = express();
 
