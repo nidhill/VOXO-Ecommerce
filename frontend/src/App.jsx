@@ -3,6 +3,7 @@ import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { OrderProvider } from './context/OrderContext';
 import { AuthProvider } from './context/AuthContext';
+import { Analytics } from '@vercel/analytics/react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -61,6 +62,7 @@ function App() {
           <CartProvider>
             <Router>
               <Layout />
+              <Analytics />
             </Router>
           </CartProvider>
         </OrderProvider>
