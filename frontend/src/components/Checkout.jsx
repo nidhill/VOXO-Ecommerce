@@ -10,7 +10,7 @@ import '../styles/checkout.css';
 import '../styles/checkout-mobile-enhancements.css';
 import '../styles/mobile-responsive-fixes.css';
 
-const ADMIN_WHATSAPP = import.meta.env.VITE_WHATSAPP_NUMBER || '919744811272';
+const ADMIN_WHATSAPP = '919744811272';
 
 const WhatsAppIcon = () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
