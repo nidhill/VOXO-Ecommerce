@@ -74,10 +74,17 @@ const AdminCoupons = () => {
                     animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
                 }
+                @media (max-width: 768px) {
+                    .coup-header { padding: 16px !important; flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .coup-body { padding: 16px !important; }
+                    .coup-grid { grid-template-columns: 1fr !important; }
+                    .modal-overlay { padding: 12px; }
+                    .modal-content { border-radius: 16px; }
+                }
             `}</style>
             
             {/* Header */}
-            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header coup-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', color: '#f4f4f5' }}>Coupons</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>{coupons.length} total · <span style={{ color: '#34d399' }}>{activeCoupons} active</span></p>
@@ -91,7 +98,7 @@ const AdminCoupons = () => {
             </header>
 
             {/* Content */}
-            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body coup-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '240px' }}>
                         <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />
@@ -105,7 +112,7 @@ const AdminCoupons = () => {
                         <p style={{ color: '#71717a', fontSize: '14px', margin: 0 }}>Create discount codes to boost sales.</p>
                     </div>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+                    <div className="coup-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
                         {coupons.map(coupon => {
                             const expired = isExpired(coupon.expiryDate);
                             return (

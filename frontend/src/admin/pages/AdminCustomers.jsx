@@ -27,7 +27,7 @@ const AdminCustomers = () => {
                 .cust-input { 
                     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); 
                     border-radius: 10px; padding: 12px 16px; color: #f4f4f5; 
-                    font-size: 14px; outline: none; transition: all 0.2s; 
+                    font-size: 14px; outline: none; transition: all 0.2s; box-sizing: border-box;
                 }
                 .cust-input:focus { 
                     border-color: rgba(99,102,241,0.5); 
@@ -48,16 +48,24 @@ const AdminCustomers = () => {
                     background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1);
                     transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
                 }
+                @media (max-width: 768px) {
+                    .cust-header { padding: 16px !important; flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .cust-header .cust-search-wrap { width: 100% !important; }
+                    .cust-header .cust-search-wrap input { width: 100% !important; }
+                    .cust-body { padding: 16px !important; }
+                    .cust-stat-card { padding: 16px; }
+                    .cust-stat-card p:first-of-type { font-size: 24px !important; }
+                }
             `}</style>
             
             {/* Header */}
-            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header cust-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', color: '#f4f4f5' }}>Customers</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>{users.length} registered customer{users.length !== 1 ? 's' : ''}</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{ position: 'relative' }}>
+                <div className="cust-search-wrap" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ position: 'relative', width: '100%' }}>
                         <Search size={16} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#71717a' }} />
                         <input
                             type="text" placeholder="Search by name, email, phone..."
@@ -69,7 +77,7 @@ const AdminCustomers = () => {
                 </div>
             </header>
 
-            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body cust-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {/* Stats Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
                     {[
@@ -90,7 +98,7 @@ const AdminCustomers = () => {
                 </div>
 
                 {/* Table */}
-                <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', overflowX: 'auto' }}>
+                <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
                     {isLoading ? (
                         <div style={{ padding: '80px', textAlign: 'center', color: '#71717a', fontSize: '14px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                             <div style={{ width: '32px', height: '32px', border: '3px solid rgba(255,255,255,0.1)', borderTopColor: '#6366f1', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
@@ -106,7 +114,7 @@ const AdminCustomers = () => {
                             <p style={{ fontSize: '14px', margin: 0 }}>{search ? 'Try adjusting your search term' : 'No registered users yet'}</p>
                         </div>
                     ) : (
-                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                        <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left' }}>
                             <thead>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                                     {['Customer', 'Email Address', 'Phone Number', 'Joined Date'].map(h => (

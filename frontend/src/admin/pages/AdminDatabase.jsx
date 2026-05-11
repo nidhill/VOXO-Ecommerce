@@ -50,10 +50,14 @@ const AdminDatabase = () => {
                 @keyframes pulseGlowErr { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); } 50% { box-shadow: 0 0 0 4px rgba(239,68,68,0); } }
                 .db-row { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
                 .db-row:hover { background: rgba(255,255,255,0.02); }
+                @media (max-width: 768px) {
+                    .db-header { padding: 16px !important; flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .db-body { padding: 16px !important; }
+                }
             `}</style>
 
             {/* Header */}
-            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header db-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>Database</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>
@@ -72,7 +76,7 @@ const AdminDatabase = () => {
                 </button>
             </header>
 
-            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="admin-body db-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '300px', gap: '16px', color: '#71717a' }}>
                         <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />

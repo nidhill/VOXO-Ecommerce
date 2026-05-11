@@ -86,10 +86,15 @@ const AdminChangePassword = () => {
                     transition: all 0.2s; 
                 }
                 .otp-input:focus { border-color: #6366f1; border-style: solid; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); background: rgba(99,102,241,0.02); }
+                @media (max-width: 768px) {
+                    .cp-header { padding: 16px !important; }
+                    .cp-body { padding: 16px !important; }
+                    .cp-card { padding: 32px 20px !important; }
+                }
             `}</style>
 
             {/* Header */}
-            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <header className="admin-header cp-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, color: '#f4f4f5', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>Change Password</h1>
                     <p style={{ fontSize: '14px', color: '#71717a', margin: 0 }}>Secure your admin account with a new password</p>
@@ -99,7 +104,7 @@ const AdminChangePassword = () => {
                 </div>
             </header>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <div className="cp-body" style={{ flex: 1, overflowY: 'auto', padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
                 <div style={{ width: '100%', maxWidth: '480px', animation: 'fadeIn 0.3s ease' }}>
 
                     {/* Done state */}

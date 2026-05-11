@@ -93,6 +93,17 @@ const AdminOrders = () => {
                     animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
                 }
+                @media (max-width: 768px) {
+                    .orders-header { padding: 16px !important; flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .orders-controls { width: 100% !important; flex-wrap: wrap !important; }
+                    .orders-search { flex: 1 !important; min-width: 0 !important; }
+                    .orders-search input { width: 100% !important; }
+                    .orders-controls select { flex: 1 !important; min-width: 120px !important; }
+                    .orders-body { padding: 16px !important; }
+                    .modal-overlay { padding: 12px; }
+                    .modal-content { border-radius: 16px; }
+                    .ord-modal-grid { grid-template-columns: 1fr !important; }
+                }
             `}</style>
             
             {/* Header */}
@@ -195,7 +206,7 @@ const AdminOrders = () => {
                             ><X size={18} /></button>
                         </div>
                         <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', background: 'rgba(255,255,255,0.02)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                            <div className="ord-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', background: 'rgba(255,255,255,0.02)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.04)' }}>
                                 <InfoBlock label="Customer" value={viewingOrder.customerName} />
                                 <InfoBlock label="Phone" value={viewingOrder.phone || '—'} />
                                 <InfoBlock label="Amount" value={`₹${viewingOrder.totalAmount?.toLocaleString()}`} />

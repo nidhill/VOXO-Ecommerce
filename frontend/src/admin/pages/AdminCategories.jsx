@@ -165,14 +165,21 @@ const AdminCategories = () => {
                 .modal-overlay {
                     position: fixed; inset: 0; background: rgba(0,0,0,0.6);
                     backdrop-filter: blur(4px); z-index: 100;
-                    display: flex; items-center; justify-content: center;
-                    animation: fadeIn 0.2s ease;
+                    display: flex; align-items: center; justify-content: center;
+                    animation: fadeIn 0.2s ease; padding: 16px;
                 }
                 .modal-content {
                     background: #12121a; border: 1px solid rgba(255,255,255,0.08);
                     border-radius: 20px; padding: 24px; width: 100%; max-width: 400px;
                     animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+                }
+                @media (max-width: 768px) {
+                    .cat-header { padding: 16px !important; }
+                    .cat-body { padding: 16px !important; }
+                    .cat-search-input { width: 100% !important; }
+                    .cat-grid { grid-template-columns: 1fr !important; }
+                    .modal-content { border-radius: 16px; margin: 0 8px; }
                 }
             `}</style>
 
@@ -258,7 +265,7 @@ const AdminCategories = () => {
             )}
 
             {/* Header */}
-            <header className="admin-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            <header className="admin-header cat-header" style={{ padding: '32px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 4px 0', letterSpacing: '-0.02em', background: 'linear-gradient(to right, #ffffff, #a1a1aa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         Categories
@@ -269,7 +276,7 @@ const AdminCategories = () => {
                 </div>
             </header>
 
-            <div className="admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body cat-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
                 {/* Add new */}
                 <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', padding: '24px', marginBottom: '32px' }}>
                     <p style={{ fontSize: '14px', fontWeight: 600, color: '#d4d4d8', marginBottom: '16px' }}>Add New Category</p>
@@ -304,7 +311,8 @@ const AdminCategories = () => {
                                 placeholder="Search categories..." 
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
-                                style={{ paddingLeft: '40px', paddingRight: '16px', width: '260px' }}
+                                style={{ paddingLeft: '40px', paddingRight: '16px', width: '260px', boxSizing: 'border-box' }}
+                            className="cat-input cat-search-input"
                             />
                         </div>
                     </div>
@@ -326,7 +334,7 @@ const AdminCategories = () => {
                             No categories found matching "{searchQuery}"
                         </div>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                        <div className="cat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
                             {filteredCategories.map(cat => {
                                 const count = getProductCount(cat.name);
                                 const slug = cat.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');

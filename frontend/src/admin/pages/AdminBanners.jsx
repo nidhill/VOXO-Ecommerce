@@ -206,11 +206,13 @@ const AdminBanners = () => {
     });
 
     return (
-        <div style={{ height: '100%', overflowY: 'auto', padding: '32px 40px', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', display: 'flex', flexDirection: 'column' }}>
+        <div className="ban-root" style={{ height: '100%', overflowY: 'auto', padding: '32px 40px', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', display: 'flex', flexDirection: 'column' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @media (max-width: 768px) {
                     .ban-grid { grid-template-columns: 1fr !important; }
+                    .ban-root { padding: 16px !important; }
+                    .ban-section { padding: 16px !important; }
                 }
                 .ban-section {
                     background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
