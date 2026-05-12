@@ -72,7 +72,7 @@ const AdminForgotPassword = () => {
                 .afp-btn {
                     width: 100%; padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
                     color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
-                    cursor: pointer; transition: all 0.2s; display: flex; alignItems: center; justifyContent: center; gap: 8px;
+                    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
                     box-shadow: 0 4px 12px rgba(99,102,241,0.2);
                 }
                 .afp-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
