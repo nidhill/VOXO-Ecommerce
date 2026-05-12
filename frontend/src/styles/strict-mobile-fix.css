@@ -20,18 +20,17 @@ html, body {
 }
 
 /* Fix for containers that often cause horizontal overflow */
-.container, 
-.admin-main, 
-.admin-body, 
-.a-main-content, 
-.modal-content, 
+.container,
+.admin-main,
+.admin-body,
+.a-main-content,
+.modal-content,
 .mobile-menu,
 .bag-page {
     width: 100% !important;
     max-width: 100% !important;
     overflow-x: hidden !important;
     box-sizing: border-box;
-    overscroll-behavior: contain;
 }
 
 /* Ensure images and videos are always contained */

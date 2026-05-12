@@ -19,6 +19,9 @@ const useSmoothScroll = () => {
         const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         if (excluded || isTouch) {
             document.documentElement.classList.remove('lenis');
+            // Ensure Lenis doesn't leave overflow: hidden behind when navigating to excluded routes
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
             return;
         }
 

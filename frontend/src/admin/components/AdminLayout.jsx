@@ -48,6 +48,12 @@ const AdminLayout = () => {
     const closeSidebar = () => setSidebarOpen(false);
 
     React.useEffect(() => {
+        // Reset any overflow: hidden that Lenis may have left on html/body
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.overflowX = 'hidden';
+    }, []);
+
+    React.useEffect(() => {
         if (sidebarOpen && window.innerWidth <= 1024) {
             document.body.style.overflow = 'hidden';
         } else {
