@@ -63,13 +63,12 @@ const AdminLayout = () => {
                 
                 /* Globals */
                 .a-shell {
-                    display: flex; height: 100vh;
+                    display: flex; min-height: 100vh;
                     width: 100%;
                     background: #0a0a0f;
                     font-family: 'Inter', system-ui, sans-serif;
                     color: #f4f4f5;
                     position: relative;
-                    overflow: hidden;
                 }
                 
                 /* Scrollbar */
@@ -84,8 +83,8 @@ const AdminLayout = () => {
                     background: rgba(255,255,255,0.02);
                     border-right: 1px solid rgba(255,255,255,0.06);
                     display: flex; flex-direction: column;
-                    height: 100%; z-index: 100;
-                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+                    height: 100vh; z-index: 100;
+                    position: sticky; top: 0;
                     visibility: visible;
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
@@ -170,17 +169,16 @@ const AdminLayout = () => {
                 .a-logout-btn:hover svg { color: #f87171; }
                 
                 /* ── Main ── */
-                .a-main { flex: 1; height: 100%; overflow: hidden; background: #0a0a0f; position: relative; display: flex; flex-direction: column; }
+                .a-main { flex: 1; min-height: 100vh; background: #0a0a0f; position: relative; display: flex; flex-direction: column; }
                 .a-main::before {
                     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 300px;
                     background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
                     pointer-events: none; z-index: 0;
                 }
                 .a-main-content {
-                    flex: 1; overflow-y: auto; position: relative; z-index: 1;
-                    height: 100%;
+                    flex: 1; position: relative; z-index: 1;
+                    width: 100%;
                     -webkit-overflow-scrolling: touch;
-                    will-change: transform;
                 }
                 @media (max-width: 768px) {
                     .a-main-content { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
