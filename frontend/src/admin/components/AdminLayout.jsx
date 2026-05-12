@@ -43,16 +43,20 @@ const AdminLayout = () => {
     const { logout } = useAdminAuth();
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const touchStartX = React.useRef(null);
+    const touchStartY = React.useRef(null);
 
     const handleLogout = () => { logout(); navigate('/admin/login'); };
     const closeSidebar = () => setSidebarOpen(false);
+    const openSidebar = () => setSidebarOpen(true);
 
+    // Reset any overflow Lenis may have left behind
     React.useEffect(() => {
-        // Reset any overflow: hidden that Lenis may have left on html/body
         document.documentElement.style.overflow = '';
         document.documentElement.style.overflowX = 'hidden';
     }, []);
 
+    // Lock body scroll when sidebar is open on mobile
     React.useEffect(() => {
         if (sidebarOpen && window.innerWidth <= 1024) {
             document.body.style.overflow = 'hidden';
@@ -60,6 +64,32 @@ const AdminLayout = () => {
             document.body.style.overflow = '';
         }
         return () => { document.body.style.overflow = ''; };
+    }, [sidebarOpen]);
+
+    // Swipe-to-open from left edge / swipe-to-close
+    React.useEffect(() => {
+        const onTouchStart = (e) => {
+            touchStartX.current = e.touches[0].clientX;
+            touchStartY.current = e.touches[0].clientY;
+        };
+        const onTouchEnd = (e) => {
+            if (touchStartX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchStartX.current;
+            const dy = Math.abs(e.changedTouches[0].clientY - touchStartY.current);
+            // Only treat as horizontal swipe if it's more horizontal than vertical
+            if (dy > Math.abs(dx)) { touchStartX.current = null; return; }
+            // Swipe right from left edge (≤40px) → open sidebar
+            if (dx > 60 && touchStartX.current <= 40 && !sidebarOpen) openSidebar();
+            // Swipe left while sidebar open → close sidebar
+            if (dx < -60 && sidebarOpen) closeSidebar();
+            touchStartX.current = null;
+        };
+        document.addEventListener('touchstart', onTouchStart, { passive: true });
+        document.addEventListener('touchend', onTouchEnd, { passive: true });
+        return () => {
+            document.removeEventListener('touchstart', onTouchStart);
+            document.removeEventListener('touchend', onTouchEnd);
+        };
     }, [sidebarOpen]);
 
     return (
@@ -202,14 +232,23 @@ const AdminLayout = () => {
                 }
                 .a-mobile-menu-btn {
                     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-                    cursor: pointer; color: #f4f4f5; padding: 8px; border-radius: 10px;
-                    display: flex; transition: background 0.2s;
+                    cursor: pointer; color: #f4f4f5;
+                    width: 44px; height: 44px;
+                    display: flex; align-items: center; justify-content: center;
+                    border-radius: 10px; transition: background 0.15s;
+                    touch-action: manipulation; /* removes 300ms tap delay */
+                    -webkit-tap-highlight-color: transparent;
+                    flex-shrink: 0;
                 }
-                .a-mobile-menu-btn:hover { background: rgba(255,255,255,0.1); }
+                .a-mobile-menu-btn:hover,
+                .a-mobile-menu-btn:active { background: rgba(255,255,255,0.12); }
                 .a-overlay {
                     display: none; position: fixed; inset: 0;
                     background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 99;
                     opacity: 0; transition: opacity 0.3s;
+                    touch-action: manipulation;
+                    -webkit-tap-highlight-color: transparent;
+                    cursor: pointer;
                 }
                 
                 @media (max-width: 1024px) {
@@ -224,8 +263,10 @@ const AdminLayout = () => {
                         position: fixed; left: 0; top: 0;
                         height: 100vh; z-index: 100;
                         transform: translateX(-100%);
-                        background: #0f0f13; /* Solid for mobile */
+                        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
+                        background: #0f0f13;
                         visibility: hidden;
+                        will-change: transform;
                     }
                     .a-sidebar.open { transform: translateX(0); visibility: visible; }
                     .a-sidebar-close { display: flex; }
