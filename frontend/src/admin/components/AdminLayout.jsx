@@ -73,10 +73,11 @@ const AdminLayout = () => {
                     background: rgba(255,255,255,0.02);
                     border-right: 1px solid rgba(255,255,255,0.06);
                     display: flex; flex-direction: column;
-                    height: 100%; z-index: 10;
-                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    backdrop-filter: blur(20px);
-                    -webkit-backdrop-filter: blur(20px);
+                    height: 100%; z-index: 100;
+                    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+                    visibility: visible;
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
                 }
                 .a-sidebar-header {
                     height: 72px;
@@ -165,7 +166,8 @@ const AdminLayout = () => {
                     pointer-events: none; z-index: 0;
                 }
                 .a-main-content {
-                    height: 100%; overflow-y: auto; position: relative; z-index: 1;
+                    flex: 1; overflow-y: auto; position: relative; z-index: 1;
+                    height: 100%;
                     -webkit-overflow-scrolling: touch;
                     will-change: transform;
                 }
@@ -200,8 +202,9 @@ const AdminLayout = () => {
                         height: 100vh; z-index: 100;
                         transform: translateX(-100%);
                         background: #0f0f13; /* Solid for mobile */
+                        visibility: hidden;
                     }
-                    .a-sidebar.open { transform: translateX(0); }
+                    .a-sidebar.open { transform: translateX(0); visibility: visible; }
                     .a-sidebar-close { display: flex; }
                     .a-overlay.visible { display: block; opacity: 1; }
                     .a-mobile-header { display: flex; }
