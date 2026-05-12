@@ -15,7 +15,7 @@ const COOKIE_OPTIONS = {
 };
 
 const signAdminToken = (id) =>
-    jwt.sign({ id, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '8h' });
+    jwt.sign({ id, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
 // ── POST /api/admin-auth/login ────────────────────────────────────────────────
 router.post('/login', async (req, res) => {
@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
 
         const token = signAdminToken(admin._id);
-        res.cookie('adminToken', token, { ...COOKIE_OPTIONS, maxAge: 8 * 60 * 60 * 1000 });
+        res.cookie('adminToken', token, { ...COOKIE_OPTIONS, maxAge: 3 * 24 * 60 * 60 * 1000 });
         res.json({ success: true, admin: { id: admin._id, email: admin.email, name: admin.name } });
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -156,7 +156,7 @@ router.post('/change-password', requireAdminJwt, async (req, res) => {
 
         // 4. Rotate cookie
         const token = signAdminToken(admin._id);
-        res.cookie('adminToken', token, { ...COOKIE_OPTIONS, maxAge: 8 * 60 * 60 * 1000 });
+        res.cookie('adminToken', token, { ...COOKIE_OPTIONS, maxAge: 3 * 24 * 60 * 60 * 1000 });
 
         res.json({ success: true, message: 'Password changed successfully.' });
     } catch (err) {
