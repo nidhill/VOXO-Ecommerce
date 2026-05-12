@@ -206,7 +206,7 @@ const AdminBanners = () => {
     });
 
     return (
-        <div className="ban-root" style={{ height: '100%', overflowY: 'auto', padding: '32px 40px', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', display: 'flex', flexDirection: 'column' }}>
+        <div className="ban-root" style={{ minHeight: '100%', padding: '32px 40px', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', display: 'flex', flexDirection: 'column' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @media (max-width: 768px) {

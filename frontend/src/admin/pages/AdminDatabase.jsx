@@ -43,7 +43,7 @@ const AdminDatabase = () => {
     });
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 50% { box-shadow: 0 0 0 4px rgba(34,197,94,0); } }
@@ -76,7 +76,7 @@ const AdminDatabase = () => {
                 </button>
             </header>
 
-            <div className="admin-body db-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="admin-body db-body" style={{ padding: '32px 40px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '300px', gap: '16px', color: '#71717a' }}>
                         <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />

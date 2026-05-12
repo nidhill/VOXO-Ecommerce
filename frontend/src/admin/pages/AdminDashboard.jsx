@@ -60,7 +60,7 @@ const AdminDashboard = () => {
         <div style={styles.page} className="dash-page">
             <style>{`
                 .dash-page { 
-                    height: 100%; overflow-y: auto; padding: 32px 40px; 
+                    padding: 32px 40px; 
                     background: transparent; color: #f4f4f5; 
                 }
                 .dash-grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px; }
@@ -291,6 +291,7 @@ const AdminDashboard = () => {
 };
 
 const styles = {
+    page: { display: 'flex', flexDirection: 'column', minHeight: '100%' },
     header: { marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' },
     h1: { fontSize: '28px', fontWeight: 800, color: '#fff', margin: '0 0 6px 0', letterSpacing: '-0.02em' },
     sub: { fontSize: '14px', color: '#a1a1aa', margin: 0 },

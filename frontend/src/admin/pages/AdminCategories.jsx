@@ -100,7 +100,7 @@ const AdminCategories = () => {
         <div className="cat-page">
             <style>{`
                 .cat-page { 
-                    display: flex; flex-direction: column; height: 100%; 
+                    display: flex; flex-direction: column; min-height: 100%; 
                     font-family: 'Inter', system-ui, sans-serif; 
                     background: transparent; color: #f4f4f5; 
                 }
@@ -294,7 +294,7 @@ const AdminCategories = () => {
                 </div>
             </header>
 
-            <div className="admin-body cat-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body cat-body" style={{ padding: '32px 40px' }}>
                 {/* Add new */}
                 <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', padding: '24px', marginBottom: '32px' }}>
                     <p style={{ fontSize: '14px', fontWeight: 600, color: '#d4d4d8', marginBottom: '16px' }}>Add New Category</p>

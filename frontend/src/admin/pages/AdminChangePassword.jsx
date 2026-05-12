@@ -51,7 +51,7 @@ const AdminChangePassword = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } }
                 @keyframes fadeIn { from { opacity:0;transform:translateY(8px);} to {opacity:1;transform:translateY(0);} }
@@ -116,7 +116,7 @@ const AdminChangePassword = () => {
                 </div>
             </header>
 
-            <div className="cp-body" style={{ flex: 1, overflowY: 'auto', padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <div className="cp-body" style={{ padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
                 <div style={{ width: '100%', maxWidth: '480px', animation: 'fadeIn 0.3s ease' }}>
 
                     {/* Done state */}

@@ -32,7 +32,7 @@ const AdminSubscribers = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
             <style>{`
                 @keyframes spin { to { transform: rotate(360deg); } } 
                 @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -111,7 +111,7 @@ const AdminSubscribers = () => {
                 </div>
             </header>
 
-            <div className="admin-body sub-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body sub-body" style={{ padding: '32px 40px' }}>
                 {/* Stats */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
                     {[
