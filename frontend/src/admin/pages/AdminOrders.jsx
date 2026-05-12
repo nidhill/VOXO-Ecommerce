@@ -34,7 +34,7 @@ const AdminOrders = () => {
         .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
             <style>{`
                 @media (max-width: 640px) {
                     .orders-header { padding: 16px !important; flex-wrap: wrap !important; gap: 10px !important; }
@@ -127,7 +127,7 @@ const AdminOrders = () => {
             </header>
 
             {/* Table */}
-            <div className="orders-body admin-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="orders-body admin-body" style={{ padding: '32px 40px' }}>
                 {isLoading ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '240px' }}>
                         <Loader2 size={32} color="#6366f1" style={{ animation: 'spin 1s linear infinite' }} />

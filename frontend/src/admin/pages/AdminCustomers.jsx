@@ -22,7 +22,7 @@ const AdminCustomers = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%', position: 'relative', fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent' }}>
             <style>{`
                 .cust-input { 
                     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); 
@@ -77,7 +77,7 @@ const AdminCustomers = () => {
                 </div>
             </header>
 
-            <div className="admin-body cust-body" style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+            <div className="admin-body cust-body" style={{ padding: '32px 40px' }}>
                 {/* Stats Row */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
                     {[

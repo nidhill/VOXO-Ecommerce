@@ -166,6 +166,11 @@ const AdminLayout = () => {
                 }
                 .a-main-content {
                     height: 100%; overflow-y: auto; position: relative; z-index: 1;
+                    -webkit-overflow-scrolling: touch;
+                    will-change: transform;
+                }
+                @media (max-width: 768px) {
+                    .a-main-content { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
                 }
                 
                 /* ── Mobile header ── */
