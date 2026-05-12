@@ -128,7 +128,7 @@ const SECTIONS = [
         title: 'Product Authenticity Statement',
         content: (
             <>
-                <p>All <strong>perfumes</strong> sold on Wavway are <strong>100% authentic and genuine</strong> products sourced from trusted suppliers.</p>
+
                 <p>Fashion items including footwear, clothing, wallets, sandals, and similar accessories are <strong>premium Vietnam and Chinese quality products</strong> inspired by popular international designs and styles. These items are not claimed to be officially manufactured, licensed, or authorized by the original global brands unless explicitly stated.</p>
                 <p>Brand names mentioned on the website are used only for descriptive and style reference purposes where applicable.</p>
             </>

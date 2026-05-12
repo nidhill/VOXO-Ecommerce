@@ -43,7 +43,7 @@ const SECTIONS = [
         title: 'Product Authenticity',
         content: (
             <>
-                <p>All perfumes sold on Wavway are 100% authentic and genuine products.</p>
+
                 <p>
                     Fashion products including footwear, clothing, wallets, sandals, and accessories are premium Vietnam 
                     and Chinese quality products inspired by international fashion trends and styles. Unless explicitly 

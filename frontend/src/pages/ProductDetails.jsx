@@ -248,14 +248,10 @@ const ProductDetails = () => {
                             <Truck size={14} />
                             <span>Free Delivery</span>
                         </div>
-                        <div className="pd-trust-item">
+                        <Link to="/return-refund" className="pd-trust-item">
                             <RotateCcw size={14} />
                             <span>Easy Returns</span>
-                        </div>
-                        <div className="pd-trust-item">
-                            <Shield size={14} />
-                            <span>100% Authentic</span>
-                        </div>
+                        </Link>
                     </div>
 
                 </motion.div>

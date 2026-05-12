@@ -14,15 +14,7 @@ const TesterAdvantageSection = () => (
                     </p>
                 </div>
                 <div className="ta-features">
-                    <div className="ta-feature">
-                        <div className="ta-icon-wrap">
-                            <ShieldCheck size={20} />
-                        </div>
-                        <div className="ta-feat-info">
-                            <h4>100% Authentic</h4>
-                            <p>Guaranteed genuine designer fragrance liquid.</p>
-                        </div>
-                    </div>
+
                     <div className="ta-feature">
                         <div className="ta-icon-wrap">
                             <Award size={20} />
