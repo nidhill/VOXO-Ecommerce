@@ -23,13 +23,20 @@ html, body {
 .container,
 .admin-main,
 .admin-body,
-.a-main-content,
 .modal-content,
 .mobile-menu,
 .bag-page {
     width: 100% !important;
     max-width: 100% !important;
     overflow-x: hidden !important;
+    box-sizing: border-box;
+}
+
+/* Use clip instead of hidden so overflow-y stays visible (avoids accidental scroll container) */
+.a-main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
     box-sizing: border-box;
 }
 
