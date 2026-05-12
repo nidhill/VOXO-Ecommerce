@@ -169,6 +169,7 @@
     transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     padding: 72px clamp(20px, 5vw, 32px) 40px;
 }
 .mobile-menu.active { left: 0; }
@@ -580,10 +581,10 @@
         gap: 4px;
     }
 
-    /* Hide user/profile icon on mobile */
+    /* Show user/profile icon on mobile */
     .nav-profile-wrap,
-    .navbar-right > .nav-icon:not(.cart-btn) {
-        display: none;
+    .navbar-right > .nav-icon {
+        display: flex;
     }
 
     /* Keep search + cart visible */
@@ -982,4 +983,108 @@
     .search-overlay-inner {
         padding: 0 20px;
     }
+}
+
+/* ── Mobile Menu Auth Section ── */
+.mobile-auth-header {
+    background: #f9f9f8;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.mobile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.mobile-user-avatar {
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111111;
+    border: 1px solid #eeeeee;
+}
+
+.mobile-user-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.mobile-user-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mobile-user-email {
+    font-size: 12px;
+    color: #888888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mobile-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eeeeee;
+}
+
+.mobile-user-action-link {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #555555;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.mobile-user-action-link.logout {
+    color: #e74c3c;
+}
+
+.mobile-action-sep {
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.mobile-auth-login-nudge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #111111;
+    color: #ffffff !important;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.mobile-auth-login-nudge span {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.mobile-nav-divider {
+    height: 1px;
+    background: #eeeeee;
+    margin: 16px 0;
 }

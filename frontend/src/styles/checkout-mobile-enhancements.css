@@ -18,18 +18,22 @@
 
     /* ── Navbar ── */
     .bag-nav {
-        background: #111111 !important;
-        border-bottom: none !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #e8e8e8 !important;
         padding: 16px 20px !important;
     }
 
-    .bag-nav-logo {
-        color: #ffffff !important;
+    .bag-nav-brand,
+    .bag-nav-right,
+    .bag-nav-cart-icon,
+    .bag-nav-user,
+    .bag-nav-login {
+        color: #111111 !important;
     }
 
-    .bag-nav-count {
-        background: #ffffff !important;
-        color: #111111 !important;
+    .bag-nav-cart-dot {
+        background: #111111 !important;
+        color: #ffffff !important;
     }
 
     .bag-nav-steps {

@@ -450,7 +450,7 @@ const Navbar = () => {
             />
 
             {/* ===== Mobile Menu Drawer ===== */}
-            <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+            <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} data-lenis-prevent>
                 <button className="mobile-menu-close" onClick={closeMobileMenu} aria-label="Close menu">
                     <X size={24} />
                 </button>
@@ -468,6 +468,32 @@ const Navbar = () => {
 
                 {/* Mobile Nav Links */}
                 <nav className="mobile-nav-links">
+                    {user ? (
+                        <div className="mobile-auth-header">
+                            <div className="mobile-user-info">
+                                <div className="mobile-user-avatar">
+                                    <User size={20} />
+                                </div>
+                                <div className="mobile-user-text">
+                                    <span className="mobile-user-name">{user.name}</span>
+                                    <span className="mobile-user-email">{user.email}</span>
+                                </div>
+                            </div>
+                            <div className="mobile-user-actions">
+                                <Link to="/profile" className="mobile-user-action-link" onClick={closeMobileMenu}>Account</Link>
+                                <span className="mobile-action-sep">/</span>
+                                <button className="mobile-user-action-link logout" onClick={() => { logout(); navigate('/'); closeMobileMenu(); }}>Sign Out</button>
+                            </div>
+                        </div>
+                    ) : (
+                        <Link to="/auth" className="mobile-auth-login-nudge" onClick={closeMobileMenu}>
+                            <User size={18} />
+                            <span>Sign In / Create Account</span>
+                        </Link>
+                    )}
+
+                    <div className="mobile-nav-divider" />
+
                     <Link to="/" className="mobile-nav-link" onClick={closeMobileMenu}>Home</Link>
                     <Link to="/collections/all" className="mobile-nav-link" onClick={closeMobileMenu}>All Products</Link>
 
