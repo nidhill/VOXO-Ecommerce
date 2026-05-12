@@ -7,10 +7,10 @@ html, body {
     padding: 0;
     overflow-x: hidden !important;
     position: relative;
-    /* touch-action: manipulation allows native gestures like swiping while preventing double-tap zoom lag */
     touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: none; /* Prevent rubber-banding on top/bottom if desired, but let's keep it for now */
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: none;
 }
 
 #root {

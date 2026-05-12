@@ -71,6 +71,8 @@ const AdminLayout = () => {
                 .a-shell {
                     display: flex; min-height: 100vh;
                     width: 100%;
+                    max-width: 100vw;
+                    overflow-x: hidden;
                     background: #0a0a0f;
                     font-family: 'Inter', system-ui, sans-serif;
                     color: #f4f4f5;
@@ -175,7 +177,7 @@ const AdminLayout = () => {
                 .a-logout-btn:hover svg { color: #f87171; }
                 
                 /* ── Main ── */
-                .a-main { flex: 1; min-height: 100vh; background: #0a0a0f; position: relative; display: flex; flex-direction: column; }
+                .a-main { flex: 1; min-height: 100vh; background: #0a0a0f; position: relative; display: flex; flex-direction: column; min-width: 0; overflow-x: hidden; }
                 .a-main::before {
                     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 300px;
                     background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
@@ -183,7 +185,7 @@ const AdminLayout = () => {
                 }
                 .a-main-content {
                     flex: 1; position: relative; z-index: 1;
-                    width: 100%;
+                    width: 100%; min-width: 0; overflow-x: hidden;
                     -webkit-overflow-scrolling: touch;
                 }
                 @media (max-width: 768px) {
