@@ -10,7 +10,7 @@ const TesterAdvantageSection = () => (
                     <span className="ta-eyebrow">Our Philosophy</span>
                     <h2 className="ta-title">The Tester Advantage</h2>
                     <p className="ta-text">
-                        "We believe luxury is about the essence, not the packaging. Our fragrances are 100% genuine, authentic designer tester perfumes. They contain the exact same original liquid you would find in a luxury boutique. The only difference? They are supplied without the commercial retail box or cap. This allows us to provide you with uncompromising, authentic scents at a truly accessible price point."
+                        "We believe luxury is about the essence, not the packaging. Our fragrances are 100% genuine, authentic designer tester perfumes. They contain the exact same original liquid you would find in a luxury boutique. The only difference? They are supplied without the commercial retail box. This allows us to provide you with uncompromising, authentic scents at a truly accessible price point."
                     </p>
                 </div>
                 <div className="ta-features">
