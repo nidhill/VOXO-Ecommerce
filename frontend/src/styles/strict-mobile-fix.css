@@ -1,34 +1,46 @@
-/* Strict Mobile Scrolling & Sliding Fix */
+/* Strict Mobile Scrolling & Sliding Fix - Version 2 */
+
+/* Prevent horizontal overflow at the highest levels */
 html, body {
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden !important;
     position: relative;
-    touch-action: pan-y pinch-zoom; /* Disable horizontal swiping/sliding */
+    /* touch-action: manipulation allows native gestures like swiping while preventing double-tap zoom lag */
+    touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none; /* Prevent rubber-banding on top/bottom if desired, but let's keep it for now */
 }
 
 #root {
     width: 100%;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* Fix for containers that might still cause horizontal overflow */
-.container, .admin-main, .admin-body, .a-main-content, .modal-content, .mobile-menu {
-    max-width: 100vw !important;
+/* Fix for containers that often cause horizontal overflow */
+.container, 
+.admin-main, 
+.admin-body, 
+.a-main-content, 
+.modal-content, 
+.mobile-menu,
+.bag-page {
+    width: 100% !important;
+    max-width: 100% !important;
     overflow-x: hidden !important;
     box-sizing: border-box;
-    overscroll-behavior: contain; /* Prevent scroll chaining to body */
+    overscroll-behavior: contain;
 }
 
-/* Ensure images don't break layout */
-img {
-    max-width: 100%;
-    height: auto;
+/* Ensure images and videos are always contained */
+img, video {
+    max-width: 100% !important;
+    height: auto !important;
 }
 
-/* Fix for tables which are the #1 cause of horizontal sliding */
+/* Table mobile scrolling - ensures tables don't break the layout width */
 table {
     display: block;
     width: 100%;
@@ -36,9 +48,16 @@ table {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Prevent unwanted transitions during resize/scroll */
+/* Force everything to box-sizing: border-box to prevent padding from increasing width */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Fix for negative margins which are common culprits for horizontal sliding */
 @media (max-width: 768px) {
-    .navbar, .a-sidebar {
-        will-change: transform;
+    .row, .grid, [class*="grid-"], [class*="col-"] {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
     }
 }

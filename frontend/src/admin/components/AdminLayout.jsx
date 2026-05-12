@@ -55,10 +55,12 @@ const AdminLayout = () => {
                 /* Globals */
                 .a-shell {
                     display: flex; height: 100vh;
+                    width: 100%;
                     background: #0a0a0f; /* Deep dark background */
                     font-family: 'Inter', system-ui, sans-serif;
                     overflow: hidden;
                     color: #f4f4f5;
+                    position: relative;
                 }
                 
                 /* Scrollbar */
@@ -196,7 +198,14 @@ const AdminLayout = () => {
                 }
                 
                 @media (max-width: 1024px) {
-                    .a-shell { flex-direction: column; }
+                    .a-shell { 
+                        flex-direction: column; 
+                        height: 100dvh; 
+                        position: fixed; 
+                        top: 0; 
+                        left: 0; 
+                        width: 100%;
+                    }
                     .a-sidebar {
                         position: fixed; left: 0; top: 0;
                         height: 100vh; z-index: 100;
