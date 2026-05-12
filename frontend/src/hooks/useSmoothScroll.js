@@ -16,7 +16,11 @@ const useSmoothScroll = () => {
         location.pathname === '/orders';
 
     useEffect(() => {
-        if (excluded) return;
+        const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (excluded || isTouch) {
+            document.documentElement.classList.remove('lenis');
+            return;
+        }
 
         const lenis = new Lenis({
             duration: 1.4,
@@ -48,6 +52,7 @@ const useSmoothScroll = () => {
             lenis.destroy();
             lenisRef.current = null;
             window.lenis = null;
+            document.documentElement.classList.remove('lenis');
         };
     }, [excluded]);
 };

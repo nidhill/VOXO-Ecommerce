@@ -19,6 +19,9 @@ const PolicyConsentModal = () => {
                 const timer = setTimeout(() => setIsOpen(true), 1200);
                 return () => clearTimeout(timer);
             }
+        } else {
+            // Close if we navigate away from home
+            setIsOpen(false);
         }
     }, [user, location.pathname]);
 
