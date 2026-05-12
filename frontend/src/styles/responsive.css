@@ -56,9 +56,11 @@
    ──────────────────────────────────────────────────────────────────────────────── */
 
 /* Fix for Chrome on Android - prevent text selection artifacts */
+/* Allow native browser behavior and prevent accidental side-sliding on the body */
 body {
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
+    -webkit-user-select: auto;
+    -webkit-touch-callout: default;
+    overflow-x: hidden;
 }
 
 /* Allow text selection on actual text elements */
