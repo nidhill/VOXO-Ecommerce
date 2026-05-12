@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const AdminUser = require('../models/AdminUser');
 const Otp = require('../models/Otp');
-const { sendOtpEmail } = require('../services/emailService');
+const { sendOtpEmail, sendAdminChangePasswordOtp } = require('../services/emailService');
 
 const isProd = process.env.NODE_ENV === 'production' || process.env.RENDER || process.env.VERCEL || (process.env.FRONTEND_URL && !process.env.FRONTEND_URL.includes('localhost'));
 
@@ -121,7 +121,7 @@ router.post('/send-change-otp', requireAdminJwt, async (req, res) => {
         if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
         const otp = await Otp.createOtp(`admin-change:${admin.email}`);
-        await sendOtpEmail({ name: admin.name || 'Admin', email: admin.email, otp });
+        await sendAdminChangePasswordOtp({ name: admin.name || 'Admin', email: admin.email, otp });
 
         res.json({ message: 'OTP sent to your registered email.' });
     } catch (err) {

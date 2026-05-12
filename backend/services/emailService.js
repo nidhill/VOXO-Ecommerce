@@ -417,6 +417,40 @@ const sendNewsletterSubscriptionEmail = async (email) => {
     });
 };
 
+// ─── 7. Admin Password Change OTP ───────────────────────────────────────────
+const sendAdminChangePasswordOtp = async ({ name, email, otp }) => {
+    const resend = getResendClient();
+    if (!resend) {
+        console.log(`[DEV] Admin change-password OTP for ${email}: ${otp}`);
+        return;
+    }
+    return resend.emails.send({
+        from: `${BRAND} <${FROM}>`,
+        to: email,
+        subject: `${otp} — Admin password change verification`,
+        html: base(`
+          <h1 style="margin-bottom:6px;">Password Change Request 🔐</h1>
+          <p>Hi <strong>${name}</strong>, someone (hopefully you) requested a password change for the <strong>Wavway Admin</strong> account. Use the code below to confirm.</p>
+
+          <div style="margin:36px auto;text-align:center;">
+            <div style="display:inline-block;background:#0a0a0a;border-radius:16px;padding:28px 48px;">
+              <p style="color:rgba(255,255,255,0.5);font-size:11px;text-transform:uppercase;letter-spacing:0.2em;margin:0 0 14px;">Verification Code</p>
+              <div style="font-size:48px;font-weight:800;letter-spacing:14px;color:#ffffff;font-family:'Courier New',monospace;line-height:1;">${otp}</div>
+              <p style="color:rgba(255,255,255,0.35);font-size:12px;margin:14px 0 0;">Valid for 10 minutes only</p>
+            </div>
+          </div>
+
+          <div class="highlight-box" style="background:#fee2e2;border-color:#fca5a5;margin-bottom:24px;">
+            <p style="margin:0;font-size:13px;color:#991b1b;font-weight:600;">🚨 Didn't request this?</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#b91c1c;">If you did not initiate this password change, your admin account may be compromised. Contact your system administrator immediately.</p>
+          </div>
+
+          <div class="divider"></div>
+          <p style="font-size:13px;color:#71717a;margin:0;">This code was requested from the Wavway Admin dashboard. Do not share it with anyone.</p>
+        `)
+    });
+};
+
 module.exports = {
     sendOtpEmail,
     sendWelcomeEmail,
@@ -425,4 +459,5 @@ module.exports = {
     sendPasswordResetEmail,
     sendPromoEmail,
     sendNewsletterSubscriptionEmail,
+    sendAdminChangePasswordOtp,
 };
