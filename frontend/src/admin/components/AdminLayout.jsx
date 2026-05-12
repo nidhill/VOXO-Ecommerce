@@ -47,6 +47,15 @@ const AdminLayout = () => {
     const handleLogout = () => { logout(); navigate('/admin/login'); };
     const closeSidebar = () => setSidebarOpen(false);
 
+    React.useEffect(() => {
+        if (sidebarOpen && window.innerWidth <= 1024) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [sidebarOpen]);
+
     return (
         <div className="a-shell">
             <style>{`
@@ -54,11 +63,10 @@ const AdminLayout = () => {
                 
                 /* Globals */
                 .a-shell {
-                    display: flex; height: 100vh;
+                    display: flex; min-height: 100vh;
                     width: 100%;
                     background: #0a0a0f; /* Deep dark background */
                     font-family: 'Inter', system-ui, sans-serif;
-                    overflow: hidden;
                     color: #f4f4f5;
                     position: relative;
                 }
@@ -200,10 +208,9 @@ const AdminLayout = () => {
                 @media (max-width: 1024px) {
                     .a-shell { 
                         flex-direction: column; 
-                        height: 100dvh; 
-                        position: fixed; 
-                        top: 0; 
-                        left: 0; 
+                        min-height: 100vh;
+                        height: auto;
+                        position: relative;
                         width: 100%;
                     }
                     .a-sidebar {
@@ -217,7 +224,8 @@ const AdminLayout = () => {
                     .a-sidebar-close { display: flex; }
                     .a-overlay.visible { display: block; opacity: 1; }
                     .a-mobile-header { display: flex; }
-                    .a-main { height: calc(100vh - 60px); }
+                    .a-main { height: auto; min-height: calc(100vh - 60px); overflow: visible; }
+                    .a-main-content { height: auto; overflow: visible; }
                 }
 
                 @media (max-width: 640px) {
