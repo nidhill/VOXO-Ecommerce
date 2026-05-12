@@ -63,12 +63,13 @@ const AdminLayout = () => {
                 
                 /* Globals */
                 .a-shell {
-                    display: flex; min-height: 100vh;
+                    display: flex; height: 100vh;
                     width: 100%;
-                    background: #0a0a0f; /* Deep dark background */
+                    background: #0a0a0f;
                     font-family: 'Inter', system-ui, sans-serif;
                     color: #f4f4f5;
                     position: relative;
+                    overflow: hidden;
                 }
                 
                 /* Scrollbar */
