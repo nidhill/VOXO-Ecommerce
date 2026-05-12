@@ -170,7 +170,7 @@ const AdminLayout = () => {
                 .a-logout-btn:hover svg { color: #f87171; }
                 
                 /* ── Main ── */
-                .a-main { flex: 1; height: 100%; overflow: hidden; background: #0a0a0f; position: relative; }
+                .a-main { flex: 1; height: 100%; overflow: hidden; background: #0a0a0f; position: relative; display: flex; flex-direction: column; }
                 .a-main::before {
                     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 300px;
                     background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
