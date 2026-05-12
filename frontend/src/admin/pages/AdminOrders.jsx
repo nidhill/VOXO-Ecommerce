@@ -225,7 +225,7 @@ const AdminOrders = () => {
                                                     <Package size={20} />
                                                 </div>
                                                 <div>
-                                                    <p style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5', margin: 0 }}>{item.name}</p>
+                                                    <p style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5', margin: 0, maxWidth: '280px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={item.name}>{item.name}</p>
                                                     <p style={{ fontSize: '12px', color: '#71717a', margin: '4px 0 0 0' }}>Quantity: {item.quantity}</p>
                                                 </div>
                                             </div>

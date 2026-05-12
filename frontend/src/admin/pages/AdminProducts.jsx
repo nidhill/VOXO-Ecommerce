@@ -220,7 +220,13 @@ const AdminProducts = () => {
                             <thead>
                                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                                     {['Product', 'Category', 'Gender', 'Price', 'Status', 'Actions'].map(h => (
-                                        <th key={h} style={{ padding: '16px 24px', fontSize: '11px', fontWeight: 600, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(255,255,255,0.01)', ...(h === 'Actions' ? { textAlign: 'right' } : {}) }}>{h}</th>
+                                        <th key={h} style={{ 
+                                            padding: '16px 24px', fontSize: '11px', fontWeight: 600, color: '#71717a', 
+                                            textTransform: 'uppercase', letterSpacing: '0.05em', background: 'rgba(255,255,255,0.01)',
+                                            width: h === 'Product' ? '40%' : 'auto',
+                                            minWidth: h === 'Product' ? '280px' : h === 'Category' ? '120px' : h === 'Gender' ? '100px' : h === 'Price' ? '100px' : h === 'Status' ? '120px' : 'auto',
+                                            ...(h === 'Actions' ? { textAlign: 'right', width: '100px' } : {}) 
+                                        }}>{h}</th>
                                     ))}
                                 </tr>
                             </thead>
@@ -232,8 +238,17 @@ const AdminProducts = () => {
                                                 <div style={{ width: '48px', height: '48px', borderRadius: '12px', overflow: 'hidden', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                     {product.images?.[0] ? <img src={proxyImageUrl(product.images[0])} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <ImageIcon size={18} color="#71717a" />}
                                                 </div>
-                                                <div>
-                                                    <p style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5', margin: '0 0 4px 0' }}>{product.name}</p>
+                                                <div style={{ minWidth: '180px' }}>
+                                                    <p 
+                                                        title={product.name}
+                                                        style={{ 
+                                                            fontSize: '14px', fontWeight: 600, color: '#f4f4f5', margin: '0 0 4px 0',
+                                                            display: '-webkit-box', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical',
+                                                            overflow: 'hidden', lineHeight: '1.4'
+                                                        }}
+                                                    >
+                                                        {product.name}
+                                                    </p>
                                                     <p style={{ fontSize: '12px', color: '#71717a', margin: 0, fontFamily: 'monospace' }}>#{product._id.slice(-6)}</p>
                                                 </div>
                                             </div>
