@@ -57,25 +57,43 @@ const AdminChangePassword = () => {
                 @keyframes fadeIn { from { opacity:0;transform:translateY(8px);} to {opacity:1;transform:translateY(0);} }
                 
                 .cp-inp {
-                    width: 100%; padding: 12px 16px 12px 42px;
+                    width: 100%; padding: 13px 48px 13px 42px;
                     background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
                     border-radius: 12px; font-size: 14px; color: #f4f4f5;
                     outline: none; box-sizing: border-box; font-family: inherit;
-                    transition: all 0.2s;
+                    transition: all 0.2s; height: 48px;
                 }
-                .cp-inp:focus { 
-                    border-color: rgba(99,102,241,0.5) !important; 
-                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important; 
-                    background: rgba(99,102,241,0.05) !important; 
+                .cp-inp:focus {
+                    border-color: rgba(99,102,241,0.5) !important;
+                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1) !important;
+                    background: rgba(99,102,241,0.05) !important;
                 }
                 .cp-inp::placeholder { color: #52525b; }
-                
+
+                .cp-inp-wrap { position: relative; display: flex; align-items: center; }
+                .cp-inp-icon {
+                    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+                    color: #71717a; pointer-events: none; display: flex; align-items: center;
+                }
+                .cp-eye {
+                    position: absolute; right: 0; top: 0; bottom: 0;
+                    width: 48px; display: flex; align-items: center; justify-content: center;
+                    background: none; border: none; cursor: pointer; color: #71717a;
+                    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+                    transition: color 0.15s; border-radius: 0 12px 12px 0;
+                }
+                .cp-eye:hover { color: #a1a1aa; }
+
                 .cp-btn {
-                    width: 100%; padding: 14px; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    width: 100%; padding: 14px 20px;
+                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
                     color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700;
-                    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-                    white-space: nowrap;
+                    cursor: pointer; transition: all 0.2s;
+                    display: flex; align-items: center; justify-content: center; gap: 8px;
+                    white-space: nowrap; min-height: 48px;
                     box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+                    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+                    font-family: inherit;
                 }
                 .cp-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
                 .cp-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -100,7 +118,7 @@ const AdminChangePassword = () => {
                     .otp-input { letter-spacing: 10px !important; font-size: 24px !important; padding: 12px !important; }
                     .cp-done { padding: 32px 16px !important; border-radius: 16px !important; }
                     .cp-done h2 { font-size: 20px !important; }
-                    .cp-btn { padding: 12px !important; font-size: 13px !important; }
+                    .cp-btn { padding: 12px 16px !important; font-size: 13px !important; white-space: nowrap !important; }
                     .cp-header-icon { width: 40px !important; height: 40px !important; }
                     .cp-header-icon svg { width: 20px !important; height: 20px !important; }
                 }
@@ -178,14 +196,11 @@ const AdminChangePassword = () => {
                                     <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                                         <div>
                                             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Current Password</label>
-                                            <div style={{ position: 'relative' }}>
-                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
+                                            <div className="cp-inp-wrap">
+                                                <span className="cp-inp-icon"><Lock size={16} /></span>
                                                 <input type={showCurrent ? 'text' : 'password'} value={currentPass} onChange={e => setCurrentPass(e.target.value)}
-                                                    placeholder="Enter current password" required className="cp-inp" style={{ paddingRight: '48px' }} />
-                                                <button type="button" onClick={() => setShowCurrent(v => !v)} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'color 0.2s' }}
-                                                    onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
-                                                    onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
-                                                >
+                                                    placeholder="Enter current password" required className="cp-inp" />
+                                                <button type="button" className="cp-eye" onClick={() => setShowCurrent(v => !v)}>
                                                     {showCurrent ? <EyeOff size={18} /> : <Eye size={18} />}
                                                 </button>
                                             </div>
@@ -221,14 +236,11 @@ const AdminChangePassword = () => {
 
                                         <div>
                                             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>New Password</label>
-                                            <div style={{ position: 'relative' }}>
-                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
+                                            <div className="cp-inp-wrap">
+                                                <span className="cp-inp-icon"><Lock size={16} /></span>
                                                 <input type={showNew ? 'text' : 'password'} value={newPass} onChange={e => setNewPass(e.target.value)}
-                                                    placeholder="Min. 8 characters" required className="cp-inp" style={{ paddingRight: '48px' }} />
-                                                <button type="button" onClick={() => setShowNew(v => !v)} style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#71717a', display: 'flex', transition: 'color 0.2s' }}
-                                                    onMouseEnter={e => e.currentTarget.style.color = '#a1a1aa'}
-                                                    onMouseLeave={e => e.currentTarget.style.color = '#71717a'}
-                                                >
+                                                    placeholder="Min. 8 characters" required className="cp-inp" />
+                                                <button type="button" className="cp-eye" onClick={() => setShowNew(v => !v)}>
                                                     {showNew ? <EyeOff size={18} /> : <Eye size={18} />}
                                                 </button>
                                             </div>
@@ -236,8 +248,8 @@ const AdminChangePassword = () => {
 
                                         <div>
                                             <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#a1a1aa', marginBottom: '8px' }}>Confirm New Password</label>
-                                            <div style={{ position: 'relative' }}>
-                                                <Lock size={16} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#71717a', pointerEvents: 'none' }} />
+                                            <div className="cp-inp-wrap">
+                                                <span className="cp-inp-icon"><Lock size={16} /></span>
                                                 <input type={showNew ? 'text' : 'password'} value={confPass} onChange={e => setConfPass(e.target.value)}
                                                     placeholder="Repeat new password" required className="cp-inp" />
                                             </div>
