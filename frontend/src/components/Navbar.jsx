@@ -25,7 +25,7 @@ const Navbar = () => {
     const [profileOpen, setProfileOpen] = useState(false);
     const { cartCount } = useCart();
     const auth = useAuth() || {};
-    const { user = null, isGuest = false, logout = async () => {} } = auth;
+    const { user = null, isGuest = false, logout = async () => {}, openAuthModal = () => {} } = auth;
     const navigate = useNavigate();
     const searchRef = useRef(null);
     const megaCloseTimerRef = useRef(null);
@@ -216,6 +216,15 @@ const Navbar = () => {
         <>
             {activeMegaMenu && <button className="mega-menu-backdrop" aria-label="Close menu" onClick={closeMegaMenu} />}
 
+            {/* Mobile profile bottom-sheet backdrop */}
+            {profileOpen && (
+                <div
+                    className="profile-backdrop"
+                    onClick={() => setProfileOpen(false)}
+                    style={{ position: 'fixed', inset: 0, zIndex: 109, background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(2px)', display: 'none' }}
+                />
+            )}
+
             <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${navHidden ? 'nav-hidden' : ''}`}>
                 <div className="container navbar-container">
                     {/* Left — desktop: nav links | mobile: hamburger */}
@@ -342,6 +351,7 @@ const Navbar = () => {
                                     className="nav-icon"
                                     onClick={() => setProfileOpen(v => !v)}
                                     aria-label="Profile menu"
+                                    style={{ touchAction: 'manipulation' }}
                                 >
                                     <User size={19} />
                                 </button>
@@ -367,7 +377,12 @@ const Navbar = () => {
                                 )}
                             </div>
                         ) : (
-                            <button className="nav-icon" onClick={() => navigate('/auth')} aria-label="Sign in">
+                            <button
+                                className="nav-icon"
+                                onClick={openAuthModal}
+                                aria-label="Sign in"
+                                style={{ touchAction: 'manipulation' }}
+                            >
                                 <User size={19} />
                             </button>
                         )}

@@ -1033,6 +1033,10 @@
     to { transform: translateY(0); }
 }
 
+@media (max-width: 767px) {
+    .profile-backdrop { display: block !important; }
+}
+
 /* ── Mobile Menu Auth Section ── */
 .mobile-auth-header {
     background: #f9f9f8;
