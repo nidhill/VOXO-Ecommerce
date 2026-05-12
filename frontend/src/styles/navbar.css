@@ -587,12 +587,13 @@
         display: flex;
     }
 
-    /* Keep search + cart visible */
+    /* Keep search, user, cart visible and touch-friendly */
     .navbar-right > button.nav-icon[aria-label="Search"],
+    .nav-profile-wrap button.nav-icon,
     .cart-btn {
         display: flex;
-        min-width: 40px;
-        min-height: 40px;
+        min-width: 44px;
+        min-height: 44px;
     }
 
     .mobile-menu-overlay { display: block; }
@@ -983,6 +984,52 @@
     .search-overlay-inner {
         padding: 0 20px;
     }
+}
+
+/* ── Mobile Profile Bottom Sheet ── */
+@media (max-width: 767px) {
+    .nav-profile-dropdown {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 24px 24px 0 0;
+        border: none;
+        border-top: 1px solid #eeeeee;
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.12);
+        padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+        animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .nav-profile-top {
+        padding: 0 0 20px;
+        border-bottom: 1px solid #eeeeee;
+        margin-bottom: 12px;
+    }
+
+    .nav-profile-name { font-size: 18px; }
+    .nav-profile-email { font-size: 13px; }
+
+    .nav-profile-link {
+        padding: 16px 0;
+        font-size: 15px;
+    }
+
+    .nav-profile-logout {
+        margin-top: 12px;
+        padding: 16px 0;
+        font-size: 15px;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }
 
 /* ── Mobile Menu Auth Section ── */

@@ -64,9 +64,10 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Lock body scroll when mobile menu or search is open + close on Escape
+    // Lock body scroll when mobile menu, search, or profile is open + close on Escape
     useEffect(() => {
-        if (mobileMenuOpen || searchOpen) {
+        const isMobile = window.innerWidth < 768;
+        if (mobileMenuOpen || searchOpen || (profileOpen && isMobile)) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
@@ -75,6 +76,7 @@ const Navbar = () => {
             if (e.key === 'Escape') {
                 setMobileMenuOpen(false);
                 setSearchOpen(false);
+                setProfileOpen(false);
                 setSearchQuery('');
                 setShowSuggestions(false);
             }
@@ -345,7 +347,7 @@ const Navbar = () => {
                                 </button>
 
                                 {profileOpen && (
-                                    <div className="nav-profile-dropdown">
+                                    <div className="nav-profile-dropdown" data-lenis-prevent>
                                         <div className="nav-profile-top">
                                             <span className="nav-profile-name">{user.name}</span>
                                             <span className="nav-profile-email">{user.email}</span>
