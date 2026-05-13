@@ -57,12 +57,12 @@
 }
 
 .collection-card-premium {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: block;
     text-decoration: none;
     color: inherit;
-    gap: 20px;
     overflow: hidden;
+    border-radius: 4px;
 }
 
 .collection-img-wrap {
@@ -71,7 +71,6 @@
     aspect-ratio: 3/4;
     background: #f4f4f4;
     overflow: hidden;
-    border-radius: 4px;
     display: block;
 }
 
@@ -82,7 +81,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center center;
     padding: 0;
     margin: 0;
     display: block;
@@ -90,26 +89,34 @@
 }
 
 .collection-card-premium:hover .collection-img {
-    transform: scale(1.1) rotate(-5deg);
+    transform: scale(1.06);
 }
 
+/* Text overlay pinned to bottom of image */
 .collection-info-premium {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 24px 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .collection-card-title {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 800;
     margin: 0;
     letter-spacing: -0.01em;
+    color: #fff;
 }
 
 .collection-card-sub {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.5;
-    color: #4b5563;
+    color: rgba(255,255,255,0.75);
     margin: 0;
     max-width: 90%;
 }
@@ -118,12 +125,12 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #000;
-    margin-top: 8px;
+    letter-spacing: 0.12em;
+    color: #fff;
+    margin-top: 6px;
     position: relative;
     width: fit-content;
 }
@@ -131,11 +138,11 @@
 .collection-cta::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -3px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: #000;
+    height: 1.5px;
+    background: #fff;
     transition: width 0.3s ease;
 }
 
