@@ -10,12 +10,13 @@
     z-index: 110;
     background: #ffffff;
     border-bottom: 1px solid #e8e8e6;
-    transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transform: translateY(0);
+    transition: transform 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     padding: 18px 0;
 }
 
 .navbar.nav-hidden {
-    top: -160px;
+    transform: translateY(calc(-100% - 40px));
 }
 
 .navbar.scrolled {
