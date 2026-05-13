@@ -208,7 +208,7 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 24px;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
     background: transparent;
 }
@@ -217,20 +217,40 @@
     font-size: 12px;
     color: #888888;
     margin: 0;
+    white-space: nowrap;
 }
 
 .footer-legal-links {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
 }
 
 .footer-legal-links a {
     font-size: 12px;
     color: #888888;
     text-decoration: none;
+    white-space: nowrap;
     transition: color 0.18s;
 }
 
 .footer-legal-links a:hover {
     color: #111111;
+}
+
+@media (max-width: 640px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-legal-links {
+        gap: 8px 14px;
+    }
+
+    .social-icon {
+        width: 44px;
+        height: 44px;
+    }
 }
