@@ -46,7 +46,7 @@ const CollectionSection = () => {
                     {collections.map(collection => (
                         <div key={collection.id} className="collection-item">
                             <Link to={collection.link} className="collection-card-premium">
-                                <div className="collection-img-wrap" style={{ backgroundColor: collection.image ? 'transparent' : '#f5f5f3' }}>
+                                <div className="collection-img-wrap">
                                     {collection.image && (
                                         <img src={collection.image} alt={collection.title} className="collection-img" />
                                     )}
