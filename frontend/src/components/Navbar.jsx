@@ -379,7 +379,7 @@ const Navbar = () => {
                         ) : (
                             <button
                                 className="nav-icon"
-                                onClick={openAuthModal}
+                                onClick={() => navigate('/auth')}
                                 aria-label="Sign in"
                                 style={{ touchAction: 'manipulation' }}
                             >

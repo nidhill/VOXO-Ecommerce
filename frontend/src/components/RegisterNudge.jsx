@@ -70,14 +70,14 @@ const RegisterNudge = () => {
         <AnimatePresence>
             {visible && (
                 <>
-                    {/* Backdrop */}
+                    {/* Backdrop — pointer-events:none so clicks pass through to page */}
                     <motion.div
                         className="rn-backdrop"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
-                        onClick={dismiss}
+                        style={{ pointerEvents: 'none' }}
                     />
 
                     {/* Modal — centering wrapper + animated inner */}
