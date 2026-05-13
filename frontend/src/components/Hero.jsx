@@ -6,12 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { getHeroImages } from '../api/settings';
-import heroShoeUpdated from '../assets/hero-shoe-updated.png';
-import heroShoe3 from '../assets/hero-shoe-3.png';
-import newHeroShoes from '../assets/new-hero-shoes.png';
 import '../styles/hero.css';
-
-const fallbackImages = [heroShoeUpdated, heroShoe3, newHeroShoes];
 
 const addVersion = (url, version) => {
     if (!version) return url;
@@ -31,16 +26,13 @@ const Hero = () => {
     });
 
     const version = heroConfig?.updatedAt ? new Date(heroConfig.updatedAt).getTime() : null;
-    let images = [];
-    
-    if (heroConfig && Array.isArray(heroConfig.images)) {
-        images = heroConfig.images.map((url) => addVersion(url, version));
-    } else {
-        images = fallbackImages;
-    }
+    const images = (heroConfig && Array.isArray(heroConfig.images))
+        ? heroConfig.images.map((url) => addVersion(url, version))
+        : [];
 
     // Auto-rotate images
     useEffect(() => {
+        if (images.length < 2) return;
         const interval = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % images.length);
         }, 4500);
@@ -49,6 +41,7 @@ const Hero = () => {
 
     // Parallax: shoe image drifts up gently as user scrolls past hero
     useEffect(() => {
+        if (!imgWrapRef.current) return;
         const ctx = gsap.context(() => {
             gsap.to(imgWrapRef.current, {
                 y: 50,
@@ -109,22 +102,24 @@ const Hero = () => {
                     </motion.div>
                 </div>
 
-                <div ref={imgWrapRef} className="hero-image-wrapper">
-                    {images.map((src, i) => (
-                        <img
-                            key={src}
-                            src={src}
-                            alt="Hero Shoes"
-                            className="hero-image"
-                            style={{
-                                opacity: i === currentImageIndex ? 1 : 0,
-                                transform: i === currentImageIndex ? 'scale(1)' : 'scale(0.94)',
-                                transition: 'opacity 0.7s ease, transform 0.7s ease',
-                                willChange: 'opacity, transform',
-                            }}
-                        />
-                    ))}
-                </div>
+                {images.length > 0 && (
+                    <div ref={imgWrapRef} className="hero-image-wrapper">
+                        {images.map((src, i) => (
+                            <img
+                                key={src}
+                                src={src}
+                                alt="Hero product"
+                                className="hero-image"
+                                style={{
+                                    opacity: i === currentImageIndex ? 1 : 0,
+                                    transform: i === currentImageIndex ? 'scale(1)' : 'scale(0.94)',
+                                    transition: 'opacity 0.7s ease, transform 0.7s ease',
+                                    willChange: 'opacity, transform',
+                                }}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </header>
     );
